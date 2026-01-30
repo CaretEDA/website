@@ -2,7 +2,7 @@
     [class.bg-black/90]="isScrolled" [class.backdrop-blur-sm]="isScrolled" [class.py-3]="isScrolled">
     <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center flex-wrap">
         <a (click)="scrollTo('home')"
-            class="text-white font-bold text-xl md:text-2xl cursor-pointer no-underline tracking-tighter">
+            class="text-white text-xl md:text-2xl cursor-pointer no-underline tracking-tighter">
             CaretEDA
         </a>
         <div class="flex gap-4 md:gap-8">
@@ -30,13 +30,35 @@
 
 <section id="home"
     class="relative w-full h-[50dvh] md:h-screen bg-black flex items-center justify-center p-0 m-0 overflow-hidden">
-    <picture class="w-full h-full block">
-        <!-- Mobile Portrait: Use vertical image -->
-        <source media="(orientation: portrait)" srcset="assets/hero-portrait-mobile.png">
-        <!-- Default / Landscape: Use wide image -->
-        <img src="assets/hero-banner-wide-separated.png" alt="CaretEDA - AI-driven, Silicon-proven, Open-Source enabled"
-            class="w-full h-full object-cover object-center block">
-    </picture>
+
+    <!-- Background Image -->
+    <img src="assets/hero-background-clean.png" alt="CaretEDA Hero Background"
+        class="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-70">
+
+    <!-- Optional Overlay for better text readability if needed -->
+    <div class="absolute inset-0 bg-black/20 z-0"></div>
+
+    <!-- Content Overlay -->
+    <div
+        class="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20 p-6">
+
+        <!-- Left Side: Logo -->
+        <div class="flex-shrink-0 animate-fade-in-down">
+            <img src="assets/caret-white.svg" alt="CaretEDA Logo" class="w-[180px] md:w-[350px] drop-shadow-2xl">
+        </div>
+
+        <!-- Right Side: Text -->
+        <div class="text-center md:text-left animate-fade-in-down animate-delay-300">
+            <h1 class="text-white font-light tracking-wide leading-tight drop-shadow-lg flex flex-col gap-2">
+                <span class="text-3xl md:text-6xl mb-2">CaretEDA</span>
+                <span class="text-2xl md:text-5xl flex items-baseline justify-center md:justify-start">
+                    <img src="assets/caret-a.svg" class="h-[0.75em] w-auto mr-[0.05em]" alt="A">I-driven
+                </span>
+                <span class="text-2xl md:text-5xl text-[#00d2ff]">Silicon-ready</span>
+                <span class="text-2xl md:text-5xl">Open-Source enabled</span>
+            </h1>
+        </div>
+    </div>
 </section>
 
 <section id="contact"
