@@ -15,6 +15,12 @@ export class App {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
+  expandedBios: { [key: string]: boolean } = {};
+
+  toggleBio(memberId: string) {
+    this.expandedBios[memberId] = !this.expandedBios[memberId];
+  }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (isPlatformBrowser(this.platformId)) {
@@ -23,22 +29,16 @@ export class App {
 
       // Determine active section
       const contactSection = document.getElementById('contact');
+      const teamSection = document.getElementById('team');
 
-      if (contactSection) {
-        const rect = contactSection.getBoundingClientRect();
+      const offset = window.innerWidth < 768 ? window.innerHeight * 0.4 : 200;
 
-        // Check if the contact section has moved up into the "active" zone
-        // We switch to contact when its top edge is above the midpoint of the screen
-        // or a fixed header offset
-        const offset = window.innerWidth < 768 ? window.innerHeight * 0.6 : 200;
-
-        if (scrollPosition < 50) {
-          this.activeSection = 'home';
-        } else if (rect.top <= offset) {
-          this.activeSection = 'contact';
-        } else {
-          this.activeSection = 'home';
-        }
+      if (contactSection && contactSection.getBoundingClientRect().top <= offset) {
+        this.activeSection = 'contact';
+      } else if (teamSection && teamSection.getBoundingClientRect().top <= offset) {
+        this.activeSection = 'team';
+      } else {
+        this.activeSection = 'home';
       }
     }
   }

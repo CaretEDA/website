@@ -2,8 +2,8 @@
     [class.bg-black/90]="isScrolled" [class.backdrop-blur-sm]="isScrolled" [class.py-3]="isScrolled">
     <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center flex-wrap">
         <a (click)="scrollTo('home')"
-            class="text-white text-xl md:text-2xl cursor-pointer no-underline tracking-tighter">
-            CaretEDA
+            class="cursor-pointer no-underline transition-transform duration-300 hover:scale-105">
+            <img src="/assets/careteda-logo-hd.png" alt="CaretEDA" class="h-10 md:h-12 w-auto rounded-lg">
         </a>
         <div class="flex gap-4 md:gap-8">
             <a (click)="scrollTo('home')"
@@ -14,6 +14,15 @@
                 <span
                     class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-white transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] group-hover:w-full"
                     [class.w-full]="activeSection === 'home'"></span>
+            </a>
+            <a (click)="scrollTo('team')"
+                class="relative text-white/50 no-underline font-medium cursor-pointer transition-all duration-300 text-sm md:text-base group"
+                [class.text-white]="activeSection === 'team'" [class.font-bold]="activeSection === 'team'"
+                [class.!text-white]="activeSection === 'team'">
+                Team
+                <span
+                    class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-white transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] group-hover:w-full"
+                    [class.w-full]="activeSection === 'team'"></span>
             </a>
             <a (click)="scrollTo('contact')"
                 class="relative text-white/50 no-underline font-medium cursor-pointer transition-all duration-300 text-sm md:text-base group"
@@ -29,10 +38,10 @@
 </nav>
 
 <section id="home"
-    class="relative w-full h-[50dvh] md:h-screen bg-black flex items-center justify-center p-0 m-0 overflow-hidden">
+    class="relative w-full min-h-screen bg-black flex items-center justify-center p-0 m-0 overflow-hidden">
 
     <!-- Background Image -->
-    <img src="assets/hero-background-clean.png" alt="CaretEDA Hero Background"
+    <img src="/assets/hero-background-clean.png" alt="CaretEDA Hero Background"
         class="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-70">
 
     <!-- Optional Overlay for better text readability if needed -->
@@ -44,7 +53,7 @@
 
         <!-- Left Side: Logo -->
         <div class="flex-shrink-0 animate-fade-in-down">
-            <img src="assets/caret-white.svg" alt="CaretEDA Logo" class="w-[180px] md:w-[350px] drop-shadow-2xl">
+            <img src="/assets/caret-symbol-hd.svg" alt="CaretEDA Logo" class="w-[180px] md:w-[350px] drop-shadow-2xl">
         </div>
 
         <!-- Right Side: Text -->
@@ -52,11 +61,166 @@
             <h1 class="text-white font-light tracking-wide leading-tight drop-shadow-lg flex flex-col gap-2">
                 <span class="text-3xl md:text-6xl mb-2">CaretEDA</span>
                 <span class="text-2xl md:text-5xl flex items-baseline justify-center md:justify-start">
-                    <img src="assets/caret-a.svg" class="h-[0.75em] w-auto mr-[0.05em]" alt="A">I-driven
+                    <img src="/assets/caret-a.svg" class="h-[0.75em] w-auto mr-[0.05em]" alt="A">I-driven
                 </span>
                 <span class="text-2xl md:text-5xl text-[#00d2ff]">Silicon-ready</span>
-                <span class="text-2xl md:text-5xl">Open-Source enabled</span>
+                <span class="text-2xl md:text-5xl">Open-source enabled</span>
             </h1>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="team"
+    class="min-h-[60dvh] h-auto flex justify-center items-center bg-[#050a10] text-white py-20 px-4 md:px-8">
+    <div class="text-center w-full max-w-[1200px]">
+        <h2
+            class="text-3xl md:text-5xl font-bold mb-16 md:mb-20 bg-gradient-to-tr from-white to-[#00d2ff] bg-clip-text text-transparent">
+            Team</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 justify-center items-start">
+
+            <!-- Team Member 1 -->
+            <div class="group relative flex flex-col items-center">
+                <div
+                    class="relative w-48 h-48 md:w-64 md:h-64 mb-6 rounded-full overflow-hidden border-4 border-[#00d2ff]/20 transition-all duration-500 group-hover:border-[#00d2ff] group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)]">
+                    <img src="/assets/team-sashi.jpg" alt="CEO"
+                        class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Sashi Obilisetty</h3>
+                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-4">Co-Founder & CEO
+                </p>
+                <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
+                    <p>
+                        Sashi Obilisetty is an EDA technologist with extensive entrepreneurial experience and a
+                        technical leader with deep expertise across AI, cloud, and the full chip design lifecycle.
+                        Before launching her latest startup, she served as Executive Director of R&D at Synopsys. During
+                        her 15+ year tenure, her achievements included establishing a company‑wide AI organization that
+                        enabled AI capabilities across the entire product portfolio, leading R&D teams in front‑end
+                        verification and post‑silicon analytics, and most recently guiding the technical strategy for
+                        Synopsys’s multi‑billion‑dollar EDA business.
+                    </p>
+                    <div *ngIf="expandedBios['sashi']" class="space-y-3">
+                        <p>
+                            From 2020 to 2021, Sashi was the Chief Architect for Silicon Solutions at Google Cloud,
+                            shaping
+                            cloud‑scale infrastructure for advanced silicon programs and accelerating the adoption of
+                            chip
+                            design on the cloud.
+                        </p>
+                        <p>
+                            She previously founded two EDA startups, grounding her leadership in fast iteration,
+                            customer‑focused innovation, and a builder’s instinct for turning ideas into execution. Her
+                            career spans nearly every stage of semiconductor development and includes solving complex
+                            problems across design, verification, and silicon bring‑up.
+                        </p>
+                        <p>
+                            Sashi is the 2024 Marie Pistilli Women in EDA Award recipient, recognized for her impact on
+                            the
+                            industry and her advocacy for AI‑native design flows. She holds multiple patents in EDA and
+                            AI
+                            and brings a rare combination of startup agility, enterprise‑scale leadership, and deep
+                            technical breadth across domains.
+                        </p>
+                    </div>
+                    <button (click)="toggleBio('sashi')"
+                        class="text-[#00d2ff] hover:text-white text-xs font-bold uppercase tracking-widest mt-2 focus:outline-none transition-colors">
+                        {{ expandedBios['sashi'] ? 'Read Less' : 'Read More' }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="group relative flex flex-col items-center">
+                <div
+                    class="relative w-48 h-48 md:w-64 md:h-64 mb-6 rounded-full overflow-hidden border-4 border-[#00d2ff]/20 transition-all duration-500 group-hover:border-[#00d2ff] group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)]">
+                    <img src="/assets/team-radha.png" alt="CTO"
+                        class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Radha Srinivasan</h3>
+                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-4">Co-Founder & Vice
+                    President of Engg
+                </p>
+                <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
+                    <p>
+                        Radha is a co‑founder of CaretEDA, where she focuses on applying AI, cloud workflows, and
+                        open‑source tools to make chip design more efficient. Her work centers on simplifying complex
+                        engineering steps so teams can move from early concepts toward silicon with fewer bottlenecks.
+                    </p>
+                    <div *ngIf="expandedBios['radha']" class="space-y-3">
+                        <p>
+                            Before starting CaretEDA, Radha spent almost 20 years at Synopsys working across platform
+                            engineering, AI, and Silicon Lifecycle Management analytics. Her contributions included
+                            developing cloud‑based systems for monitoring chip health and reliability, as well as
+                            supporting
+                            the growth, quality, and long‑term maintainability of several widely used EDA tools.
+                        </p>
+                        <p>
+                            Her technical approach draws heavily on clear, streamlined solutions. She has experience
+                            spanning low‑level hardware considerations, data‑driven reliability modeling, large‑scale
+                            distributed systems, and the practical challenges of deploying production‑grade EDA
+                            infrastructure. This background helps shape CaretEDA’s engineering direction, particularly
+                            in
+                            areas such as autonomous design agents, scalable cloud orchestration, and integrating
+                            open‑source components into reproducible, end‑to‑end flows.
+                        </p>
+                        <p>
+                            Radha is an IEEE Senior Member and has been involved in community efforts such as chairing
+                            the
+                            Technical Program Committee for IEEE WINTECHCON and presenting at IEEE Conferences.
+                        </p>
+                    </div>
+                    <button (click)="toggleBio('radha')"
+                        class="text-[#00d2ff] hover:text-white text-xs font-bold uppercase tracking-widest mt-2 focus:outline-none transition-colors">
+                        {{ expandedBios['radha'] ? 'Read Less' : 'Read More' }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="group relative flex flex-col items-center">
+                <div
+                    class="relative w-48 h-48 md:w-64 md:h-64 mb-6 rounded-full overflow-hidden border-4 border-[#00d2ff]/20 transition-all duration-500 group-hover:border-[#00d2ff] group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)]">
+                    <img src="/assets/team-surajprakash.png" alt="Chief Architect"
+                        class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Surajprakash Ankush</h3>
+                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-4">Co-Founder & Chief
+                    Architect</p>
+                <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
+                    <p>
+                        Surajprakash brings 14 years of engineering experience to the team, with a focus on integrating
+                        practical AI capabilities into modern, high‑performance systems. He has led multiple projects
+                        from the ground up, giving him a strong startup mindset and the technical resilience that comes
+                        from building and operating his own venture.
+                    </p>
+                    <div *ngIf="expandedBios['surajprakash']" class="space-y-3">
+                        <p>
+                            With deep expertise in Java and Python, he has guided complex development cycles
+                            end‑to‑end—from
+                            requirements and technical design through deployment across Dev, QA, and Production
+                            environments. He is also a specialist in cloud architecture, with extensive hands‑on
+                            experience
+                            designing and managing services on both Azure and AWS.
+                        </p>
+                        <p>
+                            His technical range includes modern DevOps practices such as Kubernetes and Docker
+                            orchestration, as well as managing diverse datastores including PostgreSQL, Elasticsearch,
+                            and
+                            Redis. He also works across messaging systems and distributed components, combining
+                            AI‑driven
+                            tools with robust cloud infrastructure to improve system performance and support scalable
+                            product growth.
+                        </p>
+                    </div>
+                    <button (click)="toggleBio('surajprakash')"
+                        class="text-[#00d2ff] hover:text-white text-xs font-bold uppercase tracking-widest mt-2 focus:outline-none transition-colors">
+                        {{ expandedBios['surajprakash'] ? 'Read Less' : 'Read More' }}
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
