@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Author" content="Sashi Obilisetty">
+  <meta name="LastAuthor" content="Sashi Obilisetty">
+  <meta name="CreationTime" content="2026-04-03T23:22:00Z">
+  <meta name="ModificationTime" content="2026-04-03T23:22:00Z">
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; min-height: 14.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    p.p3 {margin: 5.0px 0.0px 5.0px 0.0px; font: 12.0px Times}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px Times; min-height: 14.0px}
+    p.p5 {margin: 0.0px 0.0px 6.0px 0.0px; font: 12.0px 'Times New Roman'}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.5px Georgia}
+    p.p8 {margin: 0.0px 0.0px 0.0px 18.0px; font: 11.5px Georgia}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.5px Georgia; color: #00000a}
+    li.li2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    li.li6 {margin: 0.0px 0.0px 4.0px 0.0px; font: 11.5px 'Times New Roman'}
+    li.li7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.5px Georgia}
+    span.s1 {font: 12.0px Helvetica}
+    span.s2 {font: 11.5px Times}
+    table.t1 {border-collapse: collapse}
+    td.td1 {border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #bfbfbf #bfbfbf #bfbfbf #bfbfbf; padding: 0.0px 5.0px 0.0px 5.0px}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2">Generating SystemVerilog Is Easy. Generating Hardware Is Not.</p>
+<p class="p3">Sashi Obilisetty</p>
+<p class="p3">Co-founder &amp; CEO, CaretEDA</p>
+<p class="p4"><br></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5"><b>Key Takeaways</b></p>
+        <ul class="ul1">
+          <li class="li6">Generating SystemVerilog is not the same as generating manufacturable hardware.</li>
+          <li class="li6">“If it simulates, it works” is a costly fallacy—silicon must survive synthesis, timing closure, verification, and fabrication.</li>
+          <li class="li6">PPA (power, performance, area) is the true objective function, and models need explicit alignment to it.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p2">Why AIDriven Chip Design Demands More Than Code Generation</p>
+<p class="p7">Large language models can generate SystemVerilog today. That milestone has already been crossed. What hasn’t been crossed—and what continues to confuse even experienced technologists—is the assumption that generating RTL is equivalent to generating hardware. It isn’t. Bridging that gap requires more than access to a model. Individual practitioners prompting their way to RTL, or organizations grafting softwareera AI workflows onto silicon without the verification and synthesis infrastructure to backstop the model, are the ones most likely to fail quietly — and expensively. This distinction matters because the industry is racing to apply softwareera AI workflows to silicon. The temptation is understandable: LLMs transformed software productivity almost overnight. Why wouldn’t the same thing happen in hardware?</p>
+<p class="p2">Because hardware is not software with stricter syntax. Hardware is a <b>contract with physics</b>, and physics does not accept plausible drafts.</p>
+<p class="p2">The Seductive Fallacy: “If It Simulates, It Works”</p>
+<p class="p7">SystemVerilog is text. Hardware is what survives synthesis, timing closure, verification, and fabrication. An LLM can learn SystemVerilog syntax, idioms, and even common microarchitectural patterns. It can produce RTL that compiles, simulates, and looks convincing to a human reviewer. But none of those properties guarantee that the design can be manufactured—or that it will behave correctly once it is.</p>
+<p class="p7">This is why generating RTL is easy, but generating <i>real hardware</i> is not. The difference is not one of scale or polish. It is structural.</p>
+<p class="p2">Factors That Actually Determine Hardware Success</p>
+<ul class="ul1">
+  <li class="li2"><b>PPA Is the Objective Function</b></li>
+</ul>
+<p class="p8">Power, performance, and area are not secondary metrics. They are the outcome that determines whether a chip ships.</p>
+<p class="p8">An LLM can generate RTL that is:</p>
+<ul class="ul1">
+  <li class="li7">Functionally correct</li>
+  <li class="li7">Synthesisclean</li>
+  <li class="li7">Fully verified</li>
+</ul>
+<p class="p8">…and still be unusable because it:</p>
+<ul class="ul1">
+  <li class="li7">Exceeds the target area by 2–4X</li>
+  <li class="li7">Violates power envelope constraints</li>
+  <li class="li7">Forces micro<span class="s2">‑</span>architectural rework at the synthesis or place<span class="s2">‑</span>and<span class="s2">‑</span>route stage</li>
+</ul>
+<p class="p8">This is not a failure of intelligence. It is a failure of <b>objective alignment</b>.</p>
+<p class="p8">Experienced hardware engineers internalize PPA tradeoffs instinctively. Models do not—unless those tradeoffs are explicitly encoded into the generation pipeline.</p>
+<ul class="ul1">
+  <li class="li2"><b>Domain Priors Are Mandatory, Not Optional</b></li>
+</ul>
+<p class="p8">Hardware design is governed by accumulated domain knowledge that is rarely explicit in code:</p>
+<ul class="ul1">
+  <li class="li7">What constitutes a safe clock domain crossing</li>
+  <li class="li7">Which constructs are synthesizable versus simulationonly</li>
+  <li class="li7">How reset sequencing interacts with power domain boundaries</li>
+  <li class="li7">How bus protocols (AXI, AHB, PCIe) behave under backpressure, stall, and error<span class="s2">‑</span>injection conditions</li>
+</ul>
+<p class="p8">These are not stylistic conventions. They are invariants.</p>
+<p class="p8">LLMs trained on mixed HDL corpora do not inherently distinguish between:</p>
+<ul class="ul1">
+  <li class="li7">Behavioral examples and production RTL</li>
+  <li class="li7">FPGAfriendly constructs and ASICsafe ones</li>
+  <li class="li7">Tutorial code and millionline SoC design patterns</li>
+</ul>
+<p class="p8">Without embedded domain priors, a model will generate RTL that <i>looks right</i> and <i>simulates cleanly</i>—and still cannot be manufactured. This is why prompt engineering alone is insufficient. Hardware generation requires <b>structural constraints baked into the generation process</b>, not applied afterward.</p>
+<ul class="ul1">
+  <li class="li2"><b>CorrectbyConstruction Beats DebugbyIteration</b></li>
+</ul>
+<p class="p8">Software tolerates iteration. Hardware punishes it.</p>
+<p class="p8">In software, a bad suggestion costs a failed test. In hardware, the same mistake can cost:</p>
+<ul class="ul1">
+  <li class="li7">Weeks of synthesis and placeandroute churn</li>
+  <li class="li7">A metallayer engineering change order (ECO)</li>
+  <li class="li7">Or a full tapeout respin</li>
+</ul>
+<p class="p8">That asymmetry changes the rules. Hardware flows demand <i>correctbyconstruction</i> properties:</p>
+<ul class="ul1">
+  <li class="li7">No unintended latches</li>
+  <li class="li7">No combinational loops</li>
+  <li class="li7">No illegal clock domain crossing (CDC) paths</li>
+  <li class="li7">No ambiguous reset semantics</li>
+</ul>
+<p class="p8">These are not things you “test into correctness.” They must be <b>structurally impossible</b>. An LLM that emits RTL without enforcing these invariants is not generating hardware. It is generating latent risk.</p>
+<ul class="ul1">
+  <li class="li2"><b>Timing Is a First‑Class Constraint, Not a Post‑Hoc Optimization</b></li>
+</ul>
+<p class="p8">In software, time is abstract. In hardware, time <i>is the design</i>.</p>
+<p class="p8">Two RTL implementations that are functionally identical can differ dramatically in:</p>
+<ul class="ul1">
+  <li class="li7">Maximum clock frequency</li>
+  <li class="li7">Setup and hold margin</li>
+  <li class="li7">Sensitivity to PVT (process, voltage, temperature) corners</li>
+</ul>
+<p class="p8">LLMs do not reason about:</p>
+<ul class="ul1">
+  <li class="li7">Critical paths</li>
+  <li class="li7">Fanoutinduced delay and buffer<span class="s2">‑</span>tree implications</li>
+  <li class="li7">Retiming opportunities</li>
+  <li class="li7">Physical locality after placement</li>
+</ul>
+<p class="p8">Yet these factors determine whether a design closes timing—or fails weeks before tapeout.</p>
+<p class="p8">Hardware generation without timing awareness is fundamentally misaligned with the realities of physical implementation.</p>
+<ul class="ul1">
+  <li class="li7"><b>Specification Fidelity Is Harder Than Code Correctness</b></li>
+</ul>
+<p class="p8">The hardest problem in hardware is not writing RTL. It is ensuring the RTL <i>means what the specification meant</i>.</p>
+<p class="p8">Naturallanguage specs are ambiguous. Hardware is not.</p>
+<p class="p8">A single misinterpreted sentence can result in:</p>
+<ul class="ul1">
+  <li class="li7">A dropped corner case in a state machine or handshake sequence</li>
+  <li class="li7">A protocol violation under rare conditions</li>
+  <li class="li7">A silicon bug that escapes simulation and is only caught during post<span class="s2">‑</span>silicon validation—or in the field</li>
+</ul>
+<p class="p8">Verifying spectoRTL fidelity requires formal methods, exhaustive testbenches, and equivalence checking across abstraction levels. Plausible interpretations are not enough. Hardware demands <i>provable</i> ones.</p>
+<p class="p2">The Takeaway</p>
+<p class="p7">SystemVerilog generation is tractable because it reduces to statistical language modeling—predicting likely token sequences from training corpora.</p>
+<p class="p7">Hardware generation is hard because it is:</p>
+<ul class="ul1">
+  <li class="li7">Physically constrained</li>
+  <li class="li7">Timingsensitive</li>
+  <li class="li7">PPAdriven</li>
+  <li class="li7">Verificationheavy</li>
+  <li class="li7">Economically unforgiving</li>
+</ul>
+<p class="p7">The future belongs to tools that internalize this distinction—encoding physical constraints, PPA objectives, and verification requirements directly into the generation pipeline rather than bolting them on after the fact.</p>
+<p class="p7">LLMs are powerful generative engines. But silicon does not ship on plausibility. It ships on correctness—provable, synthesizable, timing<span class="s2">‑</span>clean correctness.</p>
+<p class="p2"><b>The question is not whether AI can write SystemVerilog. It is whether AI can deliver hardware. That requires teams willing to deeply examine their existing flows, identify and prioritize optimization opportunities, understand real user behaviors, and enable agentic workflows that sustain a competitive edge.</b></p>
+<p class="p2">About CaretEDA</p>
+<p class="p9">CaretEDA builds AInative design systems for modern semiconductor teams, with its SpectoNetlist™ platform serving as a powerful force multiplier across the entire engineering workflow. To learn more or request a demo, contact info@careteda.com</p>
+</body>
+</html>
