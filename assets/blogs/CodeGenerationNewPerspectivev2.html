@@ -49,8 +49,8 @@
     </tr>
   </tbody>
 </table>
-<p class="p2">Why AIDriven Chip Design Demands More Than Code Generation</p>
-<p class="p7">Large language models can generate SystemVerilog today. That milestone has already been crossed. What hasn’t been crossed—and what continues to confuse even experienced technologists—is the assumption that generating RTL is equivalent to generating hardware. It isn’t. Bridging that gap requires more than access to a model. Individual practitioners prompting their way to RTL, or organizations grafting softwareera AI workflows onto silicon without the verification and synthesis infrastructure to backstop the model, are the ones most likely to fail quietly — and expensively. This distinction matters because the industry is racing to apply softwareera AI workflows to silicon. The temptation is understandable: LLMs transformed software productivity almost overnight. Why wouldn’t the same thing happen in hardware?</p>
+<p class="p2">Why AI&#8209;Driven Chip Design Demands More Than Code Generation</p>
+<p class="p7">Large language models can generate SystemVerilog today. That milestone has already been crossed. What hasn’t been crossed—and what continues to confuse even experienced technologists—is the assumption that generating RTL is equivalent to generating hardware. It isn’t. Bridging that gap requires more than access to a model. Individual practitioners prompting their way to RTL, or organizations grafting software&#8209;era AI workflows onto silicon without the verification and synthesis infrastructure to backstop the model, are the ones most likely to fail quietly — and expensively. This distinction matters because the industry is racing to apply software-era AI workflows to silicon. The temptation is understandable: LLMs transformed software productivity almost overnight. Why wouldn’t the same thing happen in hardware?</p>
 <p class="p2">Because hardware is not software with stricter syntax. Hardware is a <b>contract with physics</b>, and physics does not accept plausible drafts.</p>
 <p class="p2">The Seductive Fallacy: “If It Simulates, It Works”</p>
 <p class="p7">SystemVerilog is text. Hardware is what survives synthesis, timing closure, verification, and fabrication. An LLM can learn SystemVerilog syntax, idioms, and even common microarchitectural patterns. It can produce RTL that compiles, simulates, and looks convincing to a human reviewer. But none of those properties guarantee that the design can be manufactured—or that it will behave correctly once it is.</p>
@@ -63,7 +63,7 @@
 <p class="p8">An LLM can generate RTL that is:</p>
 <ul class="ul1">
   <li class="li7">Functionally correct</li>
-  <li class="li7">Synthesisclean</li>
+  <li class="li7">Synthesis-clean</li>
   <li class="li7">Fully verified</li>
 </ul>
 <p class="p8">…and still be unusable because it:</p>
@@ -80,7 +80,7 @@
 <p class="p8">Hardware design is governed by accumulated domain knowledge that is rarely explicit in code:</p>
 <ul class="ul1">
   <li class="li7">What constitutes a safe clock domain crossing</li>
-  <li class="li7">Which constructs are synthesizable versus simulationonly</li>
+  <li class="li7">Which constructs are synthesizable versus simulation only</li>
   <li class="li7">How reset sequencing interacts with power domain boundaries</li>
   <li class="li7">How bus protocols (AXI, AHB, PCIe) behave under backpressure, stall, and error<span class="s2">‑</span>injection conditions</li>
 </ul>
@@ -88,18 +88,18 @@
 <p class="p8">LLMs trained on mixed HDL corpora do not inherently distinguish between:</p>
 <ul class="ul1">
   <li class="li7">Behavioral examples and production RTL</li>
-  <li class="li7">FPGAfriendly constructs and ASICsafe ones</li>
-  <li class="li7">Tutorial code and millionline SoC design patterns</li>
+  <li class="li7">FPGA-friendly constructs and ASICsafe ones</li>
+  <li class="li7">Tutorial code and million-line SoC design patterns</li>
 </ul>
 <p class="p8">Without embedded domain priors, a model will generate RTL that <i>looks right</i> and <i>simulates cleanly</i>—and still cannot be manufactured. This is why prompt engineering alone is insufficient. Hardware generation requires <b>structural constraints baked into the generation process</b>, not applied afterward.</p>
 <ul class="ul1">
-  <li class="li2"><b>CorrectbyConstruction Beats DebugbyIteration</b></li>
+  <li class="li2"><b>Correct-by-Construction Beats Debug-by-Iteration</b></li>
 </ul>
 <p class="p8">Software tolerates iteration. Hardware punishes it.</p>
 <p class="p8">In software, a bad suggestion costs a failed test. In hardware, the same mistake can cost:</p>
 <ul class="ul1">
   <li class="li7">Weeks of synthesis and placeandroute churn</li>
-  <li class="li7">A metallayer engineering change order (ECO)</li>
+  <li class="li7">A metal-layer engineering change order (ECO)</li>
   <li class="li7">Or a full tapeout respin</li>
 </ul>
 <p class="p8">That asymmetry changes the rules. Hardware flows demand <i>correctbyconstruction</i> properties:</p>
@@ -123,7 +123,7 @@
 <p class="p8">LLMs do not reason about:</p>
 <ul class="ul1">
   <li class="li7">Critical paths</li>
-  <li class="li7">Fanoutinduced delay and buffer<span class="s2">‑</span>tree implications</li>
+  <li class="li7">Fanout-induced delay and buffer‑tree implications</li>
   <li class="li7">Retiming opportunities</li>
   <li class="li7">Physical locality after placement</li>
 </ul>
