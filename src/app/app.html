@@ -1,44 +1,41 @@
-<!-- Logo — fixed top-left -->
-<div class="fixed top-4 left-4 md:left-8 z-[100]">
-    <a (click)="scrollTo('home')" class="cursor-pointer no-underline">
-        <img src="/assets/careteda-logo-hd.png" alt="CaretEDA"
-            class="h-10 md:h-12 w-auto rounded-lg transition-transform duration-300 hover:scale-105 drop-shadow-lg">
-    </a>
-</div>
-
-<!-- Desktop: Floating Liquid Glass Pill Nav -->
-<nav class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] hidden md:block">
-    <div class="pill-nav-container relative flex items-center px-2 py-1.5 rounded-full">
-        <!-- Sliding indicator pill -->
-        <div class="pill-indicator"></div>
-        <!-- Nav items -->
-        <a *ngFor="let link of navLinks"
-           (click)="scrollTo(link.id)"
-           [class.active]="activeSection === link.id"
-           class="nav-pill-item relative z-10 px-5 py-2 text-sm cursor-pointer no-underline rounded-full whitespace-nowrap select-none">
-            {{ link.label }}
+<nav class="fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-5 transition-all duration-300 ease-in-out"
+    [class.bg-black/90]="isScrolled" [class.backdrop-blur-sm]="isScrolled" [class.py-3]="isScrolled">
+    <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center flex-wrap">
+        <a (click)="scrollTo('home')"
+            class="cursor-pointer no-underline transition-transform duration-300 hover:scale-105">
+            <img src="/assets/careteda-logo-hd.png" alt="CaretEDA" class="h-10 md:h-12 w-auto rounded-lg">
         </a>
+        <div class="flex gap-4 md:gap-8">
+            <a (click)="scrollTo('home')"
+                class="relative text-white/50 no-underline font-medium cursor-pointer transition-all duration-300 text-sm md:text-base group"
+                [class.text-white]="activeSection === 'home'" [class.font-bold]="activeSection === 'home'"
+                [class.!text-white]="activeSection === 'home'">
+                Home
+                <span
+                    class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-white transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] group-hover:w-full"
+                    [class.w-full]="activeSection === 'home'"></span>
+            </a>
+            <a (click)="scrollTo('team')"
+                class="relative text-white/50 no-underline font-medium cursor-pointer transition-all duration-300 text-sm md:text-base group"
+                [class.text-white]="activeSection === 'team'" [class.font-bold]="activeSection === 'team'"
+                [class.!text-white]="activeSection === 'team'">
+                Team
+                <span
+                    class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-white transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] group-hover:w-full"
+                    [class.w-full]="activeSection === 'team'"></span>
+            </a>
+            <a (click)="scrollTo('contact')"
+                class="relative text-white/50 no-underline font-medium cursor-pointer transition-all duration-300 text-sm md:text-base group"
+                [class.text-white]="activeSection === 'contact'" [class.font-bold]="activeSection === 'contact'"
+                [class.!text-white]="activeSection === 'contact'">
+                Contact Us
+                <span
+                    class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-white transition-all duration-300 shadow-[0_0_5px_rgba(255,255,255,0.5)] group-hover:w-full"
+                    [class.w-full]="activeSection === 'contact'"></span>
+            </a>
+        </div>
     </div>
 </nav>
-
-<!-- Mobile: Hamburger glass button -->
-<button (click)="toggleMobileMenu()"
-        class="fixed top-4 right-4 z-[100] md:hidden w-11 h-11 rounded-full pill-nav-container flex flex-col items-center justify-center gap-1.5 focus:outline-none">
-    <span class="hamburger-line" [class.open-top]="isMobileMenuOpen"></span>
-    <span class="hamburger-line" [class.open-mid]="isMobileMenuOpen"></span>
-    <span class="hamburger-line" [class.open-bot]="isMobileMenuOpen"></span>
-</button>
-
-<!-- Mobile menu overlay -->
-<div class="mobile-menu-overlay fixed inset-0 z-[90] flex flex-col items-center justify-center gap-8 md:hidden"
-     [class.active]="isMobileMenuOpen">
-    <a *ngFor="let link of navLinks"
-       (click)="scrollTo(link.id)"
-       class="mobile-nav-link"
-       [class.active]="activeSection === link.id">
-        {{ link.label }}
-    </a>
-</div>
 
 <section id="home"
     class="relative w-full min-h-screen bg-black flex items-center justify-center p-0 m-0 overflow-hidden">
@@ -69,124 +66,11 @@
                 <span class="text-2xl md:text-5xl text-[#00d2ff]">Silicon-ready</span>
                 <span class="text-2xl md:text-5xl">Open-source enabled</span>
             </h1>
-            <p class="mt-6 text-white/60 text-sm md:text-base max-w-[480px] leading-relaxed font-light">
-                CaretEDA automates chip design from natural-language specification to silicon-ready netlist.
-                Built for semiconductor engineering teams who need to compress tapeout timelines, our
-                Spec-to-Netlist™ flow integrates open-source and commercial EDA tools without locking you
-                into a proprietary stack.
-            </p>
-            <a href="mailto:info@careteda.com?subject=Demo Request"
-               class="mt-8 inline-flex items-center gap-3 bg-[#00d2ff]/10 border border-[#00d2ff]/40 text-[#00d2ff] px-7 py-3.5 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-[#00d2ff]/20 hover:shadow-[0_0_28px_rgba(0,210,255,0.3)] hover:scale-105 group">
-                <!-- Play icon -->
-                <span class="w-7 h-7 rounded-full bg-[#00d2ff]/20 border border-[#00d2ff]/50 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00d2ff]/30 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                </span>
-                Request a Demo
-            </a>
         </div>
     </div>
 </section>
 
-<!-- ===== PARTNERS & ECOSYSTEM STRIP ===== -->
-<div class="bg-[#020408] py-10 px-4 border-b border-white/5">
-    <div class="max-w-[900px] mx-auto flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
-        <p class="text-white/25 text-xs uppercase tracking-[0.2em] whitespace-nowrap">Partners &amp; Ecosystem</p>
-        <div class="flex flex-wrap items-center justify-center gap-4">
 
-            <!-- Google Cloud Partner Advantage -->
-            <div class="flex items-center gap-3 border border-white/10 rounded-2xl px-6 py-3 bg-white/[0.03]">
-                <span class="text-sm font-semibold tracking-tight">
-                    <span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span>
-                    <span class="text-white/70 ml-1">Cloud</span>
-                </span>
-                <span class="w-px h-4 bg-white/10"></span>
-                <span class="text-white/45 text-xs">Partner Advantage</span>
-            </div>
-
-            <!-- Verilator -->
-            <a href="https://www.veripool.org/verilator/" target="_blank" rel="noopener noreferrer"
-               class="group flex items-center gap-3 border border-white/10 rounded-2xl px-6 py-3 bg-white/[0.03] no-underline hover:border-[#00d2ff]/30 hover:bg-[#00141e]/40 transition-all duration-300">
-                <span class="text-white/70 text-sm font-medium group-hover:text-white transition-colors">Verilator</span>
-                <span class="w-px h-4 bg-white/10"></span>
-                <span class="text-[#00d2ff]/50 text-xs">Open-source simulator</span>
-            </a>
-
-        </div>
-    </div>
-</div>
-
-<!-- ===== DEMO SECTION ===== -->
-<section id="demo" class="min-h-[60dvh] h-auto flex justify-center items-center bg-[#020408] text-white py-20 px-4 md:px-8">
-    <div class="text-center w-full max-w-[1200px]">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-tr from-white to-[#00d2ff] bg-clip-text text-transparent">
-            See It In Action</h2>
-        <p class="text-white/50 text-sm md:text-base mb-16 md:mb-20">Watch Spec-to-Netlist™ in motion — from design intent to silicon-ready output.</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-
-            <!-- Placeholder 1 -->
-            <div class="group relative bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30 hover:bg-[#00141e]/60 backdrop-blur-sm">
-                <!-- Thumbnail area -->
-                <div class="relative w-full aspect-video bg-[#00d2ff]/5 flex items-center justify-center">
-                    <!-- Animated pulse ring -->
-                    <div class="absolute w-16 h-16 rounded-full bg-[#00d2ff]/10 animate-ping"></div>
-                    <!-- Play button -->
-                    <div class="relative w-14 h-14 rounded-full bg-[#00d2ff]/20 border border-[#00d2ff]/40 flex items-center justify-center group-hover:bg-[#00d2ff]/30 transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00d2ff] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <!-- Coming soon badge -->
-                    <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest text-[#00d2ff]/60 border border-[#00d2ff]/20 rounded-full px-2.5 py-1 bg-[#00141e]/60">Coming Soon</span>
-                </div>
-                <div class="p-5 text-left">
-                    <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-2">Demo · 2 min</p>
-                    <h3 class="text-white font-bold text-base md:text-lg leading-snug">Spec to RTL in Minutes</h3>
-                    <p class="text-gray-500 text-sm mt-2 leading-relaxed">Watch how a natural-language design spec becomes synthesisable RTL through the Spec-to-Netlist™ flow.</p>
-                </div>
-            </div>
-
-            <!-- Placeholder 2 -->
-            <div class="group relative bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30 hover:bg-[#00141e]/60 backdrop-blur-sm">
-                <div class="relative w-full aspect-video bg-[#00d2ff]/5 flex items-center justify-center">
-                    <div class="absolute w-16 h-16 rounded-full bg-[#00d2ff]/10 animate-ping" style="animation-delay:0.3s"></div>
-                    <div class="relative w-14 h-14 rounded-full bg-[#00d2ff]/20 border border-[#00d2ff]/40 flex items-center justify-center group-hover:bg-[#00d2ff]/30 transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00d2ff] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest text-[#00d2ff]/60 border border-[#00d2ff]/20 rounded-full px-2.5 py-1 bg-[#00141e]/60">Coming Soon</span>
-                </div>
-                <div class="p-5 text-left">
-                    <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-2">Demo · 3 min</p>
-                    <h3 class="text-white font-bold text-base md:text-lg leading-snug">AI-Assisted Verification Loop</h3>
-                    <p class="text-gray-500 text-sm mt-2 leading-relaxed">See the autonomous verification agent catch and close functional bugs across a real design iteration cycle.</p>
-                </div>
-            </div>
-
-            <!-- Placeholder 3 -->
-            <div class="group relative bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30 hover:bg-[#00141e]/60 backdrop-blur-sm">
-                <div class="relative w-full aspect-video bg-[#00d2ff]/5 flex items-center justify-center">
-                    <div class="absolute w-16 h-16 rounded-full bg-[#00d2ff]/10 animate-ping" style="animation-delay:0.6s"></div>
-                    <div class="relative w-14 h-14 rounded-full bg-[#00d2ff]/20 border border-[#00d2ff]/40 flex items-center justify-center group-hover:bg-[#00d2ff]/30 transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00d2ff] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest text-[#00d2ff]/60 border border-[#00d2ff]/20 rounded-full px-2.5 py-1 bg-[#00141e]/60">Coming Soon</span>
-                </div>
-                <div class="p-5 text-left">
-                    <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-2">Demo · 2 min</p>
-                    <h3 class="text-white font-bold text-base md:text-lg leading-snug">Open-Source Tool Integration</h3>
-                    <p class="text-gray-500 text-sm mt-2 leading-relaxed">A walkthrough of Verilator, OpenROAD, and other open-source tools running inside a unified CaretEDA cloud flow.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
 
 <section id="team"
     class="min-h-[60dvh] h-auto flex justify-center items-center bg-[#050a10] text-white py-20 px-4 md:px-8">
@@ -205,11 +89,8 @@
                         class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
                 </div>
                 <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Sashi Obilisetty</h3>
-                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-3">Co-Founder & CEO</p>
-                <a href="https://www.linkedin.com/in/sashi-obilisetty-009720/" target="_blank" rel="noopener noreferrer" class="mb-4 inline-flex items-center gap-1.5 text-white/40 hover:text-[#00d2ff] transition-colors duration-300 no-underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    <span class="text-xs">LinkedIn</span>
-                </a>
+                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-4">Co-Founder & CEO
+                </p>
                 <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
                     <p>
                         Sashi Obilisetty is an EDA technologist with extensive entrepreneurial experience and a
@@ -258,11 +139,9 @@
                         class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
                 </div>
                 <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Radha Srinivasan</h3>
-                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-3">Co-Founder & Vice President of Engg</p>
-                <a href="https://www.linkedin.com/in/srinivasradha/" target="_blank" rel="noopener noreferrer" class="mb-4 inline-flex items-center gap-1.5 text-white/40 hover:text-[#00d2ff] transition-colors duration-300 no-underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    <span class="text-xs">LinkedIn</span>
-                </a>
+                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-4">Co-Founder & Vice
+                    President of Engg
+                </p>
                 <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
                     <p>
                         Radha is a co‑founder of CaretEDA, where she focuses on applying AI, cloud workflows, and
@@ -307,11 +186,8 @@
                         class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
                 </div>
                 <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Surajprakash Ankush</h3>
-                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-3">Co-Founder & Chief Architect</p>
-                <a href="https://www.linkedin.com/in/surajprakash-ankush-02aa0829/" target="_blank" rel="noopener noreferrer" class="mb-4 inline-flex items-center gap-1.5 text-white/40 hover:text-[#00d2ff] transition-colors duration-300 no-underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    <span class="text-xs">LinkedIn</span>
-                </a>
+                <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-4">Co-Founder & Chief
+                    Architect</p>
                 <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
                     <p>
                         Surajprakash brings 14 years of engineering experience to the team, with a focus on integrating
@@ -346,251 +222,8 @@
             </div>
 
         </div>
-
-        <!-- Technical Advisors -->
-        <div class="mt-24 md:mt-32">
-            <h3 class="text-xl md:text-2xl font-semibold mb-12 text-white/50 uppercase tracking-widest">Technical Advisors</h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 justify-center items-start max-w-[860px] mx-auto">
-
-                <!-- Advisor: Nithya Raghavan -->
-                <div class="group relative flex flex-col items-center">
-                    <div class="relative w-40 h-40 md:w-52 md:h-52 mb-6 rounded-full overflow-hidden border-4 border-[#00d2ff]/20 transition-all duration-500 group-hover:border-[#00d2ff] group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)]">
-                        <img src="/assets/team-nithya.jpg" alt="Nithya Raghavan"
-                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Nithya Raghavan</h3>
-                    <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-3">Technical Advisor</p>
-                    <a href="https://www.linkedin.com/in/nithyaraghavan/" target="_blank" rel="noopener noreferrer"
-                        class="mb-4 inline-flex items-center gap-1.5 text-white/40 hover:text-[#00d2ff] transition-colors duration-300 no-underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        <span class="text-xs">LinkedIn</span>
-                    </a>
-                    <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
-                        <p>
-                            Nithya Raghavan is Executive Director of Applications Engineering at Synopsys, where she
-                            leads hardware-assisted verification across emulation and prototyping platforms. Her expertise
-                            spans low-power simulation, static analysis, and emulation, with progressive leadership roles
-                            including Group Director and Director within Synopsys's EDA division.
-                        </p>
-                        <div *ngIf="expandedBios['nithya']" class="space-y-3">
-                            <p>
-                                Earlier in her career she led engineering at ArchPro Design Automation and held technical
-                                roles at Cisco Systems and Procket Networks, spanning VLSI design and software
-                                development. She served as General Chair of IEEE WINTECHCON 2023, recognized for her
-                                leadership and advocacy across the EDA industry.
-                            </p>
-                        </div>
-                        <button (click)="toggleBio('nithya')"
-                            class="text-[#00d2ff] hover:text-white text-xs font-bold uppercase tracking-widest mt-2 focus:outline-none transition-colors">
-                            {{ expandedBios['nithya'] ? 'Read Less' : 'Read More' }}
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Advisor: Sridhar Narayanan -->
-                <div class="group relative flex flex-col items-center">
-                    <div class="relative w-40 h-40 md:w-52 md:h-52 mb-6 rounded-full overflow-hidden border-4 border-[#00d2ff]/20 transition-all duration-500 group-hover:border-[#00d2ff] group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)]">
-                        <img src="/assets/team-sridhar.jpg" alt="Sridhar Narayanan"
-                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Sridhar Narayanan</h3>
-                    <p class="text-[#00d2ff] uppercase tracking-widest text-xs font-semibold mb-3">Technical Advisor</p>
-                    <a href="https://www.linkedin.com/in/sridhar-narayanan-53517b1/" target="_blank" rel="noopener noreferrer"
-                        class="mb-4 inline-flex items-center gap-1.5 text-white/40 hover:text-[#00d2ff] transition-colors duration-300 no-underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        <span class="text-xs">LinkedIn</span>
-                    </a>
-                    <div class="text-gray-400 text-sm max-w-[320px] leading-relaxed text-left space-y-3">
-                        <p>
-                            Sridhar Narayanan is a lecturer at USC's Viterbi School of Engineering (Ming Hsieh
-                            Department of Electrical and Computer Engineering), teaching advanced chip design and
-                            verification methodology. He has contributed to industry-defining standards including
-                            SystemVerilog, Unified Power Format (UPF), and Universal Verification Methodology (UVM).
-                        </p>
-                        <div *ngIf="expandedBios['sridhar']" class="space-y-3">
-                            <p>
-                                Recognized as an AMD Brand Ambassador for his contributions to high-performance computing
-                                and autonomous systems, Sridhar brings deep academic and industry expertise to CaretEDA's
-                                technical direction — particularly around open-source verification flows and next-generation
-                                design methodology.
-                            </p>
-                        </div>
-                        <button (click)="toggleBio('sridhar')"
-                            class="text-[#00d2ff] hover:text-white text-xs font-bold uppercase tracking-widest mt-2 focus:outline-none transition-colors">
-                            {{ expandedBios['sridhar'] ? 'Read Less' : 'Read More' }}
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 </section>
-
-<!-- ===== BLOG SECTION ===== -->
-<section id="blog" class="min-h-[60dvh] h-auto flex justify-center items-center bg-[#020408] text-white py-20 px-4 md:px-8">
-    <div class="text-center w-full max-w-[1200px]">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#00d2ff] bg-clip-text text-transparent">
-            Blog</h2>
-        <p class="text-white/50 text-sm md:text-base mb-16 md:mb-20">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
-
-            <!-- Article 1 -->
-            <a href="/blogs/verilator" class="group no-underline block bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 hover:border-[#00d2ff]/40 hover:bg-[#00141e]/60 hover:shadow-[0_10px_30px_rgba(0,210,255,0.12)] backdrop-blur-sm">
-                <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-4">May 2026 · 5 min read</p>
-                <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#00d2ff] transition-colors duration-300">
-                    Verilator: The Open-Source Simulator Reshaping Chip Design</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                    How a tool born at Digital Equipment Corporation in 1994 ended up at the center of chip verification for Tesla, Google, AMD, and NVIDIA.
-                </p>
-                <span class="text-[#00d2ff] text-xs font-bold uppercase tracking-widest">Read Article →</span>
-            </a>
-
-            <!-- Article 2 -->
-            <a href="/blogs/code-generation" class="group no-underline block bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 hover:border-[#00d2ff]/40 hover:bg-[#00141e]/60 hover:shadow-[0_10px_30px_rgba(0,210,255,0.12)] backdrop-blur-sm">
-                <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-4">April 2026 · 5 min read</p>
-                <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#00d2ff] transition-colors duration-300">
-                    Generating SystemVerilog Is Easy. Generating Hardware Is Not.</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                    LLMs can produce RTL that compiles and simulates — but hardware is a contract with physics, and physics does not accept plausible drafts.
-                </p>
-                <span class="text-[#00d2ff] text-xs font-bold uppercase tracking-widest">Read Article →</span>
-            </a>
-
-            <!-- Article 3 -->
-            <a href="/blogs/silicon-imperative" class="group no-underline block bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 hover:border-[#00d2ff]/40 hover:bg-[#00141e]/60 hover:shadow-[0_10px_30px_rgba(0,210,255,0.12)] backdrop-blur-sm">
-                <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-4">March 2026 · 5 min read</p>
-                <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#00d2ff] transition-colors duration-300">
-                    The Silicon Imperative</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                    Rising chip design complexity, shrinking tapeout cycles, and why the $775B semiconductor market is making AI-driven design a strategic necessity.
-                </p>
-                <span class="text-[#00d2ff] text-xs font-bold uppercase tracking-widest">Read Article →</span>
-            </a>
-
-        </div>
-    </div>
-</section>
-
-<!-- ===== IFAQ SECTION ===== -->
-<section id="ifaq" class="min-h-[60dvh] h-auto flex justify-center items-center bg-[#050a10] text-white py-20 px-4 md:px-8">
-    <div class="text-center w-full max-w-[900px]">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-tr from-white to-[#00d2ff] bg-clip-text text-transparent">
-            IFAQ</h2>
-        <p class="text-white/50 text-sm md:text-base mb-4">Infrequently Asked Questions</p>
-        <p class="text-gray-400 text-sm md:text-base mb-16">Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.</p>
-
-        <div class="text-left space-y-4">
-
-            <!-- Category: Our Technology -->
-            <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mb-2">Our Technology</p>
-
-            <div *ngFor="let faq of technologyFaqs" class="border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30">
-                <button (click)="toggleFaq(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#00141e]/30 hover:bg-[#00141e]/50 transition-colors duration-200">
-                    <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-                    <span class="text-[#00d2ff] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expandedFaqs[faq.id]">+</span>
-                </button>
-                <div *ngIf="expandedFaqs[faq.id]" class="px-6 py-4 bg-[#00141e]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
-            </div>
-
-            <!-- Category: The Evaluation -->
-            <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">The Evaluation</p>
-
-            <div *ngFor="let faq of evaluationFaqs" class="border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30">
-                <button (click)="toggleFaq(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#00141e]/30 hover:bg-[#00141e]/50 transition-colors duration-200">
-                    <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-                    <span class="text-[#00d2ff] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expandedFaqs[faq.id]">+</span>
-                </button>
-                <div *ngIf="expandedFaqs[faq.id]" class="px-6 py-4 bg-[#00141e]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
-            </div>
-
-            <!-- Category: Security & IP Protection -->
-            <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Security & IP Protection</p>
-
-            <div *ngFor="let faq of securityFaqs" class="border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30">
-                <button (click)="toggleFaq(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#00141e]/30 hover:bg-[#00141e]/50 transition-colors duration-200">
-                    <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-                    <span class="text-[#00d2ff] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expandedFaqs[faq.id]">+</span>
-                </button>
-                <div *ngIf="expandedFaqs[faq.id]" class="px-6 py-4 bg-[#00141e]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
-            </div>
-
-            <!-- Category: Next Steps -->
-            <p class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Next Steps</p>
-
-            <div *ngFor="let faq of nextStepsFaqs" class="border border-[#00d2ff]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#00d2ff]/30">
-                <button (click)="toggleFaq(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#00141e]/30 hover:bg-[#00141e]/50 transition-colors duration-200">
-                    <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-                    <span class="text-[#00d2ff] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expandedFaqs[faq.id]">+</span>
-                </button>
-                <div *ngIf="expandedFaqs[faq.id]" class="px-6 py-4 bg-[#00141e]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ===== CAREERS SECTION ===== -->
-<section id="careers" class="min-h-[50dvh] h-auto flex justify-center items-center bg-[#020408] text-white py-20 px-4 md:px-8">
-    <div class="text-center w-full max-w-[900px]">
-        <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-tr from-white to-[#00d2ff] bg-clip-text text-transparent">
-            Careers</h2>
-        <p class="text-white/60 text-base md:text-xl mb-16 max-w-[600px] mx-auto leading-relaxed">
-            We're here to prove that bright minds with shared purpose can reshape entire industries.
-        </p>
-
-        <!-- Job card -->
-        <div class="bg-[#00141e]/40 border border-[#00d2ff]/10 rounded-2xl p-6 md:p-10 text-left transition-all duration-300 hover:-translate-y-2 hover:border-[#00d2ff]/40 hover:bg-[#00141e]/60 hover:shadow-[0_10px_30px_rgba(0,210,255,0.12)] backdrop-blur-sm">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div>
-                    <h3 class="text-white font-bold text-xl md:text-2xl mb-2">Senior Hardware Design & Verification Engineer</h3>
-                    <p class="text-[#00d2ff] text-sm font-medium">Bengaluru, India</p>
-                </div>
-                <a href="mailto:info@careteda.com" class="inline-block bg-[#00d2ff]/10 border border-[#00d2ff]/30 text-[#00d2ff] text-sm font-bold uppercase tracking-widest px-6 py-3 rounded-full no-underline transition-all duration-300 hover:bg-[#00d2ff]/20 hover:shadow-[0_0_20px_rgba(0,210,255,0.2)] whitespace-nowrap flex-shrink-0">
-                    View Role →
-                </a>
-            </div>
-            <div class="flex flex-wrap gap-2">
-                <span class="bg-[#00d2ff]/8 border border-[#00d2ff]/20 text-[#00d2ff] text-xs font-semibold px-3 py-1 rounded-full">Customer-Facing</span>
-                <span class="bg-[#00d2ff]/8 border border-[#00d2ff]/20 text-[#00d2ff] text-xs font-semibold px-3 py-1 rounded-full">RTL + Simulation</span>
-                <span class="bg-[#00d2ff]/8 border border-[#00d2ff]/20 text-[#00d2ff] text-xs font-semibold px-3 py-1 rounded-full">AI-Assisted EDA</span>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ===== DAC 2026 EVENT BANNER ===== -->
-<div class="bg-[#020408] py-14 px-4 border-y border-[#00d2ff]/10">
-    <div class="max-w-[900px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-
-        <!-- Left: Event details -->
-        <div class="flex flex-col gap-3 text-center md:text-left">
-            <span class="inline-flex items-center gap-2 self-center md:self-start">
-                <span class="w-2 h-2 rounded-full bg-[#00d2ff] animate-ping inline-block"></span>
-                <span class="text-[#00d2ff] text-xs uppercase tracking-widest font-semibold">Upcoming Event</span>
-            </span>
-            <h3 class="text-white text-2xl md:text-3xl font-bold leading-snug">
-                Find us at <a href="https://dac.com/2026" target="_blank" rel="noopener noreferrer"
-                    class="text-[#00d2ff] hover:underline">DAC 2026</a>
-            </h3>
-            <p class="text-white/50 text-sm leading-relaxed max-w-[460px]">
-                The 63rd Design Automation Conference &mdash; July 26&ndash;29, 2026 &middot; Long Beach, California.
-                Come talk AI-native chip design with the CaretEDA team.
-            </p>
-        </div>
-
-        <!-- Right: CTA -->
-        <a href="mailto:info@careteda.com?subject=DAC 2026 Meeting Request"
-           class="flex-shrink-0 inline-flex items-center gap-2 bg-[#00d2ff]/10 border border-[#00d2ff]/40 text-[#00d2ff] text-sm font-bold uppercase tracking-widest px-7 py-4 rounded-full no-underline transition-all duration-300 hover:bg-[#00d2ff]/20 hover:shadow-[0_0_24px_rgba(0,210,255,0.25)] whitespace-nowrap">
-            Schedule a Meet →
-        </a>
-
-    </div>
-</div>
 
 <section id="contact"
     class="min-h-[50dvh] h-auto md:min-h-screen flex justify-center items-center bg-[#020408] text-white py-14 px-3 md:px-5">
@@ -614,14 +247,6 @@
                 </h3>
                 <a href="mailto:support@careteda.com"
                     class="text-[#e0f4ff] text-base md:text-xl no-underline font-medium transition-colors duration-300 hover:text-[#00d2ff] break-all">support@careteda.com</a>
-            </div>
-
-            <div
-                class="bg-[#00141e]/40 p-5 md:p-10 rounded-2xl w-full md:min-w-[300px] md:flex-1 max-w-full md:max-w-[400px] border border-[#00d2ff]/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-[#00d2ff]/40 hover:bg-[#00141e]/60 hover:shadow-[0_10px_30px_rgba(0,210,255,0.15)]">
-                <h3 class="mt-0 mb-4 text-[#4aaef1] text-xs md:text-sm uppercase tracking-widest font-semibold">Office</h3>
-                <address class="not-italic text-[#e0f4ff] text-base md:text-xl font-medium leading-relaxed">
-                    2100 S Bascom Ave, Ste 1<br>Campbell, CA 95008
-                </address>
             </div>
 
         </div>
