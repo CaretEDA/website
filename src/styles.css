@@ -48,3 +48,126 @@ html {
     /* Ensure hidden before animation starts */
     animation-fill-mode: forwards;
 }
+
+/* ===== LIQUID GLASS PILL NAVIGATION ===== */
+.pill-nav-container {
+    background: rgba(8, 16, 28, 0.45);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 0 0.5px rgba(0, 210, 255, 0.06);
+}
+
+.pill-indicator {
+    position: absolute;
+    top: 6px;
+    height: calc(100% - 12px);
+    border-radius: 9999px;
+    background: rgba(0, 210, 255, 0.18);
+    border: 1px solid rgba(0, 210, 255, 0.5);
+    box-shadow:
+        0 0 20px rgba(0, 210, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition:
+        left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.nav-pill-item {
+    color: rgba(255, 255, 255, 0.45);
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.nav-pill-item:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-pill-item.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ===== HAMBURGER BUTTON ===== */
+.hamburger-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger-line.open-top {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-line.open-mid {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-line.open-bot {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== MOBILE MENU OVERLAY ===== */
+.mobile-menu-overlay {
+    background: rgba(1, 8, 21, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+.mobile-nav-link {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.875rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.mobile-nav-link.active {
+    color: #00d2ff;
+    font-weight: 700;
+}
+
+/* ===== NAV SCROLL HIDE/SHOW ===== */
+.nav-animate {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+
+.nav-animate.nav-hidden {
+    --tw-translate-y: -80px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.logo-animate {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+
+.logo-animate.nav-hidden {
+    transform: translateY(-80px);
+    opacity: 0;
+    pointer-events: none;
+}
