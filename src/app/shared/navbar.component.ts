@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ScrollService } from './scroll.service';
 
 @Component({
   selector: 'app-navbar',
@@ -30,8 +31,8 @@ import { filter } from 'rxjs/operators';
 
         <!-- Contact Us -->
         <div class="hidden md:flex items-center flex-shrink-0">
-          <a href="mailto:info@careteda.com?subject=Contact"
-             class="inline-flex items-center border border-white/30 text-white text-sm font-semibold px-6 py-2.5 rounded-full no-underline transition-all duration-300 hover:border-white/60 hover:bg-white/[0.08]">
+          <a (click)="handleContactClick()"
+             class="inline-flex items-center bg-[#2563EB] text-white text-sm font-semibold px-6 py-2.5 rounded-full no-underline transition-all duration-300 hover:bg-[#1D4ED8] cursor-pointer">
             Contact Us
           </a>
         </div>
@@ -80,6 +81,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private scrollService: ScrollService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -161,6 +163,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.activeSection = link.id;
       setTimeout(() => this.updateIndicator(), 0);
     } else {
+      this.scrollService.pendingSection = link.id;
       this.router.navigate(['/']);
     }
   }
@@ -174,4 +177,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleMobileMenu() { this.isMobileMenuOpen = !this.isMobileMenuOpen; }
+
+  handleContactClick() {
+    this.isMobileMenuOpen = false;
+    if (this.isHomePage && isPlatformBrowser(this.platformId)) {
+      const el = document.getElementById('contact');
+      if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    } else {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          const el = document.getElementById('contact');
+          if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }, 300);
+      });
+    }
+  }
 }

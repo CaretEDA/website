@@ -1,6 +1,7 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ScrollService } from '../shared/scroll.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
   expandedBios: { [key: string]: boolean } = {};
 
   demoPreviews = [
@@ -17,7 +18,21 @@ export class HomeComponent {
     { tag: 'Demo · 2 min', title: 'Open-Source Tool Integration', desc: 'A walkthrough of Verilator, OpenROAD, and other open-source tools running inside a unified CaretEDA cloud flow.', delay: '0.6s' },
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    private scrollService: ScrollService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId) && this.scrollService.pendingSection) {
+      const section = this.scrollService.pendingSection;
+      this.scrollService.pendingSection = null;
+      setTimeout(() => {
+        const el = document.getElementById(section);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }
 
   toggleBio(id: string) {
     this.expandedBios[id] = !this.expandedBios[id];

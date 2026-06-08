@@ -3,19 +3,27 @@
 <router-outlet></router-outlet>
 
 <!-- ===== FOOTER ===== -->
-<footer class="bg-black border-t border-white/5 py-6 px-4 md:px-8">
-    <div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+<footer class="bg-black border-t border-white/10 pt-12 pb-8 px-6 md:px-12">
+    <div class="max-w-[1200px] mx-auto">
 
-        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 text-xs text-white/30">
-            <img src="assets/careteda-logo-hd.png" alt="CaretEDA" class="h-7 w-auto opacity-70">
-            <span>CaretEDA, Inc.</span>
-            <span class="text-white/15">·</span>
-            <span>2100 S Bascom Ave, Ste 1, Campbell, CA 95008</span>
-            <span class="text-white/15">·</span>
-            <a href="mailto:info@careteda.com" class="hover:text-[#2563EB] transition-colors no-underline">info&#64;careteda.com</a>
+        <!-- Top row: Logo + link -->
+        <div class="flex items-start justify-between mb-8">
+            <div>
+                <img src="assets/careteda-logo-hd.png" alt="CaretEDA" class="h-8 w-auto mb-4 opacity-90">
+                <p class="text-white/45 text-sm">
+                    CaretEDA, Inc.
+                    <span class="mx-2 text-white/20">·</span>
+                    2100 S Bascom Ave, Ste 1, Campbell, CA 95008
+                    <span class="mx-2 text-white/20">·</span>
+                    <a href="mailto:info@careteda.com" class="hover:text-[#2563EB] transition-colors no-underline">info&#64;careteda.com</a>
+                </p>
+            </div>
         </div>
 
-        <span class="text-xs text-white/20">© 2026 CaretEDA. All rights reserved.</span>
+        <!-- Bottom row: copyright -->
+        <div class="pt-4">
+            <p class="text-white/35 text-sm">© 2026 CaretEDA, Inc. All rights reserved.</p>
+        </div>
 
     </div>
 </footer>

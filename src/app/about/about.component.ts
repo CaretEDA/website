@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -86,4 +87,5 @@ import { RouterModule } from '@angular/router';
     </section>
   `
 })
-export class AboutComponent {}
+export class AboutComponent implements OnInit {
+  ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }}

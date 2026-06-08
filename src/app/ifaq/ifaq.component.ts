@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -59,11 +60,20 @@ import { RouterModule } from '@angular/router';
           </div>
 
         </div>
+
+        <!-- Footer note -->
+        <p class="mt-16 text-white/40 text-sm italic text-center">
+          Further questions? Reach us at
+          <a href="mailto:info@careteda.com" class="text-white font-bold not-italic hover:text-[#2563EB] transition-colors no-underline">info&#64;careteda.com</a>
+        </p>
+
       </div>
     </section>
   `
 })
-export class IFAQComponent {
+export class IFAQComponent implements OnInit {
+  ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
+
   expanded: { [key: string]: boolean } = {};
 
   toggle(id: string) { this.expanded[id] = !this.expanded[id]; }

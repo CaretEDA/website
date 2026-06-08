@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -50,7 +51,19 @@ import { CommonModule } from '@angular/common';
     </section>
   `
 })
-export class DemosComponent {
+export class DemosComponent implements OnInit, AfterViewInit {
+  private resetScroll() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+  ngOnInit() { this.resetScroll(); }
+  ngAfterViewInit() {
+    this.resetScroll();
+    setTimeout(() => this.resetScroll(), 0);
+    setTimeout(() => this.resetScroll(), 100);
+  }
+
   demos = [
     { tag: 'Demo · 2 min', title: 'Spec to RTL in Minutes', desc: 'Watch how a natural-language design spec becomes synthesisable RTL through the Spec-to-Netlist™ flow.', delay: '0s' },
     { tag: 'Demo · 3 min', title: 'AI-Assisted Verification Loop', desc: 'See the autonomous verification agent catch and close functional bugs across a real design iteration cycle.', delay: '0.3s' },
