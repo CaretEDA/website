@@ -3,59 +3,27 @@
 
 <head>
   <meta charset="utf-8">
-  <title>CaretEDA | AI-driven, Silicon-ready, Open-Source enabled</title>
+  <title>CaretEDA | AI-native, Silicon-ready, Open-Source enabled</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="/assets/careteda-logo-hd.png">
+  <link rel="icon" type="image/png" href="assets/careteda-logo-hd.png">
+  <script>
+    // GitHub Pages SPA — restore path from query string redirect
+    (function(l) {
+      if (l.search[1] === '/') {
+        var decoded = l.search.slice(1).split('&').map(function(s) {
+          return s.replace(/~and~/g, '&');
+        }).join('?');
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location));
+  </script>
 </head>
 
 <body>
   <app-root></app-root>
-
-  <script>
-    var sectionIds = ['home', 'demo', 'team', 'blog', 'ifaq', 'careers', 'contact'];
-
-    function moveIndicator(id) {
-      var indicator = document.querySelector('.pill-indicator');
-      var container = document.querySelector('nav .pill-nav-container');
-      if (!indicator || !container) return;
-      var items = container.querySelectorAll('a');
-      var idx = sectionIds.indexOf(id);
-      if (items[idx]) {
-        indicator.style.left = items[idx].offsetLeft + 'px';
-        indicator.style.width = items[idx].offsetWidth + 'px';
-      }
-    }
-
-    function setActive(id) {
-      moveIndicator(id);
-    }
-
-    function initIndicator() {
-      var container = document.querySelector('nav .pill-nav-container');
-      if (!container || !container.querySelector('a')) {
-        requestAnimationFrame(initIndicator);
-        return;
-      }
-
-      sectionIds.forEach(function(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) setActive(id);
-          });
-        }, { threshold: 0.3 }).observe(el);
-      });
-
-      setActive('home');
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      requestAnimationFrame(initIndicator);
-    });
-  </script>
-
 </body>
 
 </html>

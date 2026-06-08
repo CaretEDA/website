@@ -1,0 +1,41 @@
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-blog-list',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  template: `
+    <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
+      <div class="max-w-[1200px] mx-auto">
+
+        <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
+          ← Back to Home
+        </a>
+
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h1>
+        <p class="text-white/50 text-base md:text-lg mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <a *ngFor="let post of posts"
+             [routerLink]="['/blogs', post.slug]"
+             class="group no-underline block bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EB]/40 hover:bg-[#0f1a30]/60 hover:shadow-[0_10px_30px_rgba(37,99,235,0.12)] backdrop-blur-sm">
+            <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-4">{{ post.date }} · {{ post.readTime }}</p>
+            <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#2563EB] transition-colors duration-300">{{ post.title }}</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">{{ post.summary }}</p>
+            <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+  `
+})
+export class BlogListComponent {
+  posts = [
+    { slug: 'verilator', date: 'May 2026', readTime: '5 min read', title: 'Verilator: The Open-Source Simulator Reshaping Chip Design', summary: 'How a tool born at Digital Equipment Corporation in 1994 ended up at the center of chip verification for Tesla, Google, AMD, and NVIDIA.' },
+    { slug: 'code-generation', date: 'April 2026', readTime: '5 min read', title: 'Generating SystemVerilog Is Easy. Generating Hardware Is Not.', summary: 'LLMs can produce RTL that compiles and simulates — but hardware is a contract with physics, and physics does not accept plausible drafts.' },
+    { slug: 'silicon-imperative', date: 'March 2026', readTime: '5 min read', title: 'The Silicon Imperative', summary: 'Rising chip design complexity, shrinking tapeout cycles, and why the $775B semiconductor market is making AI-driven design a strategic necessity.' },
+  ];
+}
