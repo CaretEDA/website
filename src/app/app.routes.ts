@@ -7,10 +7,12 @@ import { BlogDetailComponent } from './blog/blog-detail.component';
 import { IFAQComponent } from './ifaq/ifaq.component';
 import { CareersComponent } from './careers/careers.component';
 import { CareersDetailComponent } from './careers/careers-detail.component';
+import { TeamComponent } from './team/team.component';
 
 export const routes: Routes = [
   { path: '',                component: HomeComponent },
   { path: 'about',           component: AboutComponent },
+  { path: 'team',            component: TeamComponent },
   { path: 'demos',           component: DemosComponent },
   { path: 'blogs',           component: BlogListComponent },
   { path: 'blogs/:slug',     component: BlogDetailComponent },

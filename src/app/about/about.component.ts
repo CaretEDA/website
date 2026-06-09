@@ -72,16 +72,6 @@ import { RouterModule } from '@angular/router';
 
         </div>
 
-        <div class="mt-16 flex flex-col sm:flex-row gap-4">
-          <a href="mailto:info@careteda.com?subject=Demo Request"
-             class="inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-8 py-4 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-[#1D4ED8]">
-            Request a Demo →
-          </a>
-          <a [routerLink]="['/ifaq']"
-             class="inline-flex items-center justify-center gap-2 border border-white/10 text-white/85 px-8 py-4 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:border-white/30 hover:text-white">
-            Read the IFAQ
-          </a>
-        </div>
 
       </div>
     </section>

@@ -71,7 +71,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navLinks: { id: string; label: string; route: string | null }[] = [
     { id: 'home',    label: 'Home',     route: null       },
-    { id: 'team',    label: 'Team',     route: null       },
+    { id: 'team',    label: 'Team',     route: '/team'    },
     { id: 'blog',    label: 'Blog',     route: null       },
     { id: 'about',   label: 'About',    route: '/about'   },
     { id: 'ifaq',    label: 'IFAQ',     route: '/ifaq'    },
@@ -116,7 +116,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onScroll() {
     if (!this.isHomePage || !isPlatformBrowser(this.platformId)) return;
     const scrollY = window.scrollY + window.innerHeight * 0.4;
-    for (const id of ['blog', 'team', 'home']) {
+    for (const id of ['blog', 'home']) {
       const el = document.getElementById(id);
       if (el && el.offsetTop <= scrollY) {
         if (this.activeSection !== id) {
