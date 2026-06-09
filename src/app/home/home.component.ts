@@ -59,4 +59,16 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     this.cdr.detectChanges();
     this.startAutoplay();
   }
+
+  prevSlide() {
+    this.currentSlide = (this.currentSlide - 1 + this.slideCount) % this.slideCount;
+    this.cdr.detectChanges();
+    this.startAutoplay();
+  }
+
+  nextSlide() {
+    this.currentSlide = (this.currentSlide + 1) % this.slideCount;
+    this.cdr.detectChanges();
+    this.startAutoplay();
+  }
 }
