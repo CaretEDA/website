@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
         </a>
 
         <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h1>
-        <p class="text-white/50 text-base md:text-lg mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
+        <p class="text-white/75 text-base md:text-lg mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <a *ngFor="let post of posts"
@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
             <div class="p-6 md:p-8">
               <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-4">{{ post.date }} · {{ post.readTime }}</p>
               <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#2563EB] transition-colors duration-300">{{ post.title }}</h3>
-              <p class="text-gray-400 text-sm leading-relaxed mb-6">{{ post.summary }}</p>
+              <p class="text-white/75 text-sm leading-relaxed mb-6">{{ post.summary }}</p>
               <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
             </div>
 

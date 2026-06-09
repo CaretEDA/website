@@ -38,6 +38,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/careteda-website-test/",
               "budgets": [
                 {
                   "type": "initial",

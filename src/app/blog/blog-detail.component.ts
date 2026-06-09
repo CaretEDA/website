@@ -84,7 +84,7 @@ interface BlogPost {
             <!-- New blocks format (interleaved paragraphs + bullets) -->
             <ng-container *ngIf="section.blocks && section.blocks.length">
               <ng-container *ngFor="let block of section.blocks">
-                <p *ngIf="block.type === 'p'" class="text-gray-300 text-base leading-relaxed">{{ block.text }}</p>
+                <p *ngIf="block.type === 'p'" class="text-white/85 text-base leading-relaxed">{{ block.text }}</p>
                 <ul *ngIf="block.type === 'ul'" class="space-y-2 pl-4">
                   <li *ngFor="let item of block.items" class="text-gray-300 text-base leading-relaxed flex gap-2">
                     <span class="text-[#2563EB] flex-shrink-0">·</span>{{ item }}
@@ -93,7 +93,7 @@ interface BlogPost {
                 <div *ngIf="block.type === 'img'" class="w-full rounded-xl overflow-hidden my-6">
                   <img [src]="block.src" [alt]="block.alt || ''" class="w-full object-cover">
                 </div>
-                <p *ngIf="block.type === 'html'" class="text-gray-300 text-base leading-relaxed" [innerHTML]="block.text"></p>
+                <p *ngIf="block.type === 'html'" class="text-white/85 text-base leading-relaxed" [innerHTML]="block.text"></p>
               </ng-container>
             </ng-container>
 
@@ -102,7 +102,7 @@ interface BlogPost {
               <div *ngIf="section.image" class="w-full rounded-xl overflow-hidden my-6">
                 <img [src]="section.image" [alt]="section.imageAlt || ''" class="w-full object-cover">
               </div>
-              <p *ngFor="let para of section.paragraphs" class="text-gray-300 text-base leading-relaxed">{{ para }}</p>
+              <p *ngFor="let para of section.paragraphs" class="text-white/85 text-base leading-relaxed">{{ para }}</p>
               <ul *ngIf="section.bullets" class="space-y-2 pl-4">
                 <li *ngFor="let bullet of section.bullets" class="text-gray-300 text-base leading-relaxed flex gap-2">
                   <span class="text-[#2563EB] flex-shrink-0">·</span>{{ bullet }}

@@ -24,8 +24,8 @@ import { RouterModule } from '@angular/router';
         <div class="text-left space-y-4">
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2">Our Technology</p>
-          <div *ngFor="let faq of technologyFaqs" class="border border-[#2563EB]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/30">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/30 hover:bg-[#0f1a30]/50 transition-colors duration-200">
+          <div *ngFor="let faq of technologyFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
@@ -33,8 +33,8 @@ import { RouterModule } from '@angular/router';
           </div>
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">The Evaluation</p>
-          <div *ngFor="let faq of evaluationFaqs" class="border border-[#2563EB]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/30">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/30 hover:bg-[#0f1a30]/50 transition-colors duration-200">
+          <div *ngFor="let faq of evaluationFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
@@ -42,8 +42,8 @@ import { RouterModule } from '@angular/router';
           </div>
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Security & IP Protection</p>
-          <div *ngFor="let faq of securityFaqs" class="border border-[#2563EB]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/30">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/30 hover:bg-[#0f1a30]/50 transition-colors duration-200">
+          <div *ngFor="let faq of securityFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
@@ -51,8 +51,8 @@ import { RouterModule } from '@angular/router';
           </div>
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Next Steps</p>
-          <div *ngFor="let faq of nextStepsFaqs" class="border border-[#2563EB]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/30">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/30 hover:bg-[#0f1a30]/50 transition-colors duration-200">
+          <div *ngFor="let faq of nextStepsFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>

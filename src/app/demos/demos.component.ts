@@ -18,10 +18,10 @@ import { CommonModule } from '@angular/common';
         <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
           Demos
         </h1>
-        <p class="text-white/50 text-base md:text-lg mb-16">Watch Spec-to-Netlist™ in motion — from design intent to silicon-ready output.</p>
+        <p class="text-white/75 text-base md:text-lg mb-16">Watch Spec-to-Netlist™ in motion — from design intent to silicon-ready output.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <div *ngFor="let demo of demos" class="group relative bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/30 hover:bg-[#0f1a30]/60 backdrop-blur-sm">
+          <div *ngFor="let demo of demos" class="group relative bg-[#0f1a30]/70 border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 hover:bg-[#0f1a30]/90 backdrop-blur-sm">
             <div class="relative w-full aspect-video bg-black flex items-center justify-center">
               <div class="w-14 h-14 rounded-full bg-[#2563EB] flex items-center justify-center group-hover:bg-[#6aa3f9] transition-all duration-300 shadow-[0_4px_20px_rgba(37,99,235,0.35)]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -31,14 +31,14 @@ import { CommonModule } from '@angular/common';
             <div class="p-5 text-left">
               <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2">{{ demo.tag }}</p>
               <h3 class="text-white font-bold text-base md:text-lg leading-snug mb-2">{{ demo.title }}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">{{ demo.desc }}</p>
+              <p class="text-white/70 text-sm leading-relaxed">{{ demo.desc }}</p>
             </div>
           </div>
         </div>
 
-        <div class="mt-20 bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-8 md:p-12 text-center">
+        <div class="mt-20 bg-[#0f1a30]/70 border border-[#2563EB]/25 rounded-2xl p-8 md:p-12 text-center">
           <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Want a personalised demo?</h2>
-          <p class="text-white/50 text-sm md:text-base mb-8 max-w-[500px] mx-auto">
+          <p class="text-white/75 text-sm md:text-base mb-8 max-w-[500px] mx-auto">
             Book a live session with our engineering team and see Spec-to-Netlist™ applied to your design workload.
           </p>
           <a href="mailto:info@careteda.com?subject=Demo Request"

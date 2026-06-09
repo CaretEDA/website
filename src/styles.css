@@ -25,7 +25,7 @@ body {
 }
 
 
-/* Subtle dot-grid background pattern (like neevsemi) */
+/* Subtle dot-grid background pattern */
 body {
     background-image: radial-gradient(rgba(37, 99, 235, 0.09) 1px, transparent 1px);
     background-size: 28px 28px;

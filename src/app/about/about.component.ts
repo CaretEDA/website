@@ -52,15 +52,15 @@ import { RouterModule } from '@angular/router';
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
             <div class="bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6">
               <p class="text-[#2563EB] text-3xl font-bold mb-2">40%</p>
-              <p class="text-white/60 text-sm">Design cycle compression seen in early evaluations</p>
+              <p class="text-white/80 text-sm">Design cycle compression seen in early evaluations</p>
             </div>
             <div class="bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6">
               <p class="text-[#2563EB] text-3xl font-bold mb-2">$775B</p>
-              <p class="text-white/60 text-sm">Global semiconductor market driving AI-native design</p>
+              <p class="text-white/80 text-sm">Global semiconductor market driving AI-native design</p>
             </div>
             <div class="bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6">
               <p class="text-[#2563EB] text-3xl font-bold mb-2">6–8 wks</p>
-              <p class="text-white/60 text-sm">Typical evaluation-to-results timeline</p>
+              <p class="text-white/80 text-sm">Typical evaluation-to-results timeline</p>
             </div>
           </div>
 

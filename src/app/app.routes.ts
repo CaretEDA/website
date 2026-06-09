@@ -6,14 +6,16 @@ import { BlogListComponent } from './blog/blog-list.component';
 import { BlogDetailComponent } from './blog/blog-detail.component';
 import { IFAQComponent } from './ifaq/ifaq.component';
 import { CareersComponent } from './careers/careers.component';
+import { CareersDetailComponent } from './careers/careers-detail.component';
 
 export const routes: Routes = [
-  { path: '',            component: HomeComponent },
-  { path: 'about',       component: AboutComponent },
-  { path: 'demos',       component: DemosComponent },
-  { path: 'blogs',       component: BlogListComponent },
-  { path: 'blogs/:slug', component: BlogDetailComponent },
-  { path: 'ifaq',        component: IFAQComponent },
-  { path: 'careers',     component: CareersComponent },
-  { path: '**',          redirectTo: '' },
+  { path: '',                component: HomeComponent },
+  { path: 'about',           component: AboutComponent },
+  { path: 'demos',           component: DemosComponent },
+  { path: 'blogs',           component: BlogListComponent },
+  { path: 'blogs/:slug',     component: BlogDetailComponent },
+  { path: 'ifaq',            component: IFAQComponent },
+  { path: 'careers',         component: CareersComponent },
+  { path: 'careers/:slug',   component: CareersDetailComponent },
+  { path: '**',              redirectTo: '' },
 ];
