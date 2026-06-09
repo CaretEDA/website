@@ -10,18 +10,18 @@ import { RouterModule } from '@angular/router';
       <div class="text-center w-full max-w-[900px] mx-auto">
 
         <div class="text-left mb-10">
-          <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors">
+          <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors">
             ← Back to Home
           </a>
         </div>
 
         <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Careers</h1>
-        <p class="text-white/70 text-base md:text-xl mb-16 max-w-[600px] mx-auto leading-relaxed">
+        <p class="text-white/90 text-base md:text-xl mb-16 max-w-[600px] mx-auto leading-relaxed">
           We're here to prove that bright minds with shared purpose can reshape entire industries.
         </p>
 
         <!-- Job card -->
-        <div class="bg-[#0f1a30]/70 border border-[#2563EB]/25 rounded-2xl p-6 md:p-10 text-left transition-all duration-300 hover:border-[#2563EB]/50 hover:bg-[#0f1a30]/90 backdrop-blur-sm mb-8">
+        <div class="bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6 md:p-10 text-left transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EB]/80 hover:bg-[#112244] hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)] backdrop-blur-sm mb-8">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
               <h3 class="text-white font-bold text-xl md:text-2xl mb-2">Senior Hardware Design &amp; Verification Engineer</h3>
@@ -39,13 +39,6 @@ import { RouterModule } from '@angular/router';
           </div>
         </div>
 
-        <div class="bg-[#0f1a30]/50 border border-white/15 rounded-2xl p-8 text-center">
-          <p class="text-white/70 text-sm mb-4">Don't see the right role? We're always looking for exceptional talent.</p>
-          <a href="mailto:careers@careteda.com?subject=General%20Career%20Enquiry"
-             class="inline-flex items-center gap-2 text-[#2563EB] text-sm font-semibold no-underline hover:underline cursor-pointer">
-            Send us your profile →
-          </a>
-        </div>
 
       </div>
     </section>

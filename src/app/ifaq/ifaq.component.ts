@@ -12,57 +12,57 @@ import { RouterModule } from '@angular/router';
       <div class="text-center w-full max-w-[900px] mx-auto">
 
         <div class="text-left mb-10">
-          <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors">
+          <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors">
             ← Back to Home
           </a>
         </div>
 
         <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">IFAQ</h1>
-        <p class="text-white/50 text-sm md:text-base mb-4">Infrequently Asked Questions</p>
-        <p class="text-gray-400 text-sm md:text-base mb-16">Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.</p>
+        <p class="text-white/90 text-sm md:text-base mb-4">Infrequently Asked Questions</p>
+        <p class="text-white/90 text-sm md:text-base mb-16">Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.</p>
 
         <div class="text-left space-y-4">
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2">Our Technology</p>
-          <div *ngFor="let faq of technologyFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
+          <div *ngFor="let faq of technologyFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0f1a30]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
+            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
           </div>
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">The Evaluation</p>
-          <div *ngFor="let faq of evaluationFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
+          <div *ngFor="let faq of evaluationFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0f1a30]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
+            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
           </div>
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Security & IP Protection</p>
-          <div *ngFor="let faq of securityFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
+          <div *ngFor="let faq of securityFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0f1a30]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
+            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
           </div>
 
           <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Next Steps</p>
-          <div *ngFor="let faq of nextStepsFaqs" class="border border-[#2563EB]/25 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#2563EB]/50 bg-[#0f1a30]/50">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0f1a30]/60 hover:bg-[#0f1a30]/80 transition-colors duration-200">
+          <div *ngFor="let faq of nextStepsFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
+            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
               <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
               <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
             </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0f1a30]/20 text-gray-400 text-sm leading-relaxed">{{ faq.a }}</div>
+            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
           </div>
 
         </div>
 
         <!-- Footer note -->
-        <p class="mt-16 text-white/40 text-sm italic text-center">
+        <p class="mt-16 text-white/70 text-sm italic text-center">
           Further questions? Reach us at
           <a href="mailto:info@careteda.com" class="text-white font-bold not-italic hover:text-[#2563EB] transition-colors no-underline">info&#64;careteda.com</a>
         </p>

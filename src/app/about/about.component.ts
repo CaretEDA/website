@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="max-w-[800px] mx-auto">
 
-        <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
+        <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
           ← Back to Home
         </a>
 
@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
           About CaretEDA
         </h1>
 
-        <div class="space-y-8 text-gray-300 text-base md:text-lg leading-relaxed">
+        <div class="space-y-8 text-white/95 text-base md:text-lg leading-relaxed">
 
           <p class="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
             CaretEDA automates chip design from natural-language specification to silicon-ready netlist.
@@ -50,17 +50,17 @@ import { RouterModule } from '@angular/router';
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
-            <div class="bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6">
+            <div class="bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6">
               <p class="text-[#2563EB] text-3xl font-bold mb-2">40%</p>
-              <p class="text-white/80 text-sm">Design cycle compression seen in early evaluations</p>
+              <p class="text-white/90 text-sm">Design cycle compression seen in early evaluations</p>
             </div>
-            <div class="bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6">
+            <div class="bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6">
               <p class="text-[#2563EB] text-3xl font-bold mb-2">$775B</p>
-              <p class="text-white/80 text-sm">Global semiconductor market driving AI-native design</p>
+              <p class="text-white/90 text-sm">Global semiconductor market driving AI-native design</p>
             </div>
-            <div class="bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl p-6">
+            <div class="bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6">
               <p class="text-[#2563EB] text-3xl font-bold mb-2">6–8 wks</p>
-              <p class="text-white/80 text-sm">Typical evaluation-to-results timeline</p>
+              <p class="text-white/90 text-sm">Typical evaluation-to-results timeline</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ import { RouterModule } from '@angular/router';
             Request a Demo →
           </a>
           <a [routerLink]="['/ifaq']"
-             class="inline-flex items-center justify-center gap-2 border border-white/10 text-white/60 px-8 py-4 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:border-white/30 hover:text-white">
+             class="inline-flex items-center justify-center gap-2 border border-white/10 text-white/85 px-8 py-4 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:border-white/30 hover:text-white">
             Read the IFAQ
           </a>
         </div>

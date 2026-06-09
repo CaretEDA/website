@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 interface ContentBlock {
@@ -43,15 +43,15 @@ interface BlogPost {
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="max-w-[800px] mx-auto" *ngIf="post">
 
-        <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
+        <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
           ← Back to Blog
         </a>
 
         <h1 class="text-3xl md:text-5xl font-bold mb-4 text-white leading-tight">{{ post.title }}</h1>
-        <p *ngIf="post.subtitle" class="text-white/60 text-base md:text-lg italic mb-6 leading-relaxed">{{ post.subtitle }}</p>
+        <p *ngIf="post.subtitle" class="text-white/95 text-base md:text-lg italic mb-6 leading-relaxed">{{ post.subtitle }}</p>
         <div class="mb-8">
           <p class="text-white text-base font-semibold">{{ post.author }}</p>
-          <p *ngIf="post.authorRole" class="text-white/60 text-sm mt-0.5">{{ post.authorRole }}</p>
+          <p *ngIf="post.authorRole" class="text-white/90 text-sm mt-0.5">{{ post.authorRole }}</p>
         </div>
 
         <!-- Hero Image -->
@@ -60,16 +60,16 @@ interface BlogPost {
         </div>
 
         <!-- Date & Read Time -->
-        <div class="mb-10 text-white/50 text-sm space-y-1">
+        <div class="mb-10 text-white/85 text-sm space-y-1">
           <p>{{ post.date }}</p>
           <p><span *ngIf="post.wordCount">{{ post.wordCount }} · </span>{{ post.readTime }}</p>
         </div>
 
         <!-- Key Takeaways box -->
-        <div *ngIf="post.keyTakeaways && post.keyTakeaways.length" class="rounded-xl bg-[#0a1628]/80 border border-white/10 p-6 md:p-8 mb-10">
+        <div *ngIf="post.keyTakeaways && post.keyTakeaways.length" class="rounded-xl bg-[#0d1f3c] border border-[#2563EB]/50 p-6 md:p-8 mb-10">
           <h3 class="text-white font-bold text-xl mb-5">Key Takeaways</h3>
           <ul class="space-y-4">
-            <li *ngFor="let item of post.keyTakeaways" class="text-gray-300 text-base leading-relaxed flex gap-3 items-start">
+            <li *ngFor="let item of post.keyTakeaways" class="text-white/95 text-base leading-relaxed flex gap-3 items-start">
               <span class="flex-shrink-0 mt-0.5">•</span><span>{{ item }}</span>
             </li>
           </ul>
@@ -84,16 +84,16 @@ interface BlogPost {
             <!-- New blocks format (interleaved paragraphs + bullets) -->
             <ng-container *ngIf="section.blocks && section.blocks.length">
               <ng-container *ngFor="let block of section.blocks">
-                <p *ngIf="block.type === 'p'" class="text-white/85 text-base leading-relaxed">{{ block.text }}</p>
+                <p *ngIf="block.type === 'p'" class="text-white/95 text-base leading-relaxed">{{ block.text }}</p>
                 <ul *ngIf="block.type === 'ul'" class="space-y-2 pl-4">
-                  <li *ngFor="let item of block.items" class="text-gray-300 text-base leading-relaxed flex gap-2">
+                  <li *ngFor="let item of block.items" class="text-white/95 text-base leading-relaxed flex gap-2">
                     <span class="text-[#2563EB] flex-shrink-0">·</span>{{ item }}
                   </li>
                 </ul>
                 <div *ngIf="block.type === 'img'" class="w-full rounded-xl overflow-hidden my-6">
                   <img [src]="block.src" [alt]="block.alt || ''" class="w-full object-cover">
                 </div>
-                <p *ngIf="block.type === 'html'" class="text-white/85 text-base leading-relaxed" [innerHTML]="block.text"></p>
+                <p *ngIf="block.type === 'html'" class="text-white/95 text-base leading-relaxed" [innerHTML]="block.text"></p>
               </ng-container>
             </ng-container>
 
@@ -102,9 +102,9 @@ interface BlogPost {
               <div *ngIf="section.image" class="w-full rounded-xl overflow-hidden my-6">
                 <img [src]="section.image" [alt]="section.imageAlt || ''" class="w-full object-cover">
               </div>
-              <p *ngFor="let para of section.paragraphs" class="text-white/85 text-base leading-relaxed">{{ para }}</p>
+              <p *ngFor="let para of section.paragraphs" class="text-white/95 text-base leading-relaxed">{{ para }}</p>
               <ul *ngIf="section.bullets" class="space-y-2 pl-4">
-                <li *ngFor="let bullet of section.bullets" class="text-gray-300 text-base leading-relaxed flex gap-2">
+                <li *ngFor="let bullet of section.bullets" class="text-white/95 text-base leading-relaxed flex gap-2">
                   <span class="text-[#2563EB] flex-shrink-0">·</span>{{ bullet }}
                 </li>
               </ul>
@@ -114,14 +114,10 @@ interface BlogPost {
         </div>
 
         <!-- Footer CTA -->
-        <div class="mt-16 pt-12 border-t border-white/10 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-          <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors">
+        <div class="mt-16 pt-12 border-t border-white/10">
+          <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors">
             ← Back to Blog
           </a>
-          <button (click)="goToDemos()"
-             class="inline-flex items-center gap-2 bg-[#2563EB] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:bg-[#1D4ED8] cursor-pointer border-0">
-            View All Demos →
-          </button>
         </div>
 
       </div>
@@ -409,20 +405,7 @@ export class BlogDetailComponent implements OnInit {
     },
   };
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
-
-  goToDemos() {
-    this.router.navigate(['/demos']).then(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      }, 100);
-    });
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });

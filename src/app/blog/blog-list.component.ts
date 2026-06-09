@@ -11,24 +11,24 @@ import { CommonModule } from '@angular/common';
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="max-w-[1200px] mx-auto">
 
-        <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/40 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
+        <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
           ← Back to Home
         </a>
 
         <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h1>
-        <p class="text-white/75 text-base md:text-lg mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
+        <p class="text-white/90 text-base md:text-lg mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <a *ngFor="let post of posts"
              [routerLink]="['/blogs', post.slug]"
-             class="group no-underline block bg-[#0f1a30]/40 border border-[#2563EB]/10 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EB]/40 hover:bg-[#0f1a30]/60 hover:shadow-[0_10px_30px_rgba(37,99,235,0.12)] backdrop-blur-sm">
+             class="group no-underline block bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EB]/50 hover:bg-[#112244] hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)] backdrop-blur-sm">
 
             <!-- Thumbnail -->
-            <div class="w-full aspect-video bg-[#0f1a30]/60 overflow-hidden" *ngIf="post.image">
+            <div class="w-full aspect-video bg-[#0d1f3c] overflow-hidden" *ngIf="post.image">
               <img [src]="post.image" [alt]="post.title"
                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             </div>
-            <div class="w-full aspect-video bg-[#0f1a30]/60 flex items-center justify-center" *ngIf="!post.image">
+            <div class="w-full aspect-video bg-[#0d1f3c] flex items-center justify-center" *ngIf="!post.image">
               <span class="text-[#2563EB]/30 text-4xl font-bold">EDA</span>
             </div>
 
@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
             <div class="p-6 md:p-8">
               <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-4">{{ post.date }} · {{ post.readTime }}</p>
               <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#2563EB] transition-colors duration-300">{{ post.title }}</h3>
-              <p class="text-white/75 text-sm leading-relaxed mb-6">{{ post.summary }}</p>
+              <p class="text-white/90 text-sm leading-relaxed mb-6">{{ post.summary }}</p>
               <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
             </div>
 
