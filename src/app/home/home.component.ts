@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ScrollService } from '../shared/scroll.service';
@@ -15,24 +15,41 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   readonly slides = [0, 1, 2];
   private timer: any = null;
   private initTimer: any = null;
+  private carouselListener?: (e: Event) => void;
 
   constructor(
     private scrollService: ScrollService,
     private cdr: ChangeDetectorRef,
+    private ngZone: NgZone,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      if (this.scrollService.pendingSection) {
+      if (this.scrollService.pendingSlide !== null) {
+        this.currentSlide = this.scrollService.pendingSlide;
+        this.scrollService.pendingSlide = null;
+        this.cdr.detectChanges();
+      } else if (this.scrollService.pendingSection) {
         this.scrollService.pendingSection = null;
       }
+
+      this.carouselListener = (e: Event) => {
+        this.ngZone.run(() => {
+          this.goToSlide((e as CustomEvent).detail);
+        });
+      };
+      window.addEventListener('carousel-goto', this.carouselListener);
+
       this.startAutoplay();
     }
   }
 
   ngOnDestroy() {
     this.stopAutoplay();
+    if (isPlatformBrowser(this.platformId) && this.carouselListener) {
+      window.removeEventListener('carousel-goto', this.carouselListener);
+    }
   }
 
   startAutoplay() {

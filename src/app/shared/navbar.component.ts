@@ -152,16 +152,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.isHomePage && this.activeSection === link.id;
   }
 
+  private readonly slideMap: Record<string, number> = { home: 0, blog: 1 };
+
   handleNav(link: { id: string; route: string | null }) {
     this.isMobileMenuOpen = false;
     if (link.route) {
       this.router.navigate([link.route]);
     } else if (this.isHomePage && isPlatformBrowser(this.platformId)) {
-      const el = document.getElementById(link.id);
-      if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      const slideIndex = this.slideMap[link.id];
+      if (slideIndex !== undefined) {
+        this.scrollService.pendingSlide = slideIndex;
+        window.dispatchEvent(new CustomEvent('carousel-goto', { detail: slideIndex }));
+      } else {
+        const el = document.getElementById(link.id);
+        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
       this.activeSection = link.id;
       setTimeout(() => this.updateIndicator(), 0);
     } else {
+      this.scrollService.pendingSlide = this.slideMap[link.id] ?? null;
       this.scrollService.pendingSection = link.id;
       this.router.navigate(['/']);
     }
