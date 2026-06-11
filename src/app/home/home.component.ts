@@ -15,6 +15,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   readonly slides = [0, 1, 2];
   private timer: any = null;
   private initTimer: any = null;
+  private moveTimer: any = null;
   private carouselListener?: (e: Event) => void;
 
   constructor(
@@ -47,6 +48,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.stopAutoplay();
+    if (this.moveTimer !== null) { clearTimeout(this.moveTimer); this.moveTimer = null; }
     if (isPlatformBrowser(this.platformId) && this.carouselListener) {
       window.removeEventListener('carousel-goto', this.carouselListener);
     }
@@ -69,6 +71,20 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   stopAutoplay() {
     if (this.timer !== null)     { clearInterval(this.timer);    this.timer = null; }
     if (this.initTimer !== null) { clearTimeout(this.initTimer); this.initTimer = null; }
+  }
+
+  onMouseMove() {
+    this.stopAutoplay();
+    if (this.moveTimer !== null) { clearTimeout(this.moveTimer); }
+    this.moveTimer = setTimeout(() => {
+      this.moveTimer = null;
+      this.startAutoplay();
+    }, 6000);
+  }
+
+  onMouseLeave() {
+    if (this.moveTimer !== null) { clearTimeout(this.moveTimer); this.moveTimer = null; }
+    this.startAutoplay();
   }
 
   goToSlide(index: number) {

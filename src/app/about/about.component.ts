@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
 
         <div class="space-y-8 text-white/95 text-base md:text-lg leading-relaxed">
 
-          <p class="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
+          <p>
             CaretEDA automates chip design from natural-language specification to silicon-ready netlist.
             Built for semiconductor engineering teams who need to compress tapeout timelines, our
             Spec-to-Netlist™ flow integrates open-source and commercial EDA tools without locking you
