@@ -32,11 +32,11 @@
         </section>
 
         <!-- SLIDE 2: BLOG -->
-        <section class="slide-scroll shrink-0 bg-black text-white overflow-y-auto flex items-center justify-center py-20 px-4 md:px-8"
+        <section class="slide-scroll shrink-0 bg-black text-white overflow-y-auto flex flex-col items-center px-4 md:px-8 pt-24 pb-28"
                  style="width:100vw; height:100vh;">
-            <div class="text-center w-full max-w-[1200px]">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4 pb-2 mt-24 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h2>
-                <p class="text-white/90 text-sm md:text-base mb-12 md:mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
+            <div class="text-center w-full max-w-[1200px] flex flex-col flex-1">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h2>
+                <p class="text-white/90 text-sm md:text-base mb-8">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
                     <a [routerLink]="['/blogs', 'verilator']" class="group no-underline block bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 hover:bg-[#112244] hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)] backdrop-blur-sm">
                         <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-4">May 2026 · 5 min read</p>
@@ -57,7 +57,7 @@
                         <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
                     </a>
                 </div>
-                <div class="mt-10 mb-16">
+                <div class="mt-auto pt-8">
                     <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 bg-[#2563EB] text-white px-8 py-3 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-[#1D4ED8]">
                         View All Blogs →
                     </a>
