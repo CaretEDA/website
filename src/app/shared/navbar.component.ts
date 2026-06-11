@@ -72,7 +72,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   navLinks: { id: string; label: string; route: string | null }[] = [
     { id: 'home',    label: 'Home',     route: null       },
     { id: 'team',    label: 'Team',     route: '/team'    },
-    { id: 'blog',    label: 'Blog',     route: null       },
+    { id: 'blog',    label: 'Blog',     route: '/blogs'   },
     { id: 'about',   label: 'About',    route: '/about'   },
     { id: 'ifaq',    label: 'IFAQ',     route: '/ifaq'    },
     { id: 'careers', label: 'Careers',  route: '/careers' },
@@ -116,7 +116,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onScroll() {
     if (!this.isHomePage || !isPlatformBrowser(this.platformId)) return;
     const scrollY = window.scrollY + window.innerHeight * 0.4;
-    for (const id of ['blog', 'home']) {
+    for (const id of ['home']) {
       const el = document.getElementById(id);
       if (el && el.offsetTop <= scrollY) {
         if (this.activeSection !== id) {
@@ -152,7 +152,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.isHomePage && this.activeSection === link.id;
   }
 
-  private readonly slideMap: Record<string, number> = { home: 0, blog: 1 };
+  private readonly slideMap: Record<string, number> = { home: 0 };
 
   handleNav(link: { id: string; route: string | null }) {
     this.isMobileMenuOpen = false;

@@ -8,12 +8,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
+    <section class="glow-bg min-h-screen bg-black text-white pt-28 pb-40 px-4 md:px-8">
       <div class="max-w-[1200px] mx-auto">
-
-        <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors mb-12">
-          ← Back to Home
-        </a>
 
         <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h1>
         <p class="text-white/90 text-base md:text-lg mb-16">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
@@ -33,10 +29,10 @@ import { CommonModule } from '@angular/common';
             </div>
 
             <!-- Content -->
-            <div class="p-6 md:p-8">
-              <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-4">{{ post.date }} · {{ post.readTime }}</p>
-              <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-4 group-hover:text-[#2563EB] transition-colors duration-300">{{ post.title }}</h3>
-              <p class="text-white/90 text-sm leading-relaxed mb-6">{{ post.summary }}</p>
+            <div class="p-4 md:p-5">
+              <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2">{{ post.date }} · {{ post.readTime }}</p>
+              <h3 class="text-white font-bold text-sm md:text-base leading-snug mb-2 group-hover:text-[#2563EB] transition-colors duration-300">{{ post.title }}</h3>
+              <p class="text-white/90 text-xs leading-relaxed mb-4">{{ post.summary }}</p>
               <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
             </div>
 

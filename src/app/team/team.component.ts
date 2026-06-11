@@ -10,12 +10,6 @@ import { RouterModule } from '@angular/router';
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="text-center w-full max-w-[1200px] mx-auto">
 
-        <div class="text-left mb-10">
-          <a [routerLink]="['/']" class="inline-flex items-center gap-2 text-white/70 hover:text-[#2563EB] text-sm no-underline transition-colors">
-            ← Back to Home
-          </a>
-        </div>
-
         <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Team</h1>
         <p class="text-white/90 text-base md:text-xl mb-16 max-w-[600px] mx-auto leading-relaxed">
           The people building the future of AI-native chip design.

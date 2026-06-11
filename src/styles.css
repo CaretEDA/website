@@ -64,6 +64,17 @@ body {
 .slide-scroll::-webkit-scrollbar { display: none; }
 .slide-scroll { scrollbar-width: none; -ms-overflow-style: none; }
 
+/* ===== BLUE RADIAL GLOW BEHIND CARDS ===== */
+.glow-bg { position: relative; }
+.glow-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(37, 99, 235, 0.28) 0%, rgba(37, 99, 235, 0.10) 45%, transparent 75%);
+}
+.glow-bg > * { position: relative; }
+
 /* ===== FLOATING PILL NAVBAR ===== */
 .navbar-pill {
     background: rgba(12, 18, 40, 0.35);
