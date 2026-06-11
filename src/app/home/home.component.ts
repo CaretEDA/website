@@ -27,10 +27,13 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
+      let autoplayDelay = 2000;
+
       if (this.scrollService.pendingSlide !== null) {
         this.currentSlide = this.scrollService.pendingSlide;
         this.scrollService.pendingSlide = null;
         this.cdr.detectChanges();
+        autoplayDelay = 6000;
       } else if (this.scrollService.pendingSection) {
         this.scrollService.pendingSection = null;
       }
@@ -42,7 +45,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       };
       window.addEventListener('carousel-goto', this.carouselListener);
 
-      this.startAutoplay();
+      this.startAutoplay(autoplayDelay);
     }
   }
 
@@ -54,18 +57,17 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  startAutoplay() {
+  startAutoplay(initialDelay = 2000) {
     this.stopAutoplay();
     const doSlide = () => {
       this.currentSlide = (this.currentSlide + 1) % this.slideCount;
       this.cdr.detectChanges();
     };
-    // First slide after 2 s, then every 4 s
     this.initTimer = setTimeout(() => {
       this.initTimer = null;
       doSlide();
       this.timer = setInterval(doSlide, 4000);
-    }, 2000);
+    }, initialDelay);
   }
 
   stopAutoplay() {
@@ -78,7 +80,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     if (this.moveTimer !== null) { clearTimeout(this.moveTimer); }
     this.moveTimer = setTimeout(() => {
       this.moveTimer = null;
-      this.startAutoplay();
+      this.startAutoplay(0);
     }, 6000);
   }
 
@@ -90,18 +92,18 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   goToSlide(index: number) {
     this.currentSlide = index;
     this.cdr.detectChanges();
-    this.startAutoplay();
+    this.startAutoplay(6000);
   }
 
   prevSlide() {
     this.currentSlide = (this.currentSlide - 1 + this.slideCount) % this.slideCount;
     this.cdr.detectChanges();
-    this.startAutoplay();
+    this.startAutoplay(6000);
   }
 
   nextSlide() {
     this.currentSlide = (this.currentSlide + 1) % this.slideCount;
     this.cdr.detectChanges();
-    this.startAutoplay();
+    this.startAutoplay(6000);
   }
 }
