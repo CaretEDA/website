@@ -89,6 +89,25 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     this.startAutoplay();
   }
 
+  private touchStartX = 0;
+
+  onTouchStart(e: TouchEvent) {
+    this.touchStartX = e.changedTouches[0].screenX;
+    this.stopAutoplay();
+  }
+
+  onTouchEnd(e: TouchEvent) {
+    const deltaX = e.changedTouches[0].screenX - this.touchStartX;
+    const threshold = 50;
+    if (deltaX <= -threshold) {
+      this.nextSlide();
+    } else if (deltaX >= threshold) {
+      this.prevSlide();
+    } else {
+      this.startAutoplay(6000);
+    }
+  }
+
   goToSlide(index: number) {
     this.currentSlide = index;
     this.cdr.detectChanges();

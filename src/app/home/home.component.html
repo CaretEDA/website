@@ -1,7 +1,9 @@
 <!-- ===== HORIZONTAL CAROUSEL ===== -->
-<div class="relative overflow-hidden bg-black" style="width:100vw; height:100vh; transform: translateZ(0); -webkit-transform: translateZ(0); isolation: isolate;"
+<div class="relative overflow-hidden bg-black" style="width:100vw; height:100vh; height:100dvh; transform: translateZ(0); -webkit-transform: translateZ(0); isolation: isolate;"
      (mousemove)="onMouseMove()"
-     (mouseleave)="onMouseLeave()">
+     (mouseleave)="onMouseLeave()"
+     (touchstart)="onTouchStart($event)"
+     (touchend)="onTouchEnd($event)">
 
     <!-- Slide track — moves left/right -->
     <div class="flex h-full bg-black transition-transform duration-700 ease-in-out"
@@ -10,7 +12,7 @@
 
         <!-- SLIDE 1: HERO -->
         <section class="relative shrink-0 bg-black flex items-center justify-center overflow-hidden"
-                 style="width:100vw; height:100vh;">
+                 style="width:100vw; height:100vh; height:100dvh;">
             <img src="assets/hero-background-clean.png" alt="CaretEDA Hero Background"
                 class="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-70">
             <div class="absolute inset-0 bg-black/20 z-0"></div>
@@ -42,7 +44,7 @@
 
         <!-- SLIDE 2: BLOG -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white flex flex-col items-center justify-center px-4 md:px-8 pt-28 pb-32 overflow-hidden"
-                 style="width:100vw; height:100vh;">
+                 style="width:100vw; height:100vh; height:100dvh;">
 
             <div class="w-full max-w-[980px] mx-auto flex flex-col gap-10 relative">
 
@@ -80,7 +82,7 @@
 
         <!-- SLIDE 3: TECHNICAL ADVISORS -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-center justify-center py-20 px-4 md:px-8"
-                 style="width:100vw; height:100vh;">
+                 style="width:100vw; height:100vh; height:100dvh;">
             <div class="text-center w-full max-w-[1200px] mx-auto">
 
                 <h2 class="text-3xl md:text-5xl font-bold mb-12 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Latest News</h2>
@@ -113,7 +115,7 @@
 
         <!-- SLIDE 4: DAC EVENT -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-center justify-center py-20 px-4 md:px-8"
-                 style="width:100vw; height:100vh;">
+                 style="width:100vw; height:100vh; height:100dvh;">
             <div class="relative text-center w-full max-w-[800px] mx-auto">
 
                 <p class="text-[#2563EB] uppercase tracking-[0.25em] text-xs md:text-sm font-semibold mb-6">Event</p>
