@@ -34,6 +34,11 @@ export class NewsComponent implements OnInit {
       date: 'June 2026',
       title: 'CaretEDA leadership will be at DAC',
       summary: 'Our leadership team is heading to the Design Automation Conference. Come meet us to see how our AI-native Spec-to-Netlist™ flow is reshaping chip design.'
+    },
+    {
+      date: 'May 2026',
+      title: 'CaretEDA welcomes new Technical Advisors',
+      summary: 'We are thrilled to welcome our esteemed Technical Advisors, Nithya Raghavan and Sridhar Narayanan, to the team. Their deep industry expertise, visionary guidance, and battle-tested engineering experience will be instrumental as we scale our technology and shape the future of our platform.'
     }
   ];
 }
