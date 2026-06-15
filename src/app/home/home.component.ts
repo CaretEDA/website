@@ -11,8 +11,8 @@ import { ScrollService } from '../shared/scroll.service';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   currentSlide = 0;
-  readonly slideCount = 3;
-  readonly slides = [0, 1, 2];
+  readonly slideCount = 4;
+  readonly slides = [0, 1, 2, 3];
   private timer: any = null;
   private initTimer: any = null;
   private moveTimer: any = null;
