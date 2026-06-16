@@ -62,8 +62,8 @@ import { RouterModule } from '@angular/router';
 
           <p>
             We are headquartered in Campbell, California, with engineering talent distributed globally.
-            CaretEDA is backed by decades of combined EDA experience and is a Google Cloud Partner
-            Advantage member.
+            CaretEDA is backed by decades of combined EDA experience and is a member of several startup
+            and partner programs at leading cloud and AI companies.
           </p>
 
         </div>

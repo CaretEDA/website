@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
       <div class="max-w-[1000px] mx-auto">
 
         <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">News</h1>
-        <p class="text-white/90 text-base md:text-lg mb-12">The latest announcements, milestones, and updates from CaretEDA.</p>
+        <p class="text-white/90 text-base md:text-lg mb-12">The latest announcements from CaretEDA.</p>
 
         <div class="flex flex-col gap-6">
           <article *ngFor="let item of news"
@@ -30,11 +30,6 @@ export class NewsComponent implements OnInit {
   ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
 
   news = [
-    {
-      date: 'June 2026',
-      title: 'CaretEDA leadership will be at DAC',
-      summary: 'Our leadership team is heading to the Design Automation Conference. Come meet us to see how our AI-native Spec-to-Netlist™ flow is reshaping chip design.'
-    },
     {
       date: 'May 2026',
       title: 'CaretEDA welcomes new Technical Advisors',
