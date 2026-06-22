@@ -73,10 +73,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { id: 'home',    label: 'Home',     route: null       },
     { id: 'team',    label: 'Team',     route: '/team'    },
     { id: 'blog',    label: 'Blog',     route: '/blogs'   },
-    { id: 'news',    label: 'News',     route: '/news'    },
-    { id: 'about',   label: 'About',    route: '/about'   },
     { id: 'ifaq',    label: 'IFAQ',     route: '/ifaq'    },
+    { id: 'news',    label: 'News',     route: '/news'    },
     { id: 'careers', label: 'Careers',  route: '/careers' },
+    { id: 'about',   label: 'About',    route: '/about'   },
   ];
 
   constructor(
