@@ -73,26 +73,25 @@ export class IFAQComponent implements OnInit {
   toggle(id: string) { this.expanded[id] = !this.expanded[id]; }
 
   technologyFaqs = [
-    { id: 't1', q: 'What does CaretEDA do?', a: 'CaretEDA delivers an AI-native chip design platform for semiconductor engineering teams. Our Spec-to-Netlist™ flow takes a design from initial specification through to netlist generation — compressing tapeout timelines, improving first-pass quality, and acting as a force multiplier for scarce engineering talent.' },
-    { id: 't2', q: 'Is the Spec-to-Netlist™ platform available to evaluate?', a: 'Yes, an early availability version is available to limited customers. Core functionality is stable and evaluation-ready.' },
-    { id: 't3', q: 'Which design nodes and tool environments do you support?', a: 'CaretEDA is tool-agnostic by design. Our Tool Optionality pillar integrates open-source and commercial EDA tools side by side, so the platform fits into your existing flow regardless of node or toolchain.' },
+    { id: 't1', q: 'What does CaretEDA do?', a: 'CaretEDA develops an AI-native chip design platform for semiconductor engineering teams. Our Spec-to-Netlist™ flow takes a design from initial specification through to netlist generation — compressing tapeout timelines, improving first-pass quality, and acting as a force multiplier for scarce engineering talent.' },
+    { id: 't2', q: 'Is the Spec-to-Netlist™ platform available to evaluate?', a: 'Yes, core functionality is stable and evaluation-ready since April 2026.' },
+    { id: 't3', q: 'Which design nodes and tool environments do you support?', a: 'CaretEDA is tool-agnostic by design. Our Tool Optionality pillar integrates open-source and commercial EDA tools side by side, so the platform fits into your existing flow regardless of node or toolchain. Specific compatibility questions are best discussed during a discovery call.' },
   ];
 
   evaluationFaqs = [
-    { id: 'e1', q: 'What does a CaretEDA evaluation look like?', a: 'A typical evaluation runs 6–8 weeks. We jointly agree to timelines & success criterion, hold weekly check-ins, and define the flows you will use.' },
-    { id: 'e2', q: 'What do you need from us to get started?', a: 'We ask for representative design workloads, one or two internal champions from your design engineering team, and roughly 4–6 hours per week of engineering engagement.' },
-    { id: 'e3', q: 'Is there a cost to evaluate?', a: 'Evaluations are offered at no charge for up to 6 weeks. Teams using AI-augmented flows have seen design cycle phases compress by up to 40% before any commercial discussion takes place.' },
-    { id: 'e4', q: 'How do you measure success?', a: 'Success metrics are agreed before the evaluation begins. Common measures include reduction in iteration cycles, improvement in PPA outcomes, schedule compression against a baseline, and engineering hours saved.' },
+    { id: 'e1', q: 'What does a CaretEDA evaluation look like?', a: 'A typical evaluation runs 6–8 weeks. We jointly agree to timelines & success criterion, hold weekly check-ins, and define the flows you will use, including what components of the solution you will evaluate. Evaluations are conducted on your premises; you download and install the CaretEDA agentic tool and open-source stack to get access.' },
+    { id: 'e2', q: 'What do you need from us to get started?', a: 'We ask for representative design workloads, one or two internal champions from your design engineering team, and roughly 4–6 hours per week of engineering engagement. Contacts in IT teams will be required to ensure LLM configuration as needed. CaretEDA will provide technical support on tool-related issues during the evaluation.' },
+    { id: 'e3', q: 'Is there a cost to evaluate?', a: 'Evaluations are offered at no charge for up to 6 weeks. Our goal is to demonstrate measurable impact — teams using AI-augmented flows have seen design cycle phases compress by up to 40% before any commercial discussion takes place.' },
+    { id: 'e4', q: 'How do you measure success?', a: 'Success metrics are agreed before the evaluation begins. Common measures include reduction in iteration cycles, improvement in PPA (power-performance-area) outcomes, schedule compression against a baseline, and engineering hours saved. We track and report against these throughout.' },
   ];
 
   securityFaqs = [
     { id: 's1', q: 'How is our design IP protected during evaluation?', a: 'Evaluation data is kept strictly within your environment and is never used for model training or shared with any third party.' },
-    { id: 's2', q: 'Can we run the evaluation on premises?', a: 'Yes. CaretEDA supports both cloud-hosted and on-premises deployments. For teams with strict IP policies or air-gap requirements, an on-premises evaluation is fully supported.' },
   ];
 
   nextStepsFaqs = [
     { id: 'n1', q: 'What does commercial pricing look like?', a: 'Pricing is based on team size and deployment scope. Specific details are best discussed in our discovery call.' },
     { id: 'n2', q: 'What happens after the evaluation?', a: 'We review the results together and discuss whether commercial deployment makes sense for your organization. There is no obligation to proceed.' },
-    { id: 'n3', q: 'How do we get started?', a: 'Contact us at info@careteda.com to schedule a 1-hour discovery call. We will qualify the opportunity together and kick off within days.' },
+    { id: 'n3', q: 'How do we get started?', a: 'Contact us at info@careteda.com to schedule a 1-hour discovery call. We will qualify the opportunity together and, if there is a fit, agree to evaluation scope and kick off within days.' },
   ];
 }
