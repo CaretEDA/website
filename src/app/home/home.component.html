@@ -14,7 +14,8 @@
             <img src="assets/hero-background-clean.png" alt="CaretEDA Hero Background"
                 class="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-70">
             <div class="absolute inset-0 bg-black/20 z-0"></div>
-            <div class="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20 p-6">
+            <div class="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20 p-6"
+                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
                 <div class="flex-shrink-0 animate-fade-in-down">
                     <img src="assets/caret-symbol-hd.svg" alt="CaretEDA Logo" class="w-[180px] md:w-[350px] drop-shadow-2xl">
                 </div>
@@ -44,7 +45,8 @@
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white flex flex-col items-center justify-start md:justify-center px-4 md:px-8 pt-28 pb-32 overflow-y-auto"
                  style="width:100vw; height:100vh; height:100dvh;">
 
-            <div class="w-full max-w-[980px] mx-auto flex flex-col gap-6 md:gap-10 relative">
+            <div class="w-full max-w-[980px] mx-auto flex flex-col gap-6 md:gap-10 relative"
+                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
 
                 <!-- Section heading -->
                 <div class="text-center relative">
@@ -81,7 +83,8 @@
         <!-- SLIDE 3: TECHNICAL ADVISORS -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-start md:items-center justify-center pt-28 pb-20 md:py-20 px-4 md:px-8"
                  style="width:100vw; height:100vh; height:100dvh;">
-            <div class="text-center w-full max-w-[1200px] mx-auto">
+            <div class="text-center w-full max-w-[1200px] mx-auto"
+                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
 
                 <h2 class="text-2xl md:text-5xl font-bold mb-8 md:mb-12 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Latest News</h2>
 
@@ -114,7 +117,8 @@
         <!-- SLIDE 4: DAC EVENT -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-start md:items-center justify-center pt-28 pb-20 md:py-20 px-4 md:px-8"
                  style="width:100vw; height:100vh; height:100dvh;">
-            <div class="relative text-center w-full max-w-[800px] mx-auto">
+            <div class="relative text-center w-full max-w-[800px] mx-auto"
+                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
 
                 <p class="text-[#2563EB] uppercase tracking-[0.25em] text-xs md:text-sm font-semibold mb-6">Event</p>
 
@@ -151,10 +155,7 @@
         </button>
 
         <!-- Progress pills -->
-        <div class="flex items-center gap-2.5 px-6 py-4"
-             (mouseenter)="onSelectorActivity()"
-             (mousemove)="onSelectorActivity()"
-             (mouseleave)="onSelectorLeave()">
+        <div class="flex items-center gap-2.5">
             <button *ngFor="let idx of slides"
                     (click)="goToSlide(idx)"
                     [attr.aria-label]="'Slide ' + (idx + 1)"

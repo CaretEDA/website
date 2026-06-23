@@ -81,9 +81,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     if (this.timer !== null) { clearTimeout(this.timer); this.timer = null; }
   }
 
-  // Hovering / moving over the slide-selector pills holds the carousel.
+  // Hovering / moving over a slide's content (text, CTAs like "Schedule a Demo"
+  // or "Read Article") holds the carousel so it can be read or clicked.
   // After 3s of no movement we resume anyway, even if the cursor stays put.
-  onSelectorActivity() {
+  onContentActivity() {
     this.pause();
     this.clearIdle();
     this.idleTimer = setTimeout(() => {
@@ -92,7 +93,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     }, 3000);
   }
 
-  onSelectorLeave() {
+  onContentLeave() {
     this.clearIdle();
     this.resume();
   }
