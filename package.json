@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production && node scripts/inject-og.mjs && angular-cli-ghpages --dir=dist/corporate-website/browser"
   },
   "prettier": {
     "printWidth": 100,
