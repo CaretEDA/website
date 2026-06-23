@@ -146,7 +146,7 @@ export class BlogDetailComponent implements OnInit {
           ]
         },
         {
-          image: 'assets/blogs/verilator-image3.png',
+          image: 'assets/blogs/verilator-image2.png',
           imageAlt: 'The Verilator Ecosystem',
           paragraphs: [
             'How did a project born at Digital Equipment Corporation in 1994 end up at the center of chip verification for some of the world\'s most demanding silicon?',
@@ -159,7 +159,7 @@ export class BlogDetailComponent implements OnInit {
           ]
         },
         {
-          image: 'assets/blogs/verilator-image2.png',
+          image: 'assets/blogs/verilator-image3.png',
           imageAlt: 'The Chip Design Flow',
           paragraphs: [
             'RTL simulation lets designers describe hardware in Verilog or SystemVerilog, then exercise it against testbenches modeling real-world input. The quality and speed of this simulation directly determines how much of the design space a team can explore before committing to silicon. Traditional commercial simulators are powerful but expensive — license costs scale with engineers, cores, and parallel regressions. Verilator, being fully open sourced, lets teams scale with compute instead of licenses.',
