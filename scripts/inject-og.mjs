@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, '..', 'dist', 'corporate-website', 'browser');
-const BASE = 'https://caretedaemmanuel-droid.github.io/careteda-website-test';
+const BASE = 'https://careteda.com';
 const DEFAULT_IMAGE = 'assets/careteda-logo-hd.png';
 
 const template = readFileSync(join(DIST, 'index.html'), 'utf8');
