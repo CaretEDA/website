@@ -64,6 +64,19 @@ body {
 .slide-scroll::-webkit-scrollbar { display: none; }
 .slide-scroll { scrollbar-width: none; -ms-overflow-style: none; }
 
+/* ===== CAROUSEL PROGRESS PILL ===== */
+.carousel-progress {
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation-name: carouselFill;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+@keyframes carouselFill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
 /* ===== BLUE RADIAL GLOW BEHIND CARDS ===== */
 .glow-bg { position: relative; }
 .glow-bg::before {

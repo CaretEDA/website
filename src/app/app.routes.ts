@@ -9,6 +9,7 @@ import { CareersComponent } from './careers/careers.component';
 import { CareersDetailComponent } from './careers/careers-detail.component';
 import { TeamComponent } from './team/team.component';
 import { NewsComponent } from './news/news.component';
+import { NewsDetailComponent } from './news/news-detail.component';
 
 export const routes: Routes = [
   { path: '',                component: HomeComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'team',            component: TeamComponent },
   { path: 'demos',           component: DemosComponent },
   { path: 'news',            component: NewsComponent },
+  { path: 'news/technical-advisors', component: NewsDetailComponent },
   { path: 'blogs',           component: BlogListComponent },
   { path: 'blogs/:slug',     component: BlogDetailComponent },
   { path: 'ifaq',            component: IFAQComponent },

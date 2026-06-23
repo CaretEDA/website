@@ -13,9 +13,14 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   currentSlide = 0;
   readonly slideCount = 4;
   readonly slides = [0, 1, 2, 3];
+  readonly slideDurationMs = 5000;
+  // Bumped on every slide change so the progress pill restarts its animation.
+  cycleId = 0;
+  paused = false;
   private timer: any = null;
-  private initTimer: any = null;
-  private moveTimer: any = null;
+  private idleTimer: any = null;
+  private slideStartedAt = 0;
+  private elapsedBeforePause = 0;
   private carouselListener?: (e: Event) => void;
 
   constructor(
@@ -27,13 +32,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      let autoplayDelay = 2000;
-
       if (this.scrollService.pendingSlide !== null) {
         this.currentSlide = this.scrollService.pendingSlide;
         this.scrollService.pendingSlide = null;
         this.cdr.detectChanges();
-        autoplayDelay = 6000;
       } else if (this.scrollService.pendingSection) {
         this.scrollService.pendingSection = null;
       }
@@ -45,48 +47,80 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       };
       window.addEventListener('carousel-goto', this.carouselListener);
 
-      this.startAutoplay(autoplayDelay);
+      this.scheduleNext();
     }
   }
 
   ngOnDestroy() {
     this.stopAutoplay();
-    if (this.moveTimer !== null) { clearTimeout(this.moveTimer); this.moveTimer = null; }
+    this.clearIdle();
     if (isPlatformBrowser(this.platformId) && this.carouselListener) {
       window.removeEventListener('carousel-goto', this.carouselListener);
     }
   }
 
-  startAutoplay(initialDelay = 2000) {
+  // Start the countdown for the current slide. Skips the timer while paused
+  // (e.g. cursor hovering the carousel); resume() picks it up again.
+  private scheduleNext() {
     this.stopAutoplay();
-    const doSlide = () => {
-      this.currentSlide = (this.currentSlide + 1) % this.slideCount;
-      this.cdr.detectChanges();
-    };
-    this.initTimer = setTimeout(() => {
-      this.initTimer = null;
-      doSlide();
-      this.timer = setInterval(doSlide, 4000);
-    }, initialDelay);
+    this.cycleId++;
+    this.elapsedBeforePause = 0;
+    if (!this.paused) {
+      this.slideStartedAt = Date.now();
+      this.timer = setTimeout(() => this.advance(), this.slideDurationMs);
+    }
+  }
+
+  private advance() {
+    this.currentSlide = (this.currentSlide + 1) % this.slideCount;
+    this.cdr.detectChanges();
+    this.scheduleNext();
   }
 
   stopAutoplay() {
-    if (this.timer !== null)     { clearInterval(this.timer);    this.timer = null; }
-    if (this.initTimer !== null) { clearTimeout(this.initTimer); this.initTimer = null; }
+    if (this.timer !== null) { clearTimeout(this.timer); this.timer = null; }
   }
 
-  onMouseMove() {
+  // Hovering / moving over the slide-selector pills holds the carousel.
+  // After 3s of no movement we resume anyway, even if the cursor stays put.
+  onSelectorActivity() {
+    this.pause();
+    this.clearIdle();
+    this.idleTimer = setTimeout(() => {
+      this.idleTimer = null;
+      this.resume();
+    }, 3000);
+  }
+
+  onSelectorLeave() {
+    this.clearIdle();
+    this.resume();
+  }
+
+  private clearIdle() {
+    if (this.idleTimer !== null) { clearTimeout(this.idleTimer); this.idleTimer = null; }
+  }
+
+  // Freeze the timer and the progress pill where they are.
+  private pause() {
+    if (this.paused) return;
+    if (this.timer !== null) {
+      this.elapsedBeforePause += Date.now() - this.slideStartedAt;
+      this.stopAutoplay();
+    }
+    this.paused = true;
+    this.cdr.detectChanges();
+  }
+
+  // Continue from the remaining time.
+  private resume() {
+    if (!this.paused) return;
+    this.paused = false;
     this.stopAutoplay();
-    if (this.moveTimer !== null) { clearTimeout(this.moveTimer); }
-    this.moveTimer = setTimeout(() => {
-      this.moveTimer = null;
-      this.startAutoplay(0);
-    }, 6000);
-  }
-
-  onMouseLeave() {
-    if (this.moveTimer !== null) { clearTimeout(this.moveTimer); this.moveTimer = null; }
-    this.startAutoplay();
+    const remaining = Math.max(0, this.slideDurationMs - this.elapsedBeforePause);
+    this.slideStartedAt = Date.now();
+    this.timer = setTimeout(() => this.advance(), remaining);
+    this.cdr.detectChanges();
   }
 
   private touchStartX = 0;
@@ -104,25 +138,25 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     } else if (deltaX >= threshold) {
       this.prevSlide();
     } else {
-      this.startAutoplay(6000);
+      this.scheduleNext();
     }
   }
 
   goToSlide(index: number) {
     this.currentSlide = index;
     this.cdr.detectChanges();
-    this.startAutoplay(6000);
+    this.scheduleNext();
   }
 
   prevSlide() {
     this.currentSlide = (this.currentSlide - 1 + this.slideCount) % this.slideCount;
     this.cdr.detectChanges();
-    this.startAutoplay(6000);
+    this.scheduleNext();
   }
 
   nextSlide() {
     this.currentSlide = (this.currentSlide + 1) % this.slideCount;
     this.cdr.detectChanges();
-    this.startAutoplay(6000);
+    this.scheduleNext();
   }
 }

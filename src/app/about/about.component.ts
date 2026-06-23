@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
           About CaretEDA
         </h1>
 
-        <div class="space-y-8 text-white/95 text-base md:text-lg leading-relaxed">
+        <div class="space-y-8 text-white/95 text-sm md:text-base leading-relaxed">
 
           <p>
             CaretEDA automates chip design from natural-language specification to silicon-ready netlist.
