@@ -144,7 +144,13 @@ export class BlogDetailComponent implements OnInit {
       author: 'Sashi Obilisetty',
       authorRole: 'Co-founder & CEO, CaretEDA, Inc.',
       heroImage: 'assets/blogs/spec-bottleneck-hero.png',
-      summary: 'Why agentic chip design breaks when ambiguous specs are silently resolved, and why formalization has to sit before RTL generation.',
+      summary:
+        'Why agentic chip design breaks when ambiguous specs are silently resolved, and why formalization has to sit before RTL generation.',
+      keyTakeaways: [
+        'Fluency is not the same as completeness.',
+        'The ambiguity lives in the spec and not in the model.',
+        "Human engineers are remarkably good at reading ambiguous specs correctly, and remarkably bad at noticing they're doing it.",
+      ],
       sections: [
         {
           blocks: [
