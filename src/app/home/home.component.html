@@ -55,23 +55,23 @@
                 </div>
 
                 <!-- Featured article card: image left, content right -->
-                <a [routerLink]="['/blogs', 'spec-bottleneck']"
+                <a [routerLink]="['/blogs', 'dac2026-oss-blog']"
                    class="group relative no-underline grid grid-cols-1 md:grid-cols-2 bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:bg-[#112244] hover:shadow-[0_10px_40px_rgba(37,99,235,0.2)] backdrop-blur-sm">
 
                     <!-- Image (left half) -->
                     <div class="h-32 md:h-auto overflow-hidden">
-                        <img src="assets/blogs/spec-bottleneck-hero.png" alt="The Spec Is the Bottleneck, Not the Silicon"
+                        <img src="assets/blogs/dac2026-oss-hero.svg" alt="Open Source EDA Has Arrived. Now It Needs a Partner You Can Call."
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
 
                     <!-- Content (right half) -->
                     <div class="p-5 md:p-10 flex flex-col justify-center text-left">
-                        <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2 md:mb-3">July 2026 · 7 min read</p>
+                        <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2 md:mb-3">July 2026 · 5 min read</p>
                         <h3 class="text-white font-bold text-lg md:text-2xl leading-snug mb-2 md:mb-4 group-hover:text-[#2563EB] transition-colors duration-300">
-                            The Spec Is the Bottleneck, Not the Silicon
+                            Open Source EDA Has Arrived. Now It Needs a Partner You Can Call.
                         </h3>
                         <p class="text-white/80 text-sm md:text-base leading-relaxed mb-4 md:mb-6">
-                            Why agentic chip design breaks when ambiguous specs are silently resolved, and why formalization has to sit before RTL generation.
+                            Why the open source EDA stack is ready for production chip design, and how CaretEDA is closing the adoption gap with commercial Service Level Agreements.
                         </p>
                         <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
                     </div>
@@ -86,60 +86,26 @@
             <div class="text-center w-full max-w-[1200px] mx-auto"
                  (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
 
-                <h2 class="text-2xl md:text-5xl font-bold mb-8 md:mb-12 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Latest News</h2>
+                <h2 class="text-2xl md:text-5xl font-bold mb-8 md:mb-12 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Latest News</h2>
 
-                <div class="grid grid-cols-2 gap-6 md:gap-12 justify-center items-start max-w-[860px] mx-auto">
-
-                    <div class="group relative flex flex-col items-center">
-                        <div class="relative w-24 h-24 md:w-36 md:h-36 mb-3 md:mb-6 rounded-full overflow-hidden border-4 border-[#2563EB]/20 transition-all duration-500 group-hover:border-[#2563EB] group-hover:shadow-[0_0_30px_rgba(37,99,235,0.3)]">
-                            <img src="assets/team-nithya.jpg" alt="Nithya Raghavan" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
-                        </div>
-                        <h3 class="text-base md:text-2xl font-bold text-white mb-2">Nithya Raghavan</h3>
-                    </div>
-
-                    <div class="group relative flex flex-col items-center">
-                        <div class="relative w-24 h-24 md:w-36 md:h-36 mb-3 md:mb-6 rounded-full overflow-hidden border-4 border-[#2563EB]/20 transition-all duration-500 group-hover:border-[#2563EB] group-hover:shadow-[0_0_30px_rgba(37,99,235,0.3)]">
-                            <img src="assets/team-sridhar.jpg" alt="Sridhar Narayanan" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
-                        </div>
-                        <h3 class="text-base md:text-2xl font-bold text-white mb-2">Sridhar Narayanan</h3>
-                    </div>
-
+                <div class="w-full max-w-[800px] mx-auto">
+                    <a [routerLink]="['/news', 'dac-2026']"
+                       class="group relative block w-full text-left no-underline bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6 md:p-10 transition-all duration-300 hover:-translate-y-1 hover:bg-[#112244] hover:shadow-[0_10px_40px_rgba(37,99,235,0.2)] backdrop-blur-sm">
+                        <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-3 md:mb-4">July 24, 2026</p>
+                        <h3 class="text-white font-bold text-xl md:text-3xl leading-snug mb-3 md:mb-5 group-hover:text-[#2563EB] transition-colors duration-300">
+                            CaretEDA Announces Commercially Available End-to-End Opensource EDA Stack, and Launches Startup Program
+                        </h3>
+                        <p class="text-white/80 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">
+                            2026.08 Release Delivers the Opensource EDA Stack Spanning Simulation, Logic Synthesis, Formal Verification, and Physical Synthesis; New Startup Program Opens CaretEDA’s Opensource EDA Stack and Agentic Modules to Early-Stage Chip Design Companies.
+                        </p>
+                        <span class="text-[#2563EB] text-xs md:text-sm font-bold uppercase tracking-widest">Read Press Release →</span>
+                    </a>
                 </div>
 
-                <!-- Welcome message below advisor photos -->
-                <p class="mt-8 md:mt-12 text-white/85 text-sm md:text-base leading-relaxed max-w-[700px] mx-auto">
-                    We are thrilled to welcome Nithya and Sridhar to our team. Their deep industry expertise, visionary guidance, and battle-tested engineering experience will be instrumental as we scale our technology and shape the future of our platform.
-                </p>
-
             </div>
         </section>
 
-        <!-- SLIDE 4: DAC EVENT -->
-        <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-start md:items-center justify-center pt-28 pb-20 md:py-20 px-4 md:px-8"
-                 style="width:100vw; height:100vh; height:100dvh;">
-            <div class="relative text-center w-full max-w-[800px] mx-auto"
-                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
 
-                <p class="text-[#2563EB] uppercase tracking-[0.25em] text-xs md:text-sm font-semibold mb-6">Event</p>
-
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
-                    CaretEDA Leadership Will Be at DAC
-                </h2>
-
-                <p class="text-white/90 text-base md:text-lg leading-relaxed max-w-[640px] mx-auto mb-10">
-                    Our leadership team is headed to
-                    <a href="https://www.dac.com" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline font-semibold">Design Automation Conference 2026</a>
-                    in July. Schedule a meeting to understand how our AI-native Spec-to-Netlist™ flow is
-                    reshaping chip design — and explore what CaretEDA can do for your team.
-                </p>
-
-                <a href="mailto:info@careteda.com?subject=Meet%20at%20DAC"
-                   class="inline-flex items-center gap-2 bg-[#2563EB] text-white px-8 py-3 rounded-full no-underline font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-[#1D4ED8]">
-                    Schedule a Meeting →
-                </a>
-
-            </div>
-        </section>
 
     </div>
 
@@ -235,7 +201,7 @@
 <!-- ===== CONTACT SECTION ===== -->
 <section id="contact" class="bg-black py-20 px-4 md:px-8 border-t border-white/5">
     <div class="max-w-[700px] mx-auto text-center">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Contact Us</h2>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Contact Us</h2>
         <p class="text-white/90 text-base mb-12">Have a question or want to explore what CaretEDA can do for your team?</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EB]/80 hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)]">

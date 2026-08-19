@@ -10,6 +10,8 @@ import { CareersDetailComponent } from './careers/careers-detail.component';
 import { TeamComponent } from './team/team.component';
 import { NewsComponent } from './news/news.component';
 import { NewsDetailComponent } from './news/news-detail.component';
+import { NewsDac2026Component } from './news/news-dac2026.component';
+import { StartupProgramComponent } from './startup-program/startup-program.component';
 
 export const routes: Routes = [
   { path: '',                component: HomeComponent },
@@ -17,7 +19,9 @@ export const routes: Routes = [
   { path: 'team',            component: TeamComponent },
   { path: 'demos',           component: DemosComponent },
   { path: 'news',            component: NewsComponent },
+  { path: 'news/dac-2026',   component: NewsDac2026Component },
   { path: 'news/technical-advisors', component: NewsDetailComponent },
+  { path: 'startup-program', component: StartupProgramComponent },
   { path: 'blogs',           component: BlogListComponent },
   { path: 'blogs/:slug',     component: BlogDetailComponent },
   { path: 'ifaq',            component: IFAQComponent },

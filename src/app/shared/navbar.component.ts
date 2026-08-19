@@ -75,6 +75,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { id: 'blog',    label: 'Blog',     route: '/blogs'   },
     { id: 'ifaq',    label: 'IFAQ',     route: '/ifaq'    },
     { id: 'news',    label: 'News',     route: '/news'    },
+    { id: 'startup', label: 'Startup Program', route: '/startup-program' },
     { id: 'careers', label: 'Careers',  route: '/careers' },
     { id: 'about',   label: 'About',    route: '/about'   },
   ];

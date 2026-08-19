@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap');
+      text { font-family: 'Inter', sans-serif; }
+      .bg { fill: #0b1120; }
+      .box-bg { fill: #111827; stroke: #38bdf8; stroke-width: 2; }
+      .pill-top { fill: #111827; stroke: #2dd4bf; stroke-width: 2; }
+      .pill-bottom { fill: #111827; stroke: #f43f5e; stroke-width: 2; }
+      .text-white { fill: #ffffff; }
+      .text-gray { fill: #9ca3af; }
+      .text-teal { fill: #2dd4bf; }
+      .text-pink { fill: #f43f5e; }
+      .header-pink { fill: #d946ef; }
+    </style>
+    <!-- Arrowhead markers -->
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2dd4bf" />
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" class="bg" />
+
+  <!-- Top Pill -->
+  <rect x="150" y="50" width="900" height="70" rx="35" class="pill-top" />
+  <text x="600" y="80" class="text-white" font-size="22" font-weight="700" text-anchor="middle">Agentic Workflows — Spec-to-Netlist™ Platform</text>
+  <text x="600" y="105" class="text-teal" font-size="14" font-weight="400" text-anchor="middle">Agentic Building Blocks orchestrating open source and commercial tools</text>
+
+  <!-- RTL text -->
+  <text x="80" y="275" class="text-teal" font-size="20" font-weight="600" text-anchor="middle">RTL</text>
+  <line x1="110" y1="270" x2="130" y2="270" stroke="#2dd4bf" stroke-width="3" />
+  <path d="M 130 270 L 130 190 L 150 190" fill="none" stroke="#2dd4bf" stroke-width="3" marker-end="url(#arrow-teal)" />
+  <path d="M 130 270 L 130 350 L 150 350" fill="none" stroke="#2dd4bf" stroke-width="3" marker-end="url(#arrow-teal)" />
+
+  <!-- Box 1: Simulation -->
+  <g transform="translate(160, 150)">
+    <rect width="230" height="80" rx="8" class="box-bg" />
+    <rect width="230" height="28" rx="8" class="header-pink" />
+    <rect y="18" width="230" height="10" class="header-pink" />
+    <text x="115" y="19" class="text-white" font-size="15" font-weight="700" text-anchor="middle">Simulation</text>
+    <text x="115" y="53" class="text-white" font-size="18" font-weight="600" text-anchor="middle">Verilator</text>
+    <text x="115" y="70" class="text-gray" font-size="12" font-weight="400" text-anchor="middle">Fast, standards-based</text>
+  </g>
+
+  <!-- Box 2: Formal Verification -->
+  <g transform="translate(160, 310)">
+    <rect width="230" height="80" rx="8" class="box-bg" />
+    <rect width="230" height="28" rx="8" class="header-pink" />
+    <rect y="18" width="230" height="10" class="header-pink" />
+    <text x="115" y="19" class="text-white" font-size="15" font-weight="700" text-anchor="middle">Formal Verification</text>
+    <text x="115" y="53" class="text-white" font-size="18" font-weight="600" text-anchor="middle">SymbiYosys</text>
+    <text x="115" y="70" class="text-gray" font-size="12" font-weight="400" text-anchor="middle">Property &amp; proof closure</text>
+  </g>
+
+  <!-- Arrows to Logic Synthesis -->
+  <path d="M 390 190 L 430 190 L 430 270 L 460 270" fill="none" stroke="#2dd4bf" stroke-width="3" />
+  <path d="M 390 350 L 430 350 L 430 270 L 460 270" fill="none" stroke="#2dd4bf" stroke-width="3" marker-end="url(#arrow-teal)" />
+
+  <!-- Box 3: Logic Synthesis -->
+  <g transform="translate(470, 230)">
+    <rect width="230" height="80" rx="8" class="box-bg" />
+    <rect width="230" height="28" rx="8" class="header-pink" />
+    <rect y="18" width="230" height="10" class="header-pink" />
+    <text x="115" y="19" class="text-white" font-size="15" font-weight="700" text-anchor="middle">Logic Synthesis</text>
+    <text x="115" y="53" class="text-white" font-size="18" font-weight="600" text-anchor="middle">Yosys</text>
+    <text x="115" y="70" class="text-gray" font-size="12" font-weight="400" text-anchor="middle">QoR-driven</text>
+  </g>
+
+  <!-- Arrow to Physical Synthesis -->
+  <line x1="700" y1="270" x2="770" y2="270" stroke="#2dd4bf" stroke-width="3" marker-end="url(#arrow-teal)" />
+
+  <!-- Box 4: Physical Synthesis -->
+  <g transform="translate(780, 230)">
+    <rect width="230" height="80" rx="8" class="box-bg" />
+    <rect width="230" height="28" rx="8" class="header-pink" />
+    <rect y="18" width="230" height="10" class="header-pink" />
+    <text x="115" y="19" class="text-white" font-size="15" font-weight="700" text-anchor="middle">Physical Synthesis</text>
+    <text x="115" y="53" class="text-white" font-size="18" font-weight="600" text-anchor="middle">OpenROAD</text>
+    <text x="115" y="70" class="text-gray" font-size="12" font-weight="400" text-anchor="middle">Physically aware</text>
+  </g>
+
+  <!-- Final Arrow -->
+  <line x1="1010" y1="270" x2="1080" y2="270" stroke="#2dd4bf" stroke-width="3" marker-end="url(#arrow-teal)" />
+  <text x="1130" y="265" class="text-teal" font-size="18" font-weight="600" text-anchor="middle">Tape-out-</text>
+  <text x="1130" y="285" class="text-teal" font-size="18" font-weight="600" text-anchor="middle">ready</text>
+
+  <!-- Dotted arrows from Top Pill -->
+  <line x1="275" y1="120" x2="275" y2="140" stroke="#f43f5e" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-pink)" />
+  <line x1="585" y1="120" x2="585" y2="220" stroke="#f43f5e" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-pink)" />
+  <line x1="895" y1="120" x2="895" y2="220" stroke="#f43f5e" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-pink)" />
+
+  <!-- Bottom Pill -->
+  <rect x="150" y="440" width="900" height="70" rx="35" class="pill-bottom" />
+  <text x="600" y="475" class="text-white" font-size="22" font-weight="700" text-anchor="middle">Commercially Supported • SLA-Backed</text>
+  <text x="600" y="495" class="text-pink" font-size="14" font-weight="400" text-anchor="middle">Validated releases • Defined response commitments • One accountable partner</text>
+
+  <!-- Bottom lines connecting to Bottom Pill -->
+  <line x1="275" y1="390" x2="275" y2="440" stroke="#f43f5e" stroke-width="3" />
+  <line x1="895" y1="310" x2="895" y2="440" stroke="#f43f5e" stroke-width="3" />
+
+  <!-- Footer Text -->
+  <text x="600" y="560" class="text-teal" font-size="20" font-weight="700" text-anchor="middle">The Open Source EDA Stack — CaretEDA 2026.08</text>
+  <text x="600" y="585" class="text-gray" font-size="14" font-weight="400" text-anchor="middle">Everything open source makes possible, with everything commercial EDA guarantees</text>
+
+</svg>

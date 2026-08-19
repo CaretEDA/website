@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
         </a>
 
         <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-3">For Immediate Release · June 22, 2026</p>
-        <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-5 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-5 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
           CaretEDA Adds Two Semiconductor Veterans to Technical Advisory Board
         </h1>
         <p class="text-white/70 text-base md:text-lg italic leading-relaxed mb-10">
@@ -75,7 +75,7 @@ import { RouterModule } from '@angular/router';
           <span class="block mt-3 not-italic text-[#2563EB] text-sm font-semibold">&#8212; Sridhar Narayanan</span>
         </blockquote>
 
-        <hr class="border-white/10 my-12">
+
 
         <h2 class="text-white font-bold text-lg md:text-xl mb-3">About CaretEDA</h2>
         <p class="text-white/80 text-base leading-relaxed mb-6">

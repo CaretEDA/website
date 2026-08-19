@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="text-center w-full max-w-[900px] mx-auto">
 
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Careers</h1>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Careers</h1>
         <p class="text-white/90 text-base md:text-xl mb-10 max-w-[600px] mx-auto leading-relaxed">
           We're here to prove that bright minds with shared purpose can reshape entire industries.
         </p>
