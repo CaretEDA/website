@@ -88,8 +88,8 @@ interface BlogPost {
               <ng-container *ngFor="let block of section.blocks">
                 <p *ngIf="block.type === 'p'" class="text-white/95 text-base leading-relaxed">{{ block.text }}</p>
                 <ul *ngIf="block.type === 'ul'" class="space-y-2 pl-4">
-                  <li *ngFor="let item of block.items" class="text-white/95 text-base leading-relaxed flex gap-2">
-                    <span class="text-[#2563EB] flex-shrink-0">·</span>{{ item }}
+                  <li *ngFor="let item of block.items" class="text-white/95 text-base leading-relaxed flex gap-2.5">
+                    <span class="text-[#60A5FA] text-lg font-bold leading-none flex-shrink-0 mt-0.5">●</span>{{ item }}
                   </li>
                 </ul>
                 <div *ngIf="block.type === 'img'" class="w-full rounded-xl overflow-hidden my-6">
@@ -111,8 +111,8 @@ interface BlogPost {
               </div>
               <p *ngFor="let para of section.paragraphs" class="text-white/95 text-base leading-relaxed">{{ para }}</p>
               <ul *ngIf="section.bullets" class="space-y-2 pl-4">
-                <li *ngFor="let bullet of section.bullets" class="text-white/95 text-base leading-relaxed flex gap-2">
-                  <span class="text-[#2563EB] flex-shrink-0">·</span>{{ bullet }}
+                <li *ngFor="let bullet of section.bullets" class="text-white/95 text-base leading-relaxed flex gap-2.5">
+                  <span class="text-[#60A5FA] text-lg font-bold leading-none flex-shrink-0 mt-0.5">●</span>{{ bullet }}
                 </li>
               </ul>
             </ng-container>
@@ -138,10 +138,11 @@ export class BlogDetailComponent implements OnInit {
     'chip-design-over-mcp': {
       title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
       date: 'August 2026',
-      readTime: '< 5 min read',
+      readTime: '5 min read',
+      wordCount: '920 words',
       category: 'AI & Hardware Design',
-      author: 'Sashi Obilisetty',
-      authorRole: 'Co-founder & CEO, CaretEDA, Inc.',
+      author: 'Radha Srinivasan',
+      authorRole: 'Co-Founder & VP of Engineering at CaretEDA',
       heroImage: 'assets/blogs/mcp-data-flow.gif',
       summary: 'Caret now exposes both its goal-driven hardware agents and its EDA tools through MCP, putting them inside your IDE and CI pipeline.',
       keyTakeaways: [
@@ -153,7 +154,7 @@ export class BlogDetailComponent implements OnInit {
         {
           blocks: [
             { type: 'p', text: `At the 63rd Design Automation Conference in Long Beach, California, we showed something that turned heads: a high school student working through a real chip design on the Microsoft Discovery platform. No years spent mastering proprietary GUIs. No memorized shell incantations. He described what he wanted in plain language, and Caret agents did the orchestration.` },
-            { type: 'ref', text: '', href: 'https://www.linkedin.com/posts/dac2026-careteda-opensourceeda-share-7489737626384519170-jrmj/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAFkmJUBcNgZEMtOrjwnanAXeMntgXq60oQ', linkText: 'See what happened at DAC 2026' },
+            { type: 'ref', text: '', href: 'https://dac.com/2026', linkText: 'See what happened at DAC 2026' },
             { type: 'p', text: `If a high schooler can drive a design that way, imagine the multiplier for a verification engineer with fifteen years of scar tissue. But that kind of accessibility only works when AI is wired into engineering reality — real tools, real results, no hand-waving in between.` },
             { type: 'p', text: `That is what this release is about. Caret now speaks Model Context Protocol (MCP), end to end.` },
           ]
