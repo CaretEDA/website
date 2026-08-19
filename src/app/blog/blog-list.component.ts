@@ -47,6 +47,14 @@ export class BlogListComponent implements OnInit {
   ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
   posts = [
     {
+      slug: 'chip-design-over-mcp',
+      image: 'assets/blogs/mcp-data-flow.gif',
+      date: 'August 2026',
+      readTime: '< 5 min read',
+      title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
+      summary: 'Caret now exposes both its goal-driven hardware agents and its EDA tools through MCP, putting them inside your IDE and CI pipeline — turning AI from a side-window assistant into an engineering teammate.'
+    },
+    {
       slug: 'spec-bottleneck',
       image: 'assets/blogs/spec-bottleneck-hero.png',
       date: 'July 2026',
