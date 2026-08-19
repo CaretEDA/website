@@ -19,6 +19,12 @@ const template = readFileSync(join(DIST, 'index.html'), 'utf8');
 const routes = [
   // Blog posts — each gets its own image + title (matches careteda.com behaviour)
   {
+    path: 'blogs/chip-design-over-mcp',
+    title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
+    desc: 'Caret now exposes both its goal-driven hardware agents and its EDA tools through MCP, putting them inside your IDE and CI pipeline — turning AI from a side-window assistant into an engineering teammate.',
+    image: 'assets/blogs/mcp-data-flow.gif',
+  },
+  {
     path: 'blogs/dac2026-oss-blog',
     title: 'Open Source EDA Has Arrived. Now It Has a Partner You Can Call',
     desc: 'Why the open source EDA stack is ready for production chip design, and how CaretEDA is closing the adoption gap with commercial Service Level Agreements.',
