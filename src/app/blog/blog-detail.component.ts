@@ -135,6 +135,75 @@ export class BlogDetailComponent implements OnInit {
   post?: BlogPost;
 
   private posts: { [slug: string]: BlogPost } = {
+    'dac2026-oss-blog': {
+      title: 'Open Source EDA Has Arrived. Now It Has a Partner You Can Call',
+      subtitle: 'A companion post to our DAC 2026 announcement',
+      date: 'July 2026',
+      readTime: '5 min read',
+      wordCount: '800 words',
+      category: 'Open Source & EDA',
+      author: 'Sashi Obilisetty',
+      authorRole: 'Co-founder & CEO, CaretEDA',
+      heroImage: 'assets/blogs/dac2026-oss-hero.png',
+      summary: 'Why the open source EDA stack is ready for production chip design, and how CaretEDA is closing the adoption gap with commercial Service Level Agreements.',
+      sections: [
+        {
+          paragraphs: [
+            'If you needed one moment to mark the arrival of open source EDA on the industry’s main stage, the past few weeks delivered it. Moonshot AI’s Kimi K3 model completed a full chip design flow — architecture, RTL, synthesis, place-and-route, verification — in a single 48-hour autonomous run, using exclusively open source EDA tools on the Nangate 45nm library. The resulting design packed 1.46 million standard cells into 4 mm², closed timing at 100 MHz, and sustained more than 8,700 tokens per second of simulated decode throughput. No proprietary tools were involved anywhere in the flow, and the market noticed: the demonstration triggered a visible reassessment of what open source toolchains — paired with agentic AI — can actually do.',
+            'At CaretEDA, we weren’t surprised. The Kimi work is a striking proof point, but it sits atop a decade of steady, serious engineering by the open source EDA community — and a growing track record of real, commercial use.'
+          ]
+        },
+        {
+          heading: 'Open source EDA is already doing real work',
+          paragraphs: [
+            'Consider what the ecosystem looks like today.',
+            'Verilator has quietly become one of the most widely deployed simulators in the industry. Semiconductor companies large and small run it at scale for fast, cycle-accurate regression — often alongside, and sometimes instead of, commercial simulators — because for large SystemVerilog designs it is simply very fast and very parallelizable.',
+            'Yosys is the de facto open synthesis framework, with extensive Verilog support and an architecture that has made it the foundation for everything from FPGA flows to formal verification. It is used in production flows, taught in universities worldwide, and embedded in countless commercial products and services.',
+            'OpenROAD, born out of DARPA’s IDEA program and led by UC San Diego, set out to build the “Linux of EDA” for physical design. It has since demonstrated manufacturable, DRC-clean layout generation in commercial technologies including GlobalFoundries 12nm and TSMC 65nm, and has powered real tapeouts — from the striVe SoC family on SkyWater 130nm to the thousands of community designs enabled by OpenLane and efforts like Tiny Tapeout. Research groups such as ETH Zürich’s PULP team now run fully open flows — Yosys for synthesis, OpenROAD for the backend, Verilator for simulation — all the way through silicon.',
+            'SymbiYosys has democratized formal property verification, giving engineering teams an accessible on-ramp to a discipline that is increasingly mandatory as designs grow too complex to verify by simulation alone.',
+            'These are not hobbyist projects. They are mature, actively developed tools with commercial-quality internals — and the Kimi K3 demonstration showed that when you put an agentic AI in the driver’s seat, they can carry a design from concept to a verified netlist without a single proprietary license.'
+          ]
+        },
+        {
+          heading: 'So why isn’t everyone using them?',
+          paragraphs: [
+            'Because capability was never the whole story. When we talk to engineering leaders about open source EDA, the hesitation is remarkably consistent, and it has little to do with tool quality.',
+            'Who builds and maintains this? Standing up an open source flow means tracking multiple fast-moving repositories, managing dependencies, and validating that a given combination of tool versions actually works together. That is an ongoing engineering tax most design teams don’t want to pay.',
+            'Who do I call when it breaks? Tape-outs run on schedules. When a synthesis run produces an unexpected result three weeks before a milestone, “file a GitHub issue and hope” is not an acceptable answer. Community support is generous, but it comes with no guarantees on response time — or any response at all.',
+            'Who is accountable? Procurement, legal, and management teams are used to vendor relationships with defined obligations. An open source project, however excellent, offers no counterparty. For many companies, that alone has kept these tools out of production flows.',
+            'This is the classic open source adoption gap, and it is the same one that Red Hat closed for Linux a generation ago: the software was ready long before enterprises were ready to trust it. What was missing wasn’t code — it was a commercial partner standing behind the code.'
+          ]
+        },
+        {
+          heading: 'Closing the gap: commercially supported open source EDA, with real SLAs',
+          paragraphs: [
+            'This is precisely what our 2026.08 release delivers. It brings a complete, commercially available open source EDA stack — Verilator for simulation, Yosys for logic synthesis, SymbiYosys for formal verification, and OpenROAD for physical synthesis — into a single, agentic-ready platform: the Spec-to-Netlist™ platform.',
+            'And critically, it comes with what open source alone cannot offer: Service Level Agreements. When you adopt the stack through CaretEDA, you get validated, integrated releases instead of assembling and maintaining the toolchain yourself; defined response and resolution commitments when something goes wrong; a single accountable partner your procurement and legal teams can contract with; and continuity — versions that are tested together, maintained together, and supported through your production schedule.',
+            'In other words, the long-standing objections to open source adoption — no support, no accountability, no maintenance guarantee — simply stop applying. Teams keep everything that makes open source attractive (transparency, flexibility, freedom from per-seat lock-in, and a thriving innovation community) while gaining the operational assurances they’ve always had with commercial EDA. And because the stack lives inside an agentic platform, teams can orchestrate these tools — alongside third-party commercial tools — through CaretEDA’s Agentic Building Blocks, in exactly the kind of AI-driven flows the Kimi demonstration previewed.'
+          ]
+        },
+        {
+          heading: 'Built by people who’ve shipped commercial EDA',
+          paragraphs: [
+            'Support commitments are only as credible as the people behind them. Our team has spent its careers inside commercial EDA — collectively more than fifty years building, deploying, and supporting the tools that production chip design teams depend on every day. We know what a tape-out schedule feels like from the inside, what “supported” has to mean when a customer’s milestone is on the line, and what it takes to harden a tool for production use. That experience shapes everything about how we’ve packaged, validated, and committed to this stack.'
+          ]
+        },
+        {
+          heading: 'Where this goes next',
+          paragraphs: [
+            'The 2026.08 release will be generally available in August. Alongside it, our new Startup Program gives qualifying early-stage semiconductor companies full access to the commercially supported open source stack, plus a 90-day evaluation of our agentic modules — because the teams with the most to gain from open source EDA are often the ones least able to absorb its maintenance burden.',
+            'If you’re at DAC 2026 in Long Beach, come see it in action: we’re presenting at the Microsoft booth on Tuesday, July 28 at 11:30 AM, including live demonstrations of agentic workflows that combine open source and commercial tools in a single flow, and our integration with the Microsoft Discovery Platform.',
+            'Open source EDA has proven it can design real chips. With commercial support and real SLAs behind it, it’s ready to design yours.'
+          ]
+        },
+        {
+          heading: 'About CaretEDA',
+          paragraphs: [
+            'CaretEDA builds AI-native design systems for modern semiconductor teams, with its Spec-to-Netlist™ platform serving as a powerful force multiplier across the entire engineering workflow. To learn more, schedule a DAC meeting, apply to the startup program or request a demo, visit www.CaretEDA.com.'
+          ]
+        }
+      ]
+    },
     'spec-bottleneck': {
       title: 'The Spec Is the Bottleneck, Not the Silicon',
       date: 'July 2026',

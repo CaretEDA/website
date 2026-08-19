@@ -47,6 +47,14 @@ export class BlogListComponent implements OnInit {
   ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
   posts = [
     {
+      slug: 'dac2026-oss-blog',
+      image: 'assets/blogs/dac2026-oss-hero.svg',
+      date: 'July 2026',
+      readTime: '5 min read',
+      title: 'Open Source EDA Has Arrived. Now It Needs a Partner You Can Call.',
+      summary: 'Why the open source EDA stack is ready for production chip design, and how CaretEDA is closing the adoption gap with commercial Service Level Agreements.'
+    },
+    {
       slug: 'spec-bottleneck',
       image: 'assets/blogs/spec-bottleneck-hero.png',
       date: 'July 2026',

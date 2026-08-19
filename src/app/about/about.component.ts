@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="max-w-[800px] mx-auto">
 
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
           About CaretEDA
         </h1>
 

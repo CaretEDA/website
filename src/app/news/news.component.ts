@@ -28,6 +28,19 @@ import { RouterModule } from '@angular/router';
             </span>
           </a>
 
+          <!-- Press release — DAC 2026 (July 2026) -->
+          <a [routerLink]="['/news', 'dac-2026']"
+             class="order-0 group block no-underline bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-[#112244] hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)] backdrop-blur-sm">
+            <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-3">July 24, 2026</p>
+            <h2 class="text-white font-bold text-lg md:text-2xl leading-snug mb-3 group-hover:text-[#2563EB] transition-colors duration-300">
+              CaretEDA Announces Commercially Available End-to-End Opensource EDA Stack, and Launches Startup Program
+            </h2>
+            <p class="text-white/90 text-sm md:text-base leading-relaxed mb-4">
+              2026.08 Release Delivers the Opensource EDA Stack Spanning Simulation, Logic Synthesis, Formal Verification, and Physical Synthesis; New Startup Program Opens CaretEDA&#8217;s Opensource EDA Stack and Agentic Modules to Early-Stage Chip Design Companies.
+            </p>
+            <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read More →</span>
+          </a>
+
           <!-- Press release — new Technical Advisors (June 2026) -->
           <a [routerLink]="['/news', 'technical-advisors']"
              class="order-1 group block no-underline bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-[#112244] hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)] backdrop-blur-sm">

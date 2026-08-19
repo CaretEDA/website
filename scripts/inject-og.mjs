@@ -19,6 +19,12 @@ const template = readFileSync(join(DIST, 'index.html'), 'utf8');
 const routes = [
   // Blog posts — each gets its own image + title (matches careteda.com behaviour)
   {
+    path: 'blogs/dac2026-oss-blog',
+    title: 'Open Source EDA Has Arrived. Now It Has a Partner You Can Call',
+    desc: 'Why the open source EDA stack is ready for production chip design, and how CaretEDA is closing the adoption gap with commercial Service Level Agreements.',
+    image: 'assets/blogs/dac2026-oss-hero.png',
+  },
+  {
     path: 'blogs/spec-bottleneck',
     title: 'The Spec Is the Bottleneck, Not the Silicon',
     desc: 'Why agentic chip design breaks when ambiguous specs are silently resolved, and why formalization has to sit before RTL generation.',
@@ -43,6 +49,12 @@ const routes = [
     image: 'assets/blogs/silicon-imperative.png',
   },
   // News detail (press release)
+  {
+    path: 'news/dac-2026',
+    title: 'CaretEDA Announces Commercially Available End-to-End Opensource EDA Stack, and Launches Startup Program',
+    desc: '2026.08 Release Delivers the Opensource EDA Stack Spanning Simulation, Logic Synthesis, Formal Verification, and Physical Synthesis; New Startup Program Opens CaretEDA’s Opensource EDA Stack and Agentic Modules to Early-Stage Chip Design Companies',
+    image: DEFAULT_IMAGE,
+  },
   {
     path: 'news/technical-advisors',
     title: 'CaretEDA Adds Two Semiconductor Veterans to Technical Advisory Board',

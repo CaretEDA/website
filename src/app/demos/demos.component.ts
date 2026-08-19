@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
     <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
       <div class="max-w-[1200px] mx-auto">
 
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">
           Demos
         </h1>
         <p class="text-white/90 text-base md:text-lg mb-16">Watch Spec-to-Netlist™ in motion — from design intent to silicon-ready output.</p>
