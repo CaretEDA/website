@@ -22,15 +22,6 @@ import { RouterModule } from '@angular/router';
           Electronics and Communication Engineering alumna honored for contributions to engineering, technology and entrepreneurship
         </p>
 
-        <div class="flex items-center gap-4 mb-10">
-          <img src="assets/sashi-bit-mesra-award.jpg" alt="Sashi Obilisetty"
-               class="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#2563EB]/40 flex-shrink-0">
-          <div>
-            <p class="text-white font-bold text-lg md:text-xl">Sashi Obilisetty</p>
-            <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold">Co-founder &amp; CEO, CaretEDA, Inc.</p>
-          </div>
-        </div>
-
         <p class="text-white/90 text-base leading-relaxed mb-6">
           <span class="font-semibold">CAMPBELL, CA</span> &#8212; CaretEDA, Inc., the AI-native Electronic Design Automation company pioneering the Spec-to-Netlist&#8482; platform for agentic chip design automation, today announced that Co-founder and CEO Sashi Obilisetty has received the Birla Institute of Technology (BIT), Mesra Distinguished Alumna Award 2026 for Contributions to Engineering, Technology and Entrepreneurship.
         </p>
@@ -43,6 +34,10 @@ import { RouterModule } from '@angular/router';
           &#8220;To be recognized by BIT Mesra is both humbling and energizing. The semiconductor industry is entering an extraordinary new era, and I hope this award encourages more students and alumni to pursue ambitious ideas, build enduring companies and expand what technology can make possible. I wholeheartedly share it with the teachers, classmates, colleagues and teams who have shaped my work,&#8221;
           <span class="block mt-3 not-italic text-[#2563EB] text-sm font-semibold">&#8212; Sashi Obilisetty, Co-founder &amp; CEO, CaretEDA, Inc.</span>
         </blockquote>
+
+        <div class="w-full max-w-[320px] mx-auto rounded-2xl overflow-hidden my-10">
+          <img src="assets/sashi-bit-mesra-award.jpg" alt="Sashi Obilisetty" class="w-full object-cover">
+        </div>
 
         <h2 class="text-white font-bold text-lg md:text-xl mb-3 mt-10">A Career Advancing Semiconductor Design and EDA</h2>
         <p class="text-white/90 text-base leading-relaxed mb-4">
@@ -78,13 +73,6 @@ import { RouterModule } from '@angular/router';
         <h2 class="text-white font-bold text-lg md:text-xl mb-3">About Birla Institute of Technology, Mesra</h2>
         <p class="text-white/80 text-base leading-relaxed mb-6">
           Established in 1955, Birla Institute of Technology, Mesra is an Indian institution for engineering, technology, science, management and applied research. Its Distinguished Alumni Awards recognize graduates whose work reflects excellence and service across industry, academia, research, entrepreneurship and society.
-        </p>
-
-        <p class="text-white/70 text-sm leading-relaxed">
-          <span class="font-semibold text-white/90">Media contact:</span> Sashi Obilisetty, Co-founder &amp; CEO, CaretEDA, Inc. &#183;
-          <a href="mailto:sashi@careteda.com" class="text-[#2563EB] hover:underline">sashi&#64;careteda.com</a><br>
-          Request a demo at
-          <a href="https://www.careteda.com" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:underline">www.CaretEDA.com</a>
         </p>
 
       </article>
