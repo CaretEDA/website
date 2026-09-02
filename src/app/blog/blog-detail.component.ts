@@ -142,12 +142,11 @@ export class BlogDetailComponent implements OnInit {
       wordCount: '920 words',
       category: 'AI & Hardware Design',
       author: 'Radha Srinivasan',
-      authorRole: 'Co-Founder & VP of Engineering at CaretEDA',
+      authorRole: 'Co-Founder & VP of Engineering',
       heroImage: 'assets/blogs/mcp-data-flow.gif',
       summary: 'Caret now exposes both its goal-driven hardware agents and its EDA tools through MCP, putting them inside your IDE and CI pipeline.',
       keyTakeaways: [
-        'Caret now exposes both its goal-driven hardware agents and its EDA tools — open source and commercial — through MCP, putting them inside your IDE and your CI pipeline.',
-        'MCP gives any AI client one governed way to discover a capability, invoke it, and read a structured result, so long-running engineering work keeps moving without a human babysitting it.',
+        'Caret now exposes both its goal-driven hardware agents and Open-source EDA tools through MCP, putting them inside your IDE and your CI pipeline.',
         'The bigger idea: make EDA feel less like infrastructure. Caret turns AI from a side-window assistant into a useful engineering teammate — connected to real tools, constrained by real interfaces, and grounded in real results.',
       ],
       sections: [
@@ -156,7 +155,7 @@ export class BlogDetailComponent implements OnInit {
             { type: 'p', text: `At the 63rd Design Automation Conference in Long Beach, California, we showed something that turned heads: a high school student working through a real chip design on the Microsoft Discovery platform. No years spent mastering proprietary GUIs. No memorized shell incantations. He described what he wanted in plain language, and Caret agents did the orchestration.` },
             { type: 'ref', text: '', href: 'https://dac.com/2026', linkText: 'See what happened at DAC 2026' },
             { type: 'p', text: `If a high schooler can drive a design that way, imagine the multiplier for a verification engineer with fifteen years of scar tissue. But that kind of accessibility only works when AI is wired into engineering reality — real tools, real results, no hand-waving in between.` },
-            { type: 'p', text: `That is what this release is about. Caret now speaks Model Context Protocol (MCP), end to end.` },
+            { type: 'p', text: `Caret now speaks Model Context Protocol (MCP), end to end.` },
           ]
         },
         {
@@ -174,12 +173,14 @@ export class BlogDetailComponent implements OnInit {
             { type: 'p', text: `You shouldn't have to leave your setup to use powerful EDA tools. Whether you're writing SystemVerilog in VS Code, orchestrating in the cloud, or living in a terminal, you want your tools at your cursor.` },
             { type: 'p', text: `Caret's agents and tools are now fully MCP-compliant. MCP has been called the USB-C of AI, and the comparison holds here: point any MCP client at the Caret server, and the whole stack — open-source EDA tools and agentic capability alike — simply shows up.` },
             { type: 'p', text: 'The integration, layer by layer:' },
-            { type: 'ul', items: [
-              'Client. VS Code with Microsoft Copilot, Claude, Codex, the Microsoft Discovery platform, or your own CLI.',
-              'Protocol. Standard MCP over JSON-RPC for discovery, context management, and task communication.',
-              'Server and agents. Autonomous, goal-driven Caret agents that own long-running work.',
-              'Execution. The EDA toolchain itself, open source and commercial, running directly.',
-            ]},
+            {
+              type: 'ul', items: [
+                'Client. VS Code with Microsoft Copilot, Claude, Codex, the Microsoft Discovery platform, or your own CLI.',
+                'Protocol. Standard MCP over JSON-RPC for discovery, context management, and task communication.',
+                'Server and agents. Autonomous, goal-driven Caret agents that own long-running work.',
+                'Execution. The EDA toolchain itself, open source and commercial, running directly.',
+              ]
+            },
           ]
         },
         {
@@ -188,12 +189,14 @@ export class BlogDetailComponent implements OnInit {
             { type: 'p', text: `Standard API calls are stateless. They time out. Verification doesn't care.` },
             { type: 'p', text: `Through MCP, Caret turns your LLM into an active orchestrator. An agent can kick off a long-running simulation, step back, poll the job, and inspect structured results the moment it completes — no engineer sitting there holding its hand. The same bridge lets agents work in parallel: one generating lint fixes while another reads synthesis logs.` },
             { type: 'p', text: `And it works in small steps, not one big leap. A model can emit a lot of HDL in one shot; hardware needs evidence, not faith. Caret breaks the job into generate, run, inspect, correct, continue — each step bounded by an explicit tool interface and an observable result.` },
-            { type: 'ul', items: [
-              'Run a focused check before expanding the change.',
-              'Consume structured results instead of reasoning over a wall of terminal text.',
-              'Stay inside the tools that were deliberately exposed.',
-              'Log every action, so the path from intent to result stays inspectable.',
-            ]},
+            {
+              type: 'ul', items: [
+                'Run a focused check before expanding the change.',
+                'Consume structured results instead of reasoning over a wall of terminal text.',
+                'Stay inside the tools that were deliberately exposed.',
+                'Log every action, so the path from intent to result stays inspectable.',
+              ]
+            },
           ]
         },
         {
@@ -209,8 +212,8 @@ export class BlogDetailComponent implements OnInit {
           blocks: [
             { type: 'p', text: `Engineers should describe the goal and supervise a transparent, testable workflow — not spend their best hours stitching interfaces together. MCP provides the common language. Caret brings it to chip design.` },
             { type: 'p', text: `That is the whole point: turning AI from a side-window assistant into a useful engineering teammate — connected to real tools, constrained by real interfaces, and grounded in real results.` },
-            { type: 'p', text: `The student at DAC was not the story. What he had access to was: a design environment where the hard parts were handled by agents that could actually run the tools, report what happened, and keep going. That environment is now a download.` },
-            { type: 'p', text: `Get Caret 2026.08, read the documentation, and point your MCP client at the Caret MCP server. Then describe what you want built.` },
+            { type: 'p', text: `The student at DAC was not the story. What he had access to was: a design environment where the hard parts were handled by agents that could actually run the tools, report what happened, and keep going. This environment will soon be available to Caret customers.` },
+            { type: 'p', text: `Get Caret 2026.08 and point your MCP client at the Caret MCP server. Then describe what you want built.` },
             { type: 'ref', text: '', href: 'https://careteda.com/startup-program', linkText: 'Check out our startup program' },
           ]
         },
@@ -321,11 +324,13 @@ export class BlogDetailComponent implements OnInit {
           blocks: [
             { type: 'p', text: `Human engineers are remarkably good at reading ambiguous specs correctly, and remarkably bad at noticing they're doing it. Years of tribal knowledge, hallway conversations, and "that's just how we always do resets here" quietly fill every gap in a document before an engineer ever opens an editor. The ambiguity doesn't disappear. It just gets resolved by a human brain fast enough that nobody notices a decision was made at all.` },
             { type: 'p', text: `An agent has none of that tribal context, and unlike a junior engineer, it rarely asks a clarifying question. A study cataloguing errors in LLM-generated RTL sorted the recurring ambiguity failures into a few clear buckets,[2] and each one maps to a real gap in how specs get written today:` },
-            { type: 'ul', items: [
-              `Unclear functional intent: The edge-detector case above is a textbook instance: one part of a description says one thing, a later section says another, and the model never flags the contradiction - it just silently picks a side.`,
-              `Ambiguous interface boundaries: Specs frequently under-describe what happens at the edges of an interface: which signal has priority when two conditions overlap, what a width mismatch should do, what "invalid" actually means for a given port. Humans default to convention. Agents default to whatever reading minimizes their own uncertainty, which is not the same thing.`,
-              `Missing reset and initialization behavior: Reset polarity, synchronous versus asynchronous behavior, and initial register values are exactly the kind of detail that feels too obvious to write down - right up until it's the line item that fails timing closure or, worse, passes simulation and fails in the lab.`,
-            ] },
+            {
+              type: 'ul', items: [
+                `Unclear functional intent: The edge-detector case above is a textbook instance: one part of a description says one thing, a later section says another, and the model never flags the contradiction - it just silently picks a side.`,
+                `Ambiguous interface boundaries: Specs frequently under-describe what happens at the edges of an interface: which signal has priority when two conditions overlap, what a width mismatch should do, what "invalid" actually means for a given port. Humans default to convention. Agents default to whatever reading minimizes their own uncertainty, which is not the same thing.`,
+                `Missing reset and initialization behavior: Reset polarity, synchronous versus asynchronous behavior, and initial register values are exactly the kind of detail that feels too obvious to write down - right up until it's the line item that fails timing closure or, worse, passes simulation and fails in the lab.`,
+              ]
+            },
             { type: 'p', text: `None of these are exotic edge cases. They are the ordinary texture of how specifications get written by people who already know what they mean and are writing for other people who will fill in the rest.` },
             { type: 'img', src: 'assets/blogs/spec-bottleneck-ambiguity.png', alt: 'Three ways a specification can become ambiguous' },
             { type: 'caption', text: 'Figure 1. The three recurring ambiguity classes behind LLM-generated RTL errors.' },
@@ -650,7 +655,7 @@ export class BlogDetailComponent implements OnInit {
     },
   };
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });

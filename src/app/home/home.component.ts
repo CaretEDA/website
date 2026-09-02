@@ -11,8 +11,8 @@ import { ScrollService } from '../shared/scroll.service';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   currentSlide = 0;
-  readonly slideCount = 3;
-  readonly slides = [0, 1, 2];
+  readonly slideCount = 4;
+  readonly slides = [0, 1, 2, 3];
   readonly slideDurationMs = 5000;
   // Bumped on every slide change so the progress pill restarts its animation.
   cycleId = 0;

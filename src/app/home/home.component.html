@@ -41,7 +41,31 @@
             </div>
         </section>
 
-        <!-- SLIDE 2: BLOG -->
+        <!-- SLIDE 2: EVENT BANNER -->
+        <section class="slide-scroll shrink-0 bg-[#000000] flex flex-col items-center justify-center relative overflow-hidden"
+                 style="width:100vw; height:100vh; height:100dvh;">
+            <div class="w-full h-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 p-6 md:p-12 pt-24 md:pt-32"
+                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
+                
+                <!-- Left Section (40%) text -->
+                <div class="w-full md:w-[40%] text-white text-center md:text-left flex flex-col justify-center animate-fade-in-down">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-br from-white to-[#B05BFF] bg-clip-text text-transparent leading-tight drop-shadow-md">
+                        We're thrilled to be part of Step SF 2026!
+                    </h2>
+                    <p class="text-white/80 text-lg md:text-2xl leading-relaxed font-light">
+                        It's an incredible chance to showcase our journey, connect with fellow founders, meet investors, and be part of one of the most exciting startup gatherings of the year.
+                    </p>
+                </div>
+
+                <!-- Right Section (60%) image -->
+                <div class="w-full md:w-[60%] flex items-center justify-center h-full max-h-[40vh] md:max-h-[75vh]">
+                    <img src="assets/step-sf-event.jpg" alt="Step San Francisco Event" class="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(176,91,255,0.2)] rounded-2xl">
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SLIDE 3: BLOG -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white flex flex-col items-center justify-start md:justify-center px-4 md:px-8 pt-28 pb-32 overflow-y-auto"
                  style="width:100vw; height:100vh; height:100dvh;">
 
@@ -80,7 +104,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 3: TECHNICAL ADVISORS -->
+        <!-- SLIDE 4: TECHNICAL ADVISORS -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-start md:items-center justify-center pt-28 pb-20 md:py-20 px-4 md:px-8"
                  style="width:100vw; height:100vh; height:100dvh;">
             <div class="text-center w-full max-w-[1200px] mx-auto"
