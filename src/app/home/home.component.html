@@ -41,31 +41,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 2: EVENT BANNER -->
-        <section class="slide-scroll shrink-0 bg-[#000000] flex flex-col items-center justify-center relative overflow-hidden"
-                 style="width:100vw; height:100vh; height:100dvh;">
-            <div class="w-full h-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 p-6 md:p-12 pt-24 md:pt-32"
-                 (mouseenter)="onContentActivity()" (mousemove)="onContentActivity()" (mouseleave)="onContentLeave()">
-                
-                <!-- Left Section (40%) text -->
-                <div class="w-full md:w-[40%] text-white text-center md:text-left flex flex-col justify-center animate-fade-in-down">
-                    <h2 class="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-br from-white to-[#B05BFF] bg-clip-text text-transparent leading-tight drop-shadow-md">
-                        We're thrilled to be part of Step SF 2026!
-                    </h2>
-                    <p class="text-white/80 text-lg md:text-2xl leading-relaxed font-light">
-                        It's an incredible chance to showcase our journey, connect with fellow founders, meet investors, and be part of one of the most exciting startup gatherings of the year.
-                    </p>
-                </div>
-
-                <!-- Right Section (60%) image -->
-                <div class="w-full md:w-[60%] flex items-center justify-center h-full max-h-[40vh] md:max-h-[75vh]">
-                    <img src="assets/step-sf-event.jpg" alt="Step San Francisco Event" class="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(176,91,255,0.2)] rounded-2xl">
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SLIDE 3: BLOG -->
+        <!-- SLIDE 2: BLOG -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white flex flex-col items-center justify-start md:justify-center px-4 md:px-8 pt-28 pb-32 overflow-y-auto"
                  style="width:100vw; height:100vh; height:100dvh;">
 
@@ -104,7 +80,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 4: TECHNICAL ADVISORS -->
+        <!-- SLIDE 3: TECHNICAL ADVISORS -->
         <section class="slide-scroll glow-bg shrink-0 bg-black text-white overflow-y-auto flex items-start md:items-center justify-center pt-28 pb-20 md:py-20 px-4 md:px-8"
                  style="width:100vw; height:100vh; height:100dvh;">
             <div class="text-center w-full max-w-[1200px] mx-auto"
@@ -113,14 +89,18 @@
                 <h2 class="text-2xl md:text-5xl font-bold mb-8 md:mb-12 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Latest News</h2>
 
                 <div class="w-full max-w-[800px] mx-auto">
-                    <a [routerLink]="['/news', 'dac-2026']"
+                    <a [routerLink]="['/news', 'bit-mesra-award']"
                        class="group relative block w-full text-left no-underline bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl p-6 md:p-10 transition-all duration-300 hover:-translate-y-1 hover:bg-[#112244] hover:shadow-[0_10px_40px_rgba(37,99,235,0.2)] backdrop-blur-sm">
-                        <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-3 md:mb-4">July 24, 2026</p>
+                        <div class="flex items-center gap-4 mb-4 md:mb-5">
+                            <img src="assets/team-sashi.jpg" alt="Sashi Obilisetty"
+                                 class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover object-top border-2 border-[#2563EB]/40 flex-shrink-0">
+                            <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold text-left">August 31, 2026</p>
+                        </div>
                         <h3 class="text-white font-bold text-xl md:text-3xl leading-snug mb-3 md:mb-5 group-hover:text-[#2563EB] transition-colors duration-300">
-                            CaretEDA Announces Commercially Available End-to-End Opensource EDA Stack, and Launches Startup Program
+                            CaretEDA Co-Founder and CEO Sashi Obilisetty Receives BIT Mesra Distinguished Alumna Award 2026
                         </h3>
                         <p class="text-white/80 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">
-                            2026.08 Release Delivers the Opensource EDA Stack Spanning Simulation, Logic Synthesis, Formal Verification, and Physical Synthesis; New Startup Program Opens CaretEDA’s Opensource EDA Stack and Agentic Modules to Early-Stage Chip Design Companies.
+                            Electronics and Communication Engineering alumna honored for contributions to engineering, technology and entrepreneurship at BIT Mesra’s 72nd Foundation Day.
                         </p>
                         <span class="text-[#2563EB] text-xs md:text-sm font-bold uppercase tracking-widest">Read Press Release →</span>
                     </a>

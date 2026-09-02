@@ -56,6 +56,12 @@ const routes = [
   },
   // News detail (press release)
   {
+    path: 'news/bit-mesra-award',
+    title: 'CaretEDA Co-Founder and CEO Sashi Obilisetty Receives BIT Mesra Distinguished Alumna Award 2026',
+    desc: 'Electronics and Communication Engineering alumna honored for contributions to engineering, technology and entrepreneurship at BIT Mesra’s 72nd Foundation Day.',
+    image: DEFAULT_IMAGE,
+  },
+  {
     path: 'news/dac-2026',
     title: 'CaretEDA Announces Commercially Available End-to-End Opensource EDA Stack, and Launches Startup Program',
     desc: '2026.08 Release Delivers the Opensource EDA Stack Spanning Simulation, Logic Synthesis, Formal Verification, and Physical Synthesis; New Startup Program Opens CaretEDA’s Opensource EDA Stack and Agentic Modules to Early-Stage Chip Design Companies',

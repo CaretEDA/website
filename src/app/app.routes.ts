@@ -11,6 +11,7 @@ import { TeamComponent } from './team/team.component';
 import { NewsComponent } from './news/news.component';
 import { NewsDetailComponent } from './news/news-detail.component';
 import { NewsDac2026Component } from './news/news-dac2026.component';
+import { NewsBitMesraAwardComponent } from './news/news-bit-mesra-award.component';
 import { StartupProgramComponent } from './startup-program/startup-program.component';
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'news',            component: NewsComponent },
   { path: 'news/dac-2026',   component: NewsDac2026Component },
   { path: 'news/technical-advisors', component: NewsDetailComponent },
+  { path: 'news/bit-mesra-award', component: NewsBitMesraAwardComponent },
   { path: 'startup-program', component: StartupProgramComponent },
   { path: 'blogs',           component: BlogListComponent },
   { path: 'blogs/:slug',     component: BlogDetailComponent },
