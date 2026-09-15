@@ -47,6 +47,14 @@ export class BlogListComponent implements OnInit {
   ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
   posts = [
     {
+      slug: '2026-08-release',
+      image: 'assets/blogs/2026-08-release-hero.jpg',
+      date: 'September 2026',
+      readTime: '4 min read',
+      title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
+      summary: 'CaretEDA\'s second release brings OpenROAD into the Spec-to-Netlist™ platform, updates Verilator, and introduces new partnerships, bridging the gap from RTL generation to physical implementation.'
+    },
+    {
       slug: 'chip-design-over-mcp',
       image: 'assets/blogs/mcp-data-flow.gif',
       date: 'August 2026',

@@ -19,6 +19,12 @@ const template = readFileSync(join(DIST, 'index.html'), 'utf8');
 const routes = [
   // Blog posts — each gets its own image + title (matches careteda.com behaviour)
   {
+    path: 'blogs/2026-08-release',
+    title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
+    desc: 'CaretEDA\'s second release brings OpenROAD into the Spec-to-Netlist™ platform, updates Verilator, and introduces new partnerships, bridging the gap from RTL generation to physical implementation.',
+    image: 'assets/blogs/2026-08-release-hero.jpg',
+  },
+  {
     path: 'blogs/chip-design-over-mcp',
     title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
     desc: 'Caret now exposes both its goal-driven hardware agents and its EDA tools through MCP, putting them inside your IDE and CI pipeline — turning AI from a side-window assistant into an engineering teammate.',

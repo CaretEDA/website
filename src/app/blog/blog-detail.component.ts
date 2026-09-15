@@ -135,6 +135,41 @@ export class BlogDetailComponent implements OnInit {
   post?: BlogPost;
 
   private posts: { [slug: string]: BlogPost } = {
+    '2026-08-release': {
+      title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
+      date: 'September 2026',
+      readTime: '4 min read',
+      wordCount: '576 words',
+      category: 'Company News & Releases',
+      author: 'Sashi Obilisetty',
+      authorRole: 'Co-founder & CEO, CaretEDA, Inc.',
+      heroImage: 'assets/blogs/2026-08-release-hero.jpg',
+      summary: 'CaretEDA\'s second release brings OpenROAD into the Spec-to-Netlist™ platform, updates Verilator, and introduces new partnerships, bridging the gap from RTL generation to physical implementation.',
+      sections: [
+        {
+          blocks: [
+            { type: 'p', text: 'In May, we shipped CaretEDA’s first release. With 2026.08 a few weeks back, we shipped our second. The cadence is deliberate. In a very short time, agentic chip design has moved from an interesting possibility to something designers are beginning to trust as part of real engineering work — and we are building to keep pace.' },
+            { type: 'p', text: 'A useful agentic flow has to produce artifacts engineers can inspect, simulate, verify, and connect to implementation. This release brings more of those capabilities to our Spec-to-Netlist™ platform, updates Verilator version in CaretEDA’s Opensource EDA stack, and, most importantly, brings OpenROAD into the path we are building from specification to implementation.' },
+            { type: 'p', text: 'OpenROAD is the part I am especially excited about.' },
+            { type: 'p', text: 'Physical design is where intent starts becoming physical reality. It is where timing, placement, routing, area, congestion, and power-performance-area constraints stop being downstream concerns and become evidence an engineering team can act on. OpenROAD brings that evidence closer to the agentic design loop, so teams can learn earlier whether generated RTL is moving toward hardware that can actually be implemented.' },
+            { type: 'p', text: 'For years, Opensource EDA has been a powerful idea with a practical problem attached to it. Engineers could see the promise, but using the tools inside real schedules still required expertise, integration work, flow maintenance, and someone willing to debug the hard edges. That is the gap CaretEDA is closing. With OpenROAD in the CaretEDA stack, customers get a commercially supported way to explore that next stage: not as a disconnected experiment, but as part of an agentic workflow that can carry context from intent, to generated SystemVerilog, to simulation, to implementation feedback.' },
+            { type: 'p', text: 'That support layer is what turns an interesting tool into a usable flow. Customers want the transparency of Opensource and the accountability they expect from a commercial vendor. They need maintained packages, tested combinations, clear escalation paths, and a team that understands what it means when a tool issue threatens a milestone. Commercially supported Opensource EDA gives teams a way to engage with promising tools and solutions, and keep the work moving without turning every Opensource adoption effort into an internal infrastructure project.' },
+            { type: 'p', text: 'A little bit about Verilator 5.050, included as part of 2026.08. Compared with the prior release, this version expands SystemVerilog compatibility across assertions, functional coverage, constrained randomization, interfaces and modports, timing behavior, and force/release use cases. It also brings better performance, diagnostics, logging, memory visibility, and tool integration. For teams using SystemVerilog, these improvements are immediate and practical: better simulation coverage, fewer language limitations in serious verification environments, and a tighter connection between generated RTL and the engineering review needed before a design moves forward.' },
+            { type: 'html', text: 'Our recent <a href="/blogs/chip-design-over-mcp" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">MCP blog</a> describes another new feature: connecting CaretEDA’s agents and EDA tools to the environments where engineers already work. The goal is to give engineering judgment better loops: faster runs, clearer failures, more useful context, and results that stand up to scrutiny.' },
+            { type: 'p', text: 'The 2026.08 release moves the stack forward in a very practical way. More capabilities in our Spec-to-Netlist platform help our multi-agent flows produce better artifacts. Verilator 5.050 helps teams verify those artifacts with broader language and verification support. OpenROAD connects the work to physical implementation. Put together, this is the shape of agentic chip design becoming real engineering infrastructure.' },
+            { type: 'p', text: 'Another development worth sharing is a new partnership. NeevSemi has joined the CaretEDA ecosystem as a preferred partner, and together we will extend semiconductor engineering expertise and give teams more ways to move from specification toward implementation. If you will be at SEMICON India 2026 in New Delhi (September 17–19), come find the NeevSemi team in the Startup Pavilion — we would love to talk about where agentic chip design goes next.' },
+            { type: 'p', text: 'I want to recognize the Opensource EDA community. The tools we build on reflect years of sustained engineering, and we are grateful to the people who created them and continue to maintain them.' },
+            { type: 'p', text: 'CaretEDA 2026.08 is available now. If you are building a chip and want an agentic, commercially supported flow, we would like to work with you. Qualifying startups can also start free through our Startup Program at CaretEDA.com/startups.' },
+            { type: 'p', text: 'Let’s go build some silicon.' }
+          ]
+        },
+        {
+          blocks: [
+            { type: 'caption', text: 'CaretEDA and Spec-to-Netlist™ are trademarks of CaretEDA, Inc. Verilator, Yosys, OpenROAD, and SymbiYosys are open source projects and remain the property of their respective maintainers and contributors. NeevSemi and the NeevSemi logo are trademarks of NeevSemi India Private Limited. All other trademarks are the property of their respective owners.' }
+          ]
+        }
+      ]
+    },
     'chip-design-over-mcp': {
       title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
       date: 'August 2026',
