@@ -42,7 +42,7 @@ interface BlogPost {
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <section class="min-h-screen bg-page text-ink pt-28 pb-20 px-4 md:px-8">
+    <section class="min-h-screen text-ink pt-28 pb-20 px-4 md:px-8">
       <div class="max-w-[800px] mx-auto" *ngIf="post">
 
         <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-ink-3 hover:text-accent-ink text-sm no-underline transition-colors mb-12">
