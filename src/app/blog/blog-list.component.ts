@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -8,44 +7,56 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <section class="glow-bg min-h-screen bg-black text-white pt-24 pb-40 px-4 md:px-8">
+    <section class="chapter">
       <div class="max-w-[1200px] mx-auto">
 
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">Blog</h1>
-        <p class="text-white/90 text-base md:text-lg mb-8">Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
+        <div class="head">
+          <h2>Blog</h2>
+          <p>Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.</p>
+        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <a *ngFor="let post of posts"
+        <div id="post-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a *ngFor="let post of (expanded ? posts : posts.slice(0, 3))"
              [routerLink]="['/blogs', post.slug]"
-             class="group no-underline block bg-[#0d1f3c] border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EB]/50 hover:bg-[#112244] hover:shadow-[0_10px_30px_rgba(37,99,235,0.15)] backdrop-blur-sm">
-
-            <!-- Thumbnail -->
-            <div class="w-full h-36 bg-[#0d1f3c] overflow-hidden" *ngIf="post.image">
-              <img [src]="post.image" [alt]="post.title"
-                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+             class="lift flex flex-col bg-card border border-line rounded-2xl overflow-hidden">
+            <div class="w-full aspect-[16/9] bg-deep overflow-hidden" *ngIf="post.image">
+              <img loading="lazy" [src]="post.image" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="w-full h-36 bg-[#0d1f3c] flex items-center justify-center" *ngIf="!post.image">
-              <span class="text-[#2563EB]/30 text-4xl font-bold">EDA</span>
+            <div class="flex flex-col flex-1 p-6">
+              <p class="micro tabular mb-3">{{ post.date }} · {{ post.readTime }}</p>
+              <h3 class="text-ink font-medium text-lg leading-snug mb-3">{{ post.title }}</h3>
+              <p class="text-ink-2 text-[15px] leading-relaxed line-clamp-3">{{ post.summary }}</p>
             </div>
-
-            <!-- Content -->
-            <div class="p-5 md:p-6">
-              <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-3">{{ post.date }} · {{ post.readTime }}</p>
-              <h3 class="text-white font-bold text-lg md:text-xl leading-snug mb-3 group-hover:text-[#2563EB] transition-colors duration-300">{{ post.title }}</h3>
-              <p class="text-white/90 text-sm leading-relaxed mb-4 line-clamp-3">{{ post.summary }}</p>
-              <span class="text-[#2563EB] text-xs font-bold uppercase tracking-widest">Read Article →</span>
-            </div>
-
           </a>
         </div>
 
+        <button class="more-posts" aria-controls="post-grid" [attr.aria-expanded]="expanded" (click)="expanded = !expanded">
+          {{ expanded ? 'Show fewer posts' : 'Show more' }} <span aria-hidden="true">{{ expanded ? '−' : '+' }}</span>
+        </button>
       </div>
     </section>
   `
 })
-export class BlogListComponent implements OnInit {
-  ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
+export class BlogListComponent {
+
+  expanded = false;
   posts = [
+    {
+      "slug": "verified-gates",
+      "image": "assets/blogs/verified-gates-hero.jpg",
+      "date": "October 2026",
+      "readTime": "6 min read",
+      "title": "From 160 Gates a Day to Verified Gates",
+      "summary": "Gates per engineer-day never really measured gates — it measured verified gates, and agents that generate RTL for free are forcing the industry to say so plainly."
+    },
+    {
+      "slug": "verilator-5-050",
+      "image": "assets/blogs/verilator-5-050-hero.jpeg",
+      "date": "September 2026",
+      "readTime": "4 min read",
+      "title": "Unlimited. Full-Featured. Perfect for the Agentic Loop.",
+      "summary": "How Verilator 5.050 closes the cost, functionality, and performance gaps at once — measured across sixteen public and UVM designs."
+    },
     {
       slug: '2026-08-release',
       image: 'assets/blogs/2026-08-release-hero.jpg',
@@ -56,7 +67,7 @@ export class BlogListComponent implements OnInit {
     },
     {
       slug: 'chip-design-over-mcp',
-      image: 'assets/blogs/mcp-data-flow.gif',
+      image: 'assets/blogs/mcp-data-flow.webp',
       date: 'August 2026',
       readTime: '< 5 min read',
       title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
@@ -88,7 +99,7 @@ export class BlogListComponent implements OnInit {
     },
     {
       slug: 'code-generation',
-      image: 'assets/blogs/code-generation-perspective.png',
+      image: 'assets/blogs/code-generation-perspective.jpg',
       date: 'April 2026',
       readTime: '5 min read',
       title: 'Generating SystemVerilog Is Easy. Generating Hardware Is Not.',
@@ -96,7 +107,7 @@ export class BlogListComponent implements OnInit {
     },
     {
       slug: 'silicon-imperative',
-      image: 'assets/blogs/silicon-imperative.png',
+      image: 'assets/blogs/silicon-imperative.jpg',
       date: 'March 2026',
       readTime: '5 min read',
       title: 'The Silicon Imperative',

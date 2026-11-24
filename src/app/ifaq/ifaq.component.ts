@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -8,66 +7,33 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <section class="min-h-screen bg-black text-white pt-28 pb-20 px-4 md:px-8">
-      <div class="text-center w-full max-w-[900px] mx-auto">
-
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 pb-2 bg-gradient-to-tr from-white to-[#2563EB] bg-clip-text text-transparent">IFAQ</h1>
-        <p class="text-white/90 text-sm md:text-base mb-4">Infrequently Asked Questions</p>
-        <p class="text-white/90 text-sm md:text-base mb-16">Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.</p>
-
-        <div class="text-left space-y-4">
-
-          <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mb-2">Our Technology</p>
-          <div *ngFor="let faq of technologyFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
-              <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-              <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
-            </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
-          </div>
-
-          <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">The Evaluation</p>
-          <div *ngFor="let faq of evaluationFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
-              <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-              <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
-            </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
-          </div>
-
-          <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Security & IP Protection</p>
-          <div *ngFor="let faq of securityFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
-              <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-              <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
-            </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
-          </div>
-
-          <p class="text-[#2563EB] text-xs uppercase tracking-widest font-semibold mt-8 mb-2">Next Steps</p>
-          <div *ngFor="let faq of nextStepsFaqs" class="border border-[#2563EB]/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/80 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] bg-[#0d1f3c]">
-            <button (click)="toggle(faq.id)" class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none bg-[#0d1f3c] hover:bg-[#112244] transition-colors duration-200">
-              <span class="text-white font-medium text-sm md:text-base pr-4">{{ faq.q }}</span>
-              <span class="text-[#2563EB] text-xl flex-shrink-0 transition-transform duration-300" [class.-rotate-45]="expanded[faq.id]">+</span>
-            </button>
-            <div *ngIf="expanded[faq.id]" class="px-6 py-4 bg-[#0a1828] text-white/95 text-sm md:text-base leading-relaxed">{{ faq.a }}</div>
-          </div>
-
+    <section class="chapter">
+      <div class="faq-grid">
+        <div class="faq-aside">
+          <h2>IFAQ</h2>
+          <p class="lede">Infrequently asked questions. Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.</p>
+          <p class="text-ink-2">Further questions? Reach us at
+            <a href="mailto:info@careteda.com" class="text-link">info&#64;careteda.com</a></p>
         </div>
 
-        <!-- Footer note -->
-        <p class="mt-16 text-white/70 text-sm italic text-center">
-          Further questions? Reach us at
-          <a href="mailto:info@careteda.com" class="text-white font-bold not-italic hover:text-[#2563EB] transition-colors no-underline">info&#64;careteda.com</a>
-        </p>
-
+        <div>
+          <div class="faq-group" *ngFor="let g of groups">
+            <p class="micro">{{ g.label }}</p>
+            <div class="faq-item" *ngFor="let faq of g.items">
+              <h3>
+                <button type="button" class="faq-q" (click)="toggle(faq.id)" [attr.aria-expanded]="!!expanded[faq.id]" [attr.aria-controls]="'faq-' + faq.id" [id]="'faq-q-' + faq.id">
+                  {{ faq.q }}<span class="caret" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq-a" role="region" *ngIf="expanded[faq.id]" [id]="'faq-' + faq.id" [attr.aria-labelledby]="'faq-q-' + faq.id">{{ faq.a }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   `
 })
-export class IFAQComponent implements OnInit {
-  ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
-
+export class IFAQComponent {
   expanded: { [key: string]: boolean } = {};
 
   toggle(id: string) { this.expanded[id] = !this.expanded[id]; }
@@ -93,5 +59,12 @@ export class IFAQComponent implements OnInit {
     { id: 'n1', q: 'What does commercial pricing look like?', a: 'Pricing is based on team size and deployment scope. Specific details are best discussed in our discovery call.' },
     { id: 'n2', q: 'What happens after the evaluation?', a: 'We review the results together and discuss whether commercial deployment makes sense for your organization. There is no obligation to proceed.' },
     { id: 'n3', q: 'How do we get started?', a: 'Contact us at info@careteda.com to schedule a 1-hour discovery call. We will qualify the opportunity together and, if there is a fit, agree to evaluation scope and kick off within days.' },
+  ];
+
+  readonly groups = [
+    { label: 'Our technology', items: this.technologyFaqs },
+    { label: 'The evaluation', items: this.evaluationFaqs },
+    { label: 'Security & IP protection', items: this.securityFaqs },
+    { label: 'Next steps', items: this.nextStepsFaqs },
   ];
 }

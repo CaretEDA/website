@@ -19,6 +19,18 @@ const template = readFileSync(join(DIST, 'index.html'), 'utf8');
 const routes = [
   // Blog posts — each gets its own image + title (matches careteda.com behaviour)
   {
+    path: 'blogs/verified-gates',
+    title: 'From 160 Gates a Day to Verified Gates',
+    desc: 'Gates per engineer-day never really measured gates — it measured verified gates, and agents that generate RTL for free are forcing the industry to say so plainly.',
+    image: 'assets/blogs/verified-gates-hero.jpg',
+  },
+  {
+    path: 'blogs/verilator-5-050',
+    title: 'Unlimited. Full-Featured. Perfect for the Agentic Loop.',
+    desc: 'How Verilator 5.050 closes the cost, functionality, and performance gaps at once — measured across sixteen public and UVM designs.',
+    image: 'assets/blogs/verilator-5-050-hero.jpeg',
+  },
+  {
     path: 'blogs/2026-08-release',
     title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
     desc: 'CaretEDA\'s second release brings OpenROAD into the Spec-to-Netlist™ platform, updates Verilator, and introduces new partnerships, bridging the gap from RTL generation to physical implementation.',
@@ -28,7 +40,7 @@ const routes = [
     path: 'blogs/chip-design-over-mcp',
     title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
     desc: 'Caret now exposes both its goal-driven hardware agents and its EDA tools through MCP, putting them inside your IDE and CI pipeline — turning AI from a side-window assistant into an engineering teammate.',
-    image: 'assets/blogs/mcp-data-flow.gif',
+    image: 'assets/blogs/mcp-data-flow-og.jpg',
   },
   {
     path: 'blogs/dac2026-oss-blog',
@@ -52,15 +64,21 @@ const routes = [
     path: 'blogs/code-generation',
     title: 'Generating SystemVerilog Is Easy. Generating Hardware Is Not.',
     desc: 'LLMs can produce RTL that compiles and simulates — but hardware is a contract with physics, and physics does not accept plausible drafts.',
-    image: 'assets/blogs/code-generation-perspective.png',
+    image: 'assets/blogs/code-generation-perspective.jpg',
   },
   {
     path: 'blogs/silicon-imperative',
     title: 'The Silicon Imperative',
     desc: 'Rising chip design complexity, shrinking tapeout cycles, and why the $775B semiconductor market is making AI-driven design a strategic necessity.',
-    image: 'assets/blogs/silicon-imperative.png',
+    image: 'assets/blogs/silicon-imperative.jpg',
   },
   // News detail (press release)
+  {
+    path: 'news/2026-08-release-neevsemi-partnership',
+    title: 'CaretEDA Announces 2026.08 Release and NeevSemi Partnership',
+    desc: 'New Spec-to-Netlist™ capabilities, OpenROAD availability in CaretEDA\'s open-source EDA stack, and a preferred partnership with NeevSemi.',
+    image: DEFAULT_IMAGE,
+  },
   {
     path: 'news/bit-mesra-award',
     title: 'CaretEDA Co-Founder and CEO Sashi Obilisetty Receives BIT Mesra Distinguished Alumna Award 2026',
@@ -86,6 +104,7 @@ const routes = [
   { path: 'team',    title: 'Team',    desc: 'Meet the team building CaretEDA’s AI-native chip design platform.', image: DEFAULT_IMAGE },
   { path: 'careers', title: 'Careers', desc: 'Join CaretEDA and help reshape how chips are designed with AI-native, agentic EDA.', image: DEFAULT_IMAGE },
   { path: 'ifaq',    title: 'IFAQ',    desc: 'Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.', image: DEFAULT_IMAGE },
+  { path: 'startup-program', title: 'Startup Program Application', desc: 'Join the next generation of silicon innovators. Apply below to get access to CaretEDA\'s commercially supported open-source EDA stack and agentic modules.', image: DEFAULT_IMAGE },
   { path: 'demos',   title: 'Demos',   desc: 'Watch Spec-to-Netlist™ in motion — from design intent to silicon-ready output.', image: DEFAULT_IMAGE },
 ];
 
@@ -120,3 +139,16 @@ for (const r of routes) {
   console.log(`  og: /${r.path}`);
 }
 console.log(`Injected per-route Open Graph tags into ${count} pages.`);
+
+// sitemap.xml for search engines (robots.txt in public/ points here).
+// Real pages only: home, blog posts, news releases, job pages. Section shortcuts (/about, /blogs …)
+// redirect to home anchors, so they would be duplicates; /demos is deliberately unlisted.
+const jobPages = ['careers/senior-hardware-engineer'];
+const pages = ['', ...routes.map(r => r.path).filter(p => /^(blogs|news)\//.test(p)), ...jobPages];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages.map(p => `  <url><loc>${BASE}/${p}</loc></url>`).join('\n')}
+</urlset>
+`;
+writeFileSync(join(DIST, 'sitemap.xml'), sitemap);
+console.log(`Wrote sitemap.xml with ${pages.length} pages.`);

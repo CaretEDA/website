@@ -1,205 +1,101 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Router, RouterModule, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, Component, DestroyRef, HostListener, Inject, PLATFORM_ID, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { ScrollService } from './scroll.service';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterLink],
   template: `
-    <!-- Floating pill navbar -->
-    <header class="fixed top-3 left-4 right-4 md:left-8 md:right-8 z-[100] navbar-pill">
-      <div class="h-[68px] flex items-center justify-between px-6 md:px-10 gap-6">
-
-        <!-- Logo -->
-        <a (click)="handleLogoClick()" class="cursor-pointer no-underline flex-shrink-0">
-          <img src="assets/careteda-logo-hd.png" alt="CaretEDA" class="h-9 w-auto">
+    <a class="skip" href="#main-content">Skip to content</a>
+    <header class="mast" [class.away]="hidden() && !menuOpen()">
+      <div class="wrap mast-row">
+        <a class="brand" routerLink="/" fragment="home" (click)="close()" aria-label="CaretEDA home">
+          <img src="assets/careteda-logo-64.png" alt="" width="32" height="32"><span>CaretEDA</span>
         </a>
-
-        <!-- Desktop Nav Links -->
-        <nav class="hidden md:flex items-center flex-1 justify-center">
-          <a *ngFor="let link of navLinks"
-             (click)="handleNav(link)"
-             [class.active]="isActive(link)"
-             class="nav-bar-link px-5 py-2.5 text-[15px] cursor-pointer no-underline whitespace-nowrap select-none">
-            {{ link.label }}
-          </a>
+        <nav class="main-links" aria-label="Primary">
+          @for (item of primary; track item.id) {
+            <a routerLink="/" [fragment]="item.id" (click)="close()" [attr.aria-current]="active() === item.id ? 'location' : null">
+              <span class="caret" aria-hidden="true"></span>{{ item.label }}
+            </a>
+          }
         </nav>
-
-        <!-- Contact Us -->
-        <div class="hidden md:flex items-center flex-shrink-0">
-          <a (click)="handleContactClick()"
-             class="inline-flex items-center bg-[#2563EB] text-white text-sm font-semibold px-6 py-2.5 rounded-full no-underline transition-all duration-300 hover:bg-[#1D4ED8] cursor-pointer">
-            Contact Us
-          </a>
+        <div class="mast-actions">
+          <a class="nav-quiet" routerLink="/" fragment="startup-program" (click)="close()">Startup program</a>
+          <a class="nav-contact" routerLink="/" fragment="contact" (click)="close()">Contact us</a>
+          <button class="menu-toggle" type="button" (click)="menuOpen.set(!menuOpen())" [attr.aria-expanded]="menuOpen()" aria-controls="section-menu" [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"><span></span><span></span></button>
         </div>
-
-        <!-- Mobile Hamburger -->
-        <button (click)="toggleMobileMenu()"
-          class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] focus:outline-none flex-shrink-0">
-          <span class="hamburger-line" [class.open-top]="isMobileMenuOpen"></span>
-          <span class="hamburger-line" [class.open-mid]="isMobileMenuOpen"></span>
-          <span class="hamburger-line" [class.open-bot]="isMobileMenuOpen"></span>
-        </button>
-
       </div>
+      <nav class="menu-panel" id="section-menu" aria-label="All sections" [hidden]="!menuOpen()">
+        @for (item of sections; track item.id) {
+          <a routerLink="/" [fragment]="item.id" (click)="close()" [attr.aria-current]="active() === item.id ? 'location' : null">{{ item.label }}</a>
+        }
+      </nav>
     </header>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay fixed inset-0 z-[90] flex flex-col items-center justify-center gap-8 md:hidden"
-         [class.active]="isMobileMenuOpen">
-      <a *ngFor="let link of navLinks"
-         (click)="handleNav(link)"
-         class="mobile-nav-link"
-         [class.active]="isActive(link)">
-        {{ link.label }}
-      </a>
-    </div>
+    @if (showTop()) { <button class="to-top" type="button" aria-label="Back to top" title="Back to top" (click)="top()"><span class="caret" aria-hidden="true"></span></button> }
   `
 })
-export class NavbarComponent implements OnInit, OnDestroy {
-  isMobileMenuOpen = false;
-  activeSection = 'home';
-  isHomePage = true;
-  indicatorStyle: { [key: string]: string } = { left: '0px', width: '0px', opacity: '0' };
-
-  private routerSub?: Subscription;
-  private scrollFn?: () => void;
-
-  navLinks: { id: string; label: string; route: string | null }[] = [
-    { id: 'home',    label: 'Home',     route: null       },
-    { id: 'team',    label: 'Team',     route: '/team'    },
-    { id: 'blog',    label: 'Blog',     route: '/blogs'   },
-    { id: 'ifaq',    label: 'IFAQ',     route: '/ifaq'    },
-    { id: 'news',    label: 'News',     route: '/news'    },
-    { id: 'startup', label: 'Startup Program', route: '/startup-program' },
-    { id: 'careers', label: 'Careers',  route: '/careers' },
-    { id: 'about',   label: 'About',    route: '/about'   },
+export class NavbarComponent implements AfterViewInit {
+  readonly primary = [
+    { id: 'about', label: 'About' }, { id: 'blogs', label: 'Blog' },
+    { id: 'news', label: 'News' }, { id: 'team', label: 'Team' }, { id: 'careers', label: 'Careers' },
   ];
+  readonly sections = [
+    { id: 'home', label: 'Home' }, ...this.primary, { id: 'ifaq', label: 'IFAQ' },
+    { id: 'startup-program', label: 'Startup program' }, { id: 'contact', label: 'Contact' },
+  ];
+  readonly hidden = signal(false);
+  readonly menuOpen = signal(false);
+  readonly showTop = signal(false);
+  /** The section currently in the reading band; drives the caret marker. */
+  readonly active = signal<string | null>(null);
+  private previousY = 0;
+  private observer?: IntersectionObserver;
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
-  constructor(
-    private router: Router,
-    private scrollService: ScrollService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
-  ngOnInit() {
-    this.checkIsHome(this.router.url);
+  ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId) || !('IntersectionObserver' in window)) return;
+    // A thin band a little above the middle of the viewport: whichever section crosses it is "current".
+    this.observer = new IntersectionObserver(entries => {
+      for (const e of entries) if (e.isIntersecting) this.active.set(e.target.id);
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    this.observe();
+    const sub = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => setTimeout(() => this.observe()));
+    this.destroyRef.onDestroy(() => { sub.unsubscribe(); this.observer?.disconnect(); });
+  }
 
-    this.routerSub = this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((e: any) => {
-        this.checkIsHome(e.urlAfterRedirects);
-        if (!this.isHomePage) this.activeSection = '';
-        setTimeout(() => this.updateIndicator(), 150);
-      });
-
-    if (isPlatformBrowser(this.platformId)) {
-      this.scrollFn = () => this.onScroll();
-      window.addEventListener('scroll', this.scrollFn, { passive: true });
-      setTimeout(() => this.updateIndicator(), 200);
+  private observe() {
+    this.observer?.disconnect();
+    this.active.set(null);
+    for (const s of this.sections) {
+      const el = document.getElementById(s.id);
+      if (el) this.observer?.observe(el);
     }
   }
 
-  ngOnDestroy() {
-    this.routerSub?.unsubscribe();
-    if (isPlatformBrowser(this.platformId) && this.scrollFn) {
-      window.removeEventListener('scroll', this.scrollFn);
+  @HostListener('window:scroll')
+  updateScroll() {
+    const y = Math.max(0, window.scrollY);
+    this.showTop.set(y > 640);
+    if (y < 80 || Math.abs(y - this.previousY) >= 4) {
+      this.hidden.set(y > 80 && y > this.previousY);
+      this.previousY = y;
     }
   }
 
-  private checkIsHome(url: string) {
-    this.isHomePage = url === '/' || url === '' || url === '/index.html';
-  }
-
-  onScroll() {
-    if (!this.isHomePage || !isPlatformBrowser(this.platformId)) return;
-    const scrollY = window.scrollY + window.innerHeight * 0.4;
-    for (const id of ['home']) {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) {
-        if (this.activeSection !== id) {
-          this.activeSection = id;
-          this.updateIndicator();
-        }
-        return;
-      }
+  @HostListener('document:keydown.escape')
+  escape() {
+    if (this.menuOpen()) {
+      this.close();
+      document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();
     }
   }
-
-  updateIndicator() {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const nav = document.querySelector('.pill-nav-container');
-    if (!nav) return;
-    const items = nav.querySelectorAll('.nav-pill-item');
-    const idx = this.navLinks.findIndex(l => this.isActive(l));
-    if (idx >= 0 && items[idx]) {
-      const navRect = nav.getBoundingClientRect();
-      const itemRect = (items[idx] as HTMLElement).getBoundingClientRect();
-      this.indicatorStyle = {
-        left: (itemRect.left - navRect.left) + 'px',
-        width: itemRect.width + 'px',
-        opacity: '1'
-      };
-    } else {
-      this.indicatorStyle = { left: '0px', width: '0px', opacity: '0' };
-    }
-  }
-
-  isActive(link: { id: string; route: string | null }): boolean {
-    if (link.route) return this.router.url.startsWith(link.route);
-    return this.isHomePage && this.activeSection === link.id;
-  }
-
-  private readonly slideMap: Record<string, number> = { home: 0 };
-
-  handleNav(link: { id: string; route: string | null }) {
-    this.isMobileMenuOpen = false;
-    if (link.route) {
-      this.router.navigate([link.route]);
-    } else if (this.isHomePage && isPlatformBrowser(this.platformId)) {
-      const slideIndex = this.slideMap[link.id];
-      if (slideIndex !== undefined) {
-        this.scrollService.pendingSlide = slideIndex;
-        window.dispatchEvent(new CustomEvent('carousel-goto', { detail: slideIndex }));
-      } else {
-        const el = document.getElementById(link.id);
-        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-      }
-      this.activeSection = link.id;
-      setTimeout(() => this.updateIndicator(), 0);
-    } else {
-      this.scrollService.pendingSlide = this.slideMap[link.id] ?? null;
-      this.scrollService.pendingSection = link.id;
-      this.router.navigate(['/']);
-    }
-  }
-
-  handleLogoClick() {
-    if (this.isHomePage && isPlatformBrowser(this.platformId)) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      this.router.navigate(['/']);
-    }
-  }
-
-  toggleMobileMenu() { this.isMobileMenuOpen = !this.isMobileMenuOpen; }
-
-  handleContactClick() {
-    this.isMobileMenuOpen = false;
-    if (this.isHomePage && isPlatformBrowser(this.platformId)) {
-      const el = document.getElementById('contact');
-      if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    } else {
-      this.router.navigate(['/']).then(() => {
-        setTimeout(() => {
-          const el = document.getElementById('contact');
-          if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-        }, 300);
-      });
-    }
+  close() { this.menuOpen.set(false); }
+  top() {
+    document.getElementById('main-content')?.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   }
 }

@@ -1,0 +1,90 @@
+[
+  {
+    "file": "aws.svg",
+    "icon": "logos:aws",
+    "name": "Aws",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://aws.amazon.com/"
+  },
+  {
+    "file": "google-cloud.svg",
+    "icon": "logos:google-cloud",
+    "name": "Google Cloud",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://cloud.google.com/"
+  },
+  {
+    "file": "microsoft-azure.svg",
+    "icon": "logos:microsoft-azure",
+    "name": "Microsoft Azure",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://azure.microsoft.com/"
+  },
+  {
+    "file": "openai-icon.svg",
+    "icon": "logos:openai-icon",
+    "name": "Openai",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://openai.com/"
+  },
+  {
+    "file": "openrouter-icon.svg",
+    "icon": "logos:openrouter-icon",
+    "name": "Openrouter",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://openrouter.ai"
+  },
+  {
+    "file": "si-nvidia.svg",
+    "icon": "si:nvidia",
+    "name": "NVIDIA",
+    "kind": "mono",
+    "source": "simple-icons@16.30.0",
+    "author": "Simple Icons Collaborators",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/simple-icons/simple-icons",
+    "trademark": true,
+    "colour": "one-colour fallback in the brand hex"
+  },
+  {
+    "file": "verilator-mark.png",
+    "name": "Verilator",
+    "source": "github.com/verilator/verilator docs/_static/verilator_192_150_min.png (mark cropped, text removed)",
+    "url": "https://github.com/verilator/verilator",
+    "trademark": true,
+    "markUrl": "https://www.veripool.org/verilator/"
+  },
+  {
+    "file": "twingate.png",
+    "name": "Twingate",
+    "source": "twingate.com site icon",
+    "url": "https://www.twingate.com/",
+    "trademark": true,
+    "markUrl": "https://www.twingate.com/"
+  }
+]

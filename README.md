@@ -1,59 +1,52 @@
-# CorporateWebsite
+# CaretEDA website
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+Source for [careteda.com](https://careteda.com): an Angular 21 single-page site styled with Tailwind CSS, hosted on GitHub Pages.
 
-## Development server
+## Requirements
 
-To start a local development server, run:
+- Node.js 20.19+, 22.12+ or 24+
+- npm (the project pins npm 11)
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run it locally
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # http://localhost:4200, reloads on save
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Test
 
 ```bash
-ng generate --help
+npm test           # Vitest unit tests (src/app/app.spec.ts)
 ```
 
-## Building
-
-To build the project run:
+## Deploy
 
 ```bash
-ng build
+npm run deploy
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This builds for production, runs `scripts/inject-og.mjs` to write a static page with its own
+LinkedIn/Twitter preview tags for each route, then publishes `dist/corporate-website/browser`
+to the `gh-pages` branch, which GitHub Pages serves at careteda.com (`src/CNAME`).
+Do not edit `gh-pages` by hand. Develop on `main` or a feature branch.
 
-## Running unit tests
+When you add a blog post or a news page, also add an entry to the `routes` list in
+`scripts/inject-og.mjs` so shared links get a preview card.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Where things live
 
-```bash
-ng test
-```
+| Path | What |
+|---|---|
+| `src/app/home/` | The single long homepage. Sections are the components below |
+| `src/app/about`, `blog`, `news`, `team`, `ifaq`, `startup-program`, `careers` | One component per homepage section |
+| `src/app/blog/blog-list.component.ts` | Blog cards (newest first) |
+| `src/app/blog/blog-detail.component.ts` | Full text of every blog post, keyed by URL slug |
+| `src/app/news/*` | One component per press release |
+| `src/app/demos/` | Demos page: reachable at `/demos` only, not linked from the menu (same as the live site) |
+| `src/app/shared/navbar.component.ts` | Header, menu and back-to-top button |
+| `src/styles.css`, `tailwind.config.js` | Design tokens (colors, type) and global styles |
+| `src/assets/` | Images. Keep photos as JPEG/WebP, roughly 2x their display size |
+| `src/404.html` | GitHub Pages fallback that hands deep links back to the Angular router |
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Old URLs such as `/team`, `/blogs` and `/about` redirect to their section on the homepage.

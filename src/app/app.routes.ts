@@ -1,35 +1,24 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { DemosComponent } from './demos/demos.component';
-import { BlogListComponent } from './blog/blog-list.component';
-import { BlogDetailComponent } from './blog/blog-detail.component';
-import { IFAQComponent } from './ifaq/ifaq.component';
-import { CareersComponent } from './careers/careers.component';
-import { CareersDetailComponent } from './careers/careers-detail.component';
-import { TeamComponent } from './team/team.component';
-import { NewsComponent } from './news/news.component';
-import { NewsDetailComponent } from './news/news-detail.component';
-import { NewsDac2026Component } from './news/news-dac2026.component';
-import { NewsBitMesraAwardComponent } from './news/news-bit-mesra-award.component';
-import { NewsNeevsemiPartnershipComponent } from './news/news-neevsemi-partnership.component';
-import { StartupProgramComponent } from './startup-program/startup-program.component';
 
+// Only the home page is in the main bundle. Detail pages (blog posts, news, careers, demos)
+// load on first visit, so the home page doesn't download every article's full text.
 export const routes: Routes = [
   { path: '',                component: HomeComponent },
-  { path: 'about',           component: AboutComponent },
-  { path: 'team',            component: TeamComponent },
-  { path: 'demos',           component: DemosComponent },
-  { path: 'news',            component: NewsComponent },
-  { path: 'news/2026-08-release-neevsemi-partnership', component: NewsNeevsemiPartnershipComponent },
-  { path: 'news/dac-2026',   component: NewsDac2026Component },
-  { path: 'news/technical-advisors', component: NewsDetailComponent },
-  { path: 'news/bit-mesra-award', component: NewsBitMesraAwardComponent },
-  { path: 'startup-program', component: StartupProgramComponent },
-  { path: 'blogs',           component: BlogListComponent },
-  { path: 'blogs/:slug',     component: BlogDetailComponent },
-  { path: 'ifaq',            component: IFAQComponent },
-  { path: 'careers',         component: CareersComponent },
-  { path: 'careers/:slug',   component: CareersDetailComponent },
+  { path: 'about', pathMatch: 'full', redirectTo: '/#about' },
+  { path: 'team', pathMatch: 'full', redirectTo: '/#team' },
+  // Hidden page, as on careteda.com: reachable by URL, not linked from the menu or homepage.
+  { path: 'demos',           loadComponent: () => import('./demos/demos.component').then(m => m.DemosComponent) },
+  { path: 'news', pathMatch: 'full', redirectTo: '/#news' },
+  { path: 'news/2026-08-release-neevsemi-partnership', loadComponent: () => import('./news/news-neevsemi-partnership.component').then(m => m.NewsNeevsemiPartnershipComponent) },
+  { path: 'news/dac-2026',   loadComponent: () => import('./news/news-dac2026.component').then(m => m.NewsDac2026Component) },
+  { path: 'news/technical-advisors', loadComponent: () => import('./news/news-detail.component').then(m => m.NewsDetailComponent) },
+  { path: 'news/bit-mesra-award', loadComponent: () => import('./news/news-bit-mesra-award.component').then(m => m.NewsBitMesraAwardComponent) },
+  { path: 'startup-program', pathMatch: 'full', redirectTo: '/#startup-program' },
+  { path: 'blogs', pathMatch: 'full', redirectTo: '/#blogs' },
+  { path: 'blogs/:slug',     loadComponent: () => import('./blog/blog-detail.component').then(m => m.BlogDetailComponent) },
+  { path: 'ifaq', pathMatch: 'full', redirectTo: '/#ifaq' },
+  { path: 'careers', pathMatch: 'full', redirectTo: '/#careers' },
+  { path: 'careers/:slug',   loadComponent: () => import('./careers/careers-detail.component').then(m => m.CareersDetailComponent) },
   { path: '**',              redirectTo: '' },
 ];
