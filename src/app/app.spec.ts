@@ -59,6 +59,53 @@ describe('Scrolling homepage', () => {
     expect(page.querySelector('app-demos h2, app-demos h1')?.textContent).toContain('Demos');
   });
 
+  it('opens the startup program application in a popup that can be closed without losing input', async () => {
+    const fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/');
+    await fixture.whenStable();
+    const page: HTMLElement = fixture.nativeElement;
+    const dialog = page.querySelector<HTMLDialogElement>('#apply-dialog')!;
+    expect(dialog).toBeTruthy();
+    expect(dialog.hasAttribute('open')).toBe(false);
+
+    const open = [...page.querySelectorAll<HTMLButtonElement>('#startup-program button')].find((b) => /open application/i.test(b.textContent ?? ''))!;
+    open.click();
+    await fixture.whenStable();
+    expect(dialog.hasAttribute('open')).toBe(true);
+    expect(dialog.querySelector('#apply-title')?.textContent).toContain('Startup program application');
+    const submit = dialog.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    expect(submit.textContent?.replace(/\s+/g, ' ').trim()).toBe('Submit application'); // visible "Submit" + screen-reader " application"
+    expect(submit.querySelector('.icon--upload')).toBeTruthy();
+
+    // Submitting empty: an error under each required field, a count in the status line, focus on the first
+    dialog.querySelector<HTMLFormElement>('#apply-form')!.dispatchEvent(new Event('submit', { cancelable: true }));
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(dialog.querySelector('#sp-name-error')?.textContent).toContain('Enter your name');
+    expect(dialog.querySelector('#sp-name')?.getAttribute('aria-invalid')).toBe('true');
+    expect(dialog.querySelectorAll('.field__error').length).toBeGreaterThan(5);
+    expect(dialog.querySelector('.form__status')?.textContent).toMatch(/fields need your attention/);
+    expect(document.activeElement?.id).toBe('sp-name');
+
+    // Typed values survive closing and reopening
+    const name = dialog.querySelector<HTMLInputElement>('#sp-name')!;
+    name.value = 'Jane Doe';
+    dialog.querySelector<HTMLButtonElement>('.apply-close')!.click();
+    await new Promise((r) => setTimeout(r, 160));
+    await fixture.whenStable();
+    expect(dialog.hasAttribute('open')).toBe(false);
+    open.click();
+    await fixture.whenStable();
+    expect(dialog.hasAttribute('open')).toBe(true);
+    expect(dialog.querySelector<HTMLInputElement>('#sp-name')!.value).toBe('Jane Doe');
+
+    // Esc closes it too
+    dialog.dispatchEvent(new Event('cancel', { cancelable: true }));
+    await new Promise((r) => setTimeout(r, 160));
+    await fixture.whenStable();
+    expect(dialog.hasAttribute('open')).toBe(false);
+  });
+
   it('changes the header direction and return control when scrolling', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();

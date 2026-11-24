@@ -152,8 +152,33 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 .secondary, .more-posts { border: 1px solid var(--line-strong); color: var(--ink); background: var(--card); }
 .secondary:hover, .more-posts:hover { background: var(--raised); border-color: rgb(17 24 39 / 0.24); }
 .more-posts { height: 44px; margin-top: 32px; }
-.arrow { transition: transform var(--fast) var(--ease); }
+/* Line icons drawn from files in assets/icons as a mask, so each takes its text colour (currentColor) */
+.icon, .arrow {
+  display: inline-block; flex-shrink: 0; width: 1em; height: 1em; background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+}
+.icon--mail { --icon: url("assets/icons/mail-account-01-stroke-rounded.svg"); }
+/* Submit: trailing upload icon, text size, nudges up 2px on hover (the arrow's nudge, turned to its direction) */
+.icon--upload {
+  --icon: url("assets/icons/upload-06-stroke-rounded.svg");
+  width: 1.1em; height: 1.1em; transition: transform var(--fast) var(--ease);
+}
+.action:hover:not(:disabled) .icon--upload { transform: translateY(-2px); }
+/* The one right arrow used on buttons and "Read more" links; nudges 3px right on hover */
+.arrow {
+  --icon: url("assets/icons/arrow-right-02-stroke-rounded.svg");
+  width: 1.1em; height: 1.1em; vertical-align: -0.2em;
+  transition: transform var(--fast) var(--ease);
+}
 :is(.action, .text-link):hover .arrow { transform: translateX(3px); }
+/* The one left arrow, used on "Back to …" links; nudges 3px left on hover */
+.arrow-back {
+  display: inline-block; flex-shrink: 0; width: 1.1em; height: 1.1em; background-color: currentColor;
+  --icon: url("assets/icons/arrow-left-02-stroke-rounded.svg");
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+  transition: transform var(--fast) var(--ease);
+}
+a:hover .arrow-back { transform: translateX(-3px); }
 :is(.action, .more-posts, .nav-contact, .menu-toggle, .to-top, .bio-toggle):active { transform: scale(0.97); }
 .text-link {
   display: inline-flex; align-items: center; gap: 6px; font-weight: 500; color: var(--accent-ink);
@@ -161,6 +186,10 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
   transition: background-size var(--menu) var(--ease);
 }
 .text-link:hover { background-size: 100% 1px; }
+/* An email inside a sentence: mail icon in the link's colour, 6px before the address; only the address underlines */
+.mail-inline { display: inline-flex; align-items: center; gap: 6px; vertical-align: bottom; }
+.mail-inline .icon { width: 1.05em; height: 1.05em; }
+.mail-inline:hover .text-link { background-size: 100% 1px; }
 
 /* ---------- Hero ---------- */
 .hero { padding: 144px 0 112px; background: var(--page); }
@@ -275,9 +304,10 @@ app-home > [id] { display: block; }
 .head-row .head { margin-bottom: 0; }
 
 /* Alternating bands: page / white, so neighbours never share a ground */
-/* Homepage order: about, blogs, news, team, ifaq, startup-program, careers */
-#blogs .chapter, #team .chapter, #startup-program .chapter { background: var(--card); }
-#about .chapter, #news .chapter, #ifaq .chapter, #careers .chapter { background: var(--page); }
+/* Homepage order: partners (card), blogs, news, press strip (deep), team, ifaq, startup-program,
+   careers, about, contact (page) */
+#news .chapter, #team .chapter, #startup-program .chapter, #about .chapter { background: var(--card); }
+#blogs .chapter, #ifaq .chapter, #careers .chapter { background: var(--page); }
 /* Demos is a hidden standalone page (/demos), not a homepage section */
 app-demos .chapter { background: var(--card); }
 
@@ -291,6 +321,22 @@ app-demos .chapter { background: var(--card); }
   }
 .lift:hover h3 { color: var(--accent-ink); }
 .lift h3 { transition: color var(--fast) var(--ease); }
+
+/* Team portraits: the same mild hover as linked pictures; the photo eases inside its round frame,
+   and a soft glow in the brand blue (a thin tint ring + a faint halo) fades in around it. */
+.person .photo, .advisor-photo {
+  box-shadow: 0 0 0 0 rgb(37 99 235 / 0), 0 0 0 0 rgb(37 99 235 / 0);
+  transition: border-color var(--fast) var(--ease), box-shadow 300ms var(--ease);
+}
+.person .photo img, .advisor-photo img { transition: transform 300ms var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .person:hover .photo, .advisor:hover .advisor-photo {
+    border-color: rgb(37 99 235 / 0.35);
+    box-shadow: 0 0 0 4px rgb(37 99 235 / 0.12), 0 8px 28px rgb(37 99 235 / 0.22);
+  }
+  .advisor:hover .advisor-photo { box-shadow: 0 0 0 3px rgb(37 99 235 / 0.12), 0 4px 16px rgb(37 99 235 / 0.22); }
+  .person:hover .photo img, .advisor:hover .advisor-photo img { transform: scale(1.03); }
+}
 
 /* About */
 .about-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 80px; align-items: start; }
@@ -319,7 +365,8 @@ app-demos .chapter { background: var(--card); }
 
 /* Team */
 .founders { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-.person .photo { aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; background: var(--deep); margin-bottom: 20px; }
+/* Same size as careteda.com: 144px round portraits (112px on phones) */
+.person .photo { width: 144px; height: 144px; border-radius: 50%; overflow: hidden; background: var(--deep); margin-bottom: 20px; border: 1px solid var(--line); }
 .person .photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .person h3 { font-size: 20px; line-height: 28px; font-weight: 500; }
 .person .role { font-size: 14px; color: var(--ink-3); margin-top: 2px; }
@@ -331,7 +378,8 @@ app-demos .chapter { background: var(--card); }
 .bio-toggle:hover { color: var(--ink); }
 .advisors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 24px; }
 .advisor { display: flex; align-items: center; gap: 16px; padding-top: 20px; border-top: 1px solid var(--line); }
-.advisor img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top; background: var(--deep); }
+.advisor-photo { flex-shrink: 0; display: block; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--deep); border: 1px solid var(--line); }
+.advisor-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .advisor h4 { font-size: 16px; font-weight: 500; line-height: 24px; }
 .advisor p { font-size: 14px; color: var(--ink-3); }
 .sub-head { margin-top: 80px; font-size: 22px; line-height: 30px; font-weight: 500; }
@@ -361,7 +409,6 @@ app-demos .chapter { background: var(--card); }
 .program-facts .micro { color: var(--accent-ink); }
 .program-facts b { display: block; font-weight: 500; color: var(--ink); }
 .program-facts span { font-size: 15px; line-height: 23px; color: var(--ink-2); }
-.form-card { margin-top: 48px; padding: 32px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
 .field { display: grid; gap: 8px; }
 .field label { font-size: 14px; font-weight: 500; color: var(--ink-2); }
 .input, .affix {
@@ -376,6 +423,97 @@ app-demos .chapter { background: var(--card); }
 .affix > span { display: flex; align-items: center; padding: 0 12px; font: 400 14px/1 var(--mono); color: var(--ink-3); background: var(--raised); border-right: 1px solid var(--line); }
 .affix .input { border: 0; min-height: 46px; box-shadow: none !important; }
 #startup-program :is(input, select, textarea):focus-visible { outline: none !important; }
+
+/* Field errors: shown on submit, under their field, in the negative tone */
+.field__error { font-size: 14px; line-height: 20px; color: var(--negative, #dc2626); }
+.input[aria-invalid="true"], .affix:has(.input[aria-invalid="true"]) { border-color: var(--negative, #dc2626); }
+.input[aria-invalid="true"]:focus, .affix:has(.input[aria-invalid="true"]):focus-within { box-shadow: 0 0 0 3px rgb(220 38 38 / 0.14); }
+select.input {
+  appearance: none; padding-right: 40px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+textarea.input { resize: vertical; min-height: 72px; }
+
+/* ---------- Application popup (native <dialog>) ----------
+   Quiet chrome: one card surface, hairlines, one accent on the primary action.
+   Header and footer stay put; only the form scrolls. Opens with a 200ms fade-and-rise, closes in 120ms. */
+html.dialog-open { overflow: hidden; }
+.apply-dialog {
+  width: min(720px, 100% - 32px); max-width: none; max-height: min(880px, 100dvh - 48px);
+  padding: 0; margin: auto; border: 0; background: transparent; color: var(--ink); overflow: visible;
+}
+.apply-dialog::backdrop { background: rgb(17 24 39 / 0.48); animation: fade var(--menu) var(--ease); }
+.apply-panel {
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto; max-height: inherit;
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: 0 24px 64px rgb(17 24 39 / 0.18);
+  overflow: hidden;
+}
+.apply-dialog[open] .apply-panel { animation: dialog-in var(--menu) var(--ease); }
+.apply-dialog.is-closing .apply-panel { animation: dialog-out 120ms ease-in forwards; }
+.apply-dialog.is-closing::backdrop { animation: fade-out 120ms ease-in forwards; }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(8px) scale(0.99); } }
+@keyframes dialog-out { to { opacity: 0; transform: translateY(4px); } }
+@keyframes fade-out { to { opacity: 0; } }
+
+.apply-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: 24px 28px 20px; border-bottom: 1px solid var(--line);
+}
+.apply-head h2 { font-size: 22px; line-height: 28px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+.apply-head p { margin-top: 4px; font-size: 15px; line-height: 22px; color: var(--ink-2); }
+.apply-close {
+  flex-shrink: 0; display: grid; place-items: center; width: 40px; height: 40px; margin: -4px -8px 0 0;
+  border-radius: 8px; color: var(--ink-2); background: transparent;
+  transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease), transform 90ms var(--ease);
+}
+.apply-close:hover { background: var(--raised); color: var(--ink); }
+.apply-close:active { transform: scale(0.94); }
+
+.apply-body { overflow-y: auto; overscroll-behavior: contain; padding: 24px 28px 8px; display: grid; gap: 28px; }
+.apply-group { border: 0; padding: 0; margin: 0; min-width: 0; }
+.apply-group legend {
+  display: block; width: 100%; padding: 0 0 12px; margin-bottom: 16px;
+  font-size: 15px; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--line);
+}
+/* align-items: start so an error under one field never pushes its row-neighbours down */
+.apply-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; align-items: start; }
+.apply-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.apply-body .field { align-content: start; }
+.apply-wide { grid-column: 1 / -1; }
+.apply-captcha { display: grid; gap: 8px; min-height: 78px; }
+.apply-captcha:has(#hcaptcha-container:empty) { min-height: 0; }
+
+.apply-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 28px; border-top: 1px solid var(--line); background: var(--card);
+}
+.form__status { font-size: 14px; line-height: 20px; color: var(--ink-2); min-height: 20px; }
+.form__status:empty { min-height: 0; }
+.apply-actions { display: flex; gap: 12px; margin-left: auto; }
+.apply-actions .action { height: 44px; }
+.action:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.apply-done { justify-items: start; padding: 32px 28px 24px; gap: 12px; }
+.apply-done__mark {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  color: var(--positive, #16a34a); background: rgb(22 163 74 / 0.1);
+}
+.apply-done h3 { font-size: 20px; line-height: 28px; font-weight: 500; color: var(--ink); }
+.apply-done p { max-width: 34rem; font-size: 16px; line-height: 26px; color: var(--ink-2); }
+
+/* Phones: the popup becomes a full-screen sheet, one column, full-width buttons */
+@media (max-width: 640px) {
+  .apply-dialog { width: 100%; max-height: 100dvh; height: 100dvh; margin: 0; }
+  .apply-panel { height: 100%; border-radius: 0; border: 0; }
+  .apply-head, .apply-body, .apply-foot { padding-inline: 16px; }
+  .apply-grid { grid-template-columns: 1fr; }
+  .apply-foot { flex-direction: column; align-items: stretch; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  .apply-foot:has(.form__status:empty) { gap: 0; }
+  .apply-actions { margin-left: 0; }
+  .apply-actions .action { flex: 1; }
+}
 
 /* Careers */
 .careers-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 80px; align-items: start; }
@@ -420,12 +558,22 @@ app-demos .chapter { background: var(--card); }
 .contact-grid p { color: var(--ink-2); font-size: 15px; margin-top: 4px; }
 .contact-grid .contact-lede { font-size: 18px; line-height: 28px; margin-top: 12px; max-width: 26rem; }
 .contact-grid .micro { display: block; margin-bottom: 8px; }
-.contact-grid a {
-  font-size: clamp(18px, 1.6vw, 22px); color: var(--ink);
-  text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 6px;
-  transition: text-decoration-color var(--fast) var(--ease);
+/* Email links: mail icon in the muted text role, 10px before the address; only the address is underlined */
+.contact-grid a.mail-link {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+  font-size: clamp(18px, 1.6vw, 22px); color: var(--ink); text-decoration: none;
 }
-.contact-grid a:hover { text-decoration-color: var(--accent-ink); }
+/* Same draw-in as .text-link (left to right, 200ms): a blue line grows over a faint resting underline */
+.mail-link .mail-text {
+  padding-bottom: 4px;
+  background:
+    linear-gradient(var(--accent-ink), var(--accent-ink)) 0 100% / 0 1px no-repeat,
+    linear-gradient(var(--line-strong), var(--line-strong)) 0 100% / 100% 1px no-repeat;
+  transition: background-size var(--menu) var(--ease);
+}
+.mail-link .icon { width: 0.95em; height: 0.95em; color: var(--ink-3); transition: color var(--fast) var(--ease); }
+.mail-link:hover .mail-text { background-size: 100% 1px, 100% 1px; }
+.mail-link:hover .icon { color: var(--accent-ink); }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--page); padding: 32px 0 40px; border-top: 1px solid var(--line); }
@@ -434,20 +582,34 @@ app-demos .chapter { background: var(--card); }
 .footer-row p, .footer-row small { color: var(--ink-3); font-size: 14px; }
 .footer-row a:not(.brand) { color: var(--ink-2); font-size: 14px; transition: color var(--fast) var(--ease); }
 .footer-row a:not(.brand):hover { color: var(--ink); }
+/* LinkedIn: the brand mark stacked above its label; the mark lifts 2px on hover like other linked items */
+.footer-social { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; padding: 4px 8px; }
+.footer-social__logo { display: block; transition: transform var(--fast) var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .footer-social:hover .footer-social__logo { transform: translateY(-2px); }
+}
 
+/* Back to top: a 48px circle in the ink colour so it reads at a glance on any section,
+   but stays neutral so it never competes with the blue primary actions. */
 .to-top {
   position: fixed; right: var(--gutter); bottom: max(24px, env(safe-area-inset-bottom)); z-index: 75;
-  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px;
-  background: var(--card); border: 1px solid var(--line-strong); color: var(--ink-2); box-shadow: var(--shadow-sm);
-  transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease), transform var(--fast) var(--ease);
+  display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--ink); color: var(--page); border: 0;
+  box-shadow: 0 6px 20px rgb(17 24 39 / 0.22), 0 1px 3px rgb(17 24 39 / 0.12);
+  transition: background-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease), transform var(--fast) var(--ease);
+  animation: fade var(--menu) var(--ease);
 }
-.to-top:hover { background: var(--raised); color: var(--ink); }
+.to-top .icon--top { --icon: url("assets/icons/upload-circle-01-stroke-rounded.svg"); width: 26px; height: 26px; }
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover { background: #1f2937; transform: translateY(-2px); box-shadow: 0 10px 24px rgb(17 24 39 / 0.26), 0 2px 4px rgb(17 24 39 / 0.12); }
+}
+.to-top:active { transform: scale(0.95); }
 
 main > router-outlet + :not(app-home) > section { background: var(--page); }
 
 /* ---------- Motion ---------- */
 /* Disclosures fade and rise a few px from where they open */
-.menu-panel:not([hidden]), #post-grid > a:nth-child(n+4), .faq-a, .bio-more, .form-card {
+.menu-panel:not([hidden]), #post-grid > a:nth-child(n+4), .faq-a, .bio-more {
   animation: disclose var(--menu) var(--ease);
 }
 @keyframes disclose { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
@@ -495,12 +657,11 @@ main > router-outlet + :not(app-home) > section { background: var(--page); }
   .demo-cta, .role-card { flex-direction: column; align-items: flex-start; }
   .founders, .advisors { grid-template-columns: 1fr; }
   .person { display: grid; grid-template-columns: 112px 1fr; gap: 0 20px; }
-  .person .photo { margin-bottom: 0; grid-row: span 3; }
+  .person .photo { width: 112px; height: 112px; margin-bottom: 0; grid-row: span 3; }
   .person .bio, .person-links { grid-column: 1 / -1; }
   .contact-grid, .events { display: block; }
   .events > * + *, .contact-grid > div { margin-top: 24px; }
   #news .chapter .flex-col { grid-template-columns: 1fr; }
-  .form-card { padding: 20px; }
   .job { padding-top: 96px; }
   .job-head, .job-cta { flex-direction: column; align-items: flex-start; }
   .job-quals { grid-template-columns: 1fr; gap: 40px; }
@@ -521,7 +682,7 @@ main > router-outlet + :not(app-home) > section { background: var(--page); }
 /* Reduced motion: nothing moves; disclosures keep a short fade so new content still reads as new */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
-  .lift:hover, .lift:hover img, .events a:hover img { transform: none !important; }
-  .menu-panel:not([hidden]), .faq-a, .bio-more, .form-card { animation: fade 160ms ease !important; }
+  .lift:hover, .lift:hover img, .events a:hover img, .person:hover .photo img, .advisor:hover .advisor-photo img { transform: none !important; }
+  .menu-panel:not([hidden]), .faq-a, .bio-more, .apply-dialog[open] .apply-panel { animation: fade 160ms ease !important; }
 }
 @keyframes fade { from { opacity: 0; } }

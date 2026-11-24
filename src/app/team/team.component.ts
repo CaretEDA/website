@@ -18,7 +18,7 @@ interface Person { id: string; name: string; role: string; photo: string; linked
 
         <div class="founders">
           <article class="person" *ngFor="let p of founders">
-            <div class="photo"><img loading="lazy" [src]="p.photo" [alt]="p.name" width="480" height="600"></div>
+            <div class="photo"><img loading="lazy" [src]="p.photo" [alt]="p.name" width="144" height="144"></div>
             <h3>{{ p.name }}</h3>
             <p class="role">{{ p.role }}</p>
             <div class="bio">
@@ -39,7 +39,7 @@ interface Person { id: string; name: string; role: string; photo: string; linked
         <h3 class="sub-head">Technical advisors</h3>
         <div class="advisors">
           <div class="advisor" *ngFor="let p of advisors">
-            <img loading="lazy" [src]="p.photo" [alt]="p.name" width="64" height="64">
+            <span class="advisor-photo"><img loading="lazy" [src]="p.photo" [alt]="p.name" width="64" height="64"></span>
             <div>
               <h4>{{ p.name }}</h4>
               <p>{{ p.role }}</p>

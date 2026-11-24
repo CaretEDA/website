@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
           <h2>IFAQ</h2>
           <p class="lede">Infrequently asked questions. Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.</p>
           <p class="text-ink-2">Further questions? Reach us at
-            <a href="mailto:info@careteda.com" class="text-link">info&#64;careteda.com</a></p>
+            <a href="mailto:info@careteda.com" class="mail-inline font-medium text-accent-ink"><span class="icon icon--mail" aria-hidden="true"></span><span class="text-link">info&#64;careteda.com</span></a></p>
         </div>
 
         <div>

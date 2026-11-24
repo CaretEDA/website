@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
             <h3>Want a personalised demo?</h3>
             <p>Book a live session with our engineering team and see Spec-to-Netlist™ applied to your design workload.</p>
           </div>
-          <a href="mailto:info@careteda.com?subject=Demo Request" class="action primary shrink-0">Request a demo <span class="arrow" aria-hidden="true">→</span></a>
+          <a href="mailto:info@careteda.com?subject=Demo Request" class="action primary shrink-0">Request a demo <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>

@@ -39,7 +39,7 @@ import { RouterModule } from '@angular/router';
               <p class="micro">Bengaluru, India</p>
               <div class="tags"><span>Customer-facing</span><span>RTL + simulation</span><span>AI-assisted EDA</span></div>
             </div>
-            <span class="action primary shrink-0">View role <span class="arrow" aria-hidden="true">→</span></span>
+            <span class="action primary shrink-0">View role <span class="arrow" aria-hidden="true"></span></span>
           </a>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   template: `
     <section class="min-h-screen bg-page text-ink pt-28 pb-32 px-4 md:px-8">
       <article class="max-w-[820px] mx-auto">
-        <a [routerLink]="['/news']" class="inline-flex items-center gap-2 text-accent-ink text-sm font-medium hover:underline no-underline mb-10">&larr; Back to News</a>
+        <a [routerLink]="['/news']" class="inline-flex items-center gap-2 text-accent-ink text-sm font-medium hover:underline no-underline mb-10"><span class="arrow-back" aria-hidden="true"></span> Back to News</a>
         <p class="text-ink-3 text-xs font-medium mb-3">For immediate release &middot; September 8, 2026</p>
         <h1 class="text-3xl md:text-5xl font-medium leading-tight mb-5 pb-2 text-ink">CaretEDA Announces 2026.08 Release and NeevSemi Partnership</h1>
         <p class="text-ink-3 text-base md:text-lg leading-relaxed mb-10">New capabilities added to Spec-to-Netlist&trade; platform; OpenROAD physical synthesis tool suite now available as part of open-source EDA stack</p>

@@ -32,13 +32,14 @@ import { filter } from 'rxjs/operators';
         }
       </nav>
     </header>
-    @if (showTop()) { <button class="to-top" type="button" aria-label="Back to top" title="Back to top" (click)="top()"><span class="caret" aria-hidden="true"></span></button> }
+    @if (showTop()) { <button class="to-top" type="button" aria-label="Back to top" title="Back to top" (click)="top()"><span class="icon icon--top" aria-hidden="true"></span></button> }
   `
 })
 export class NavbarComponent implements AfterViewInit {
   readonly primary = [
-    { id: 'about', label: 'About' }, { id: 'blogs', label: 'Blog' },
+    { id: 'blogs', label: 'Blog' },
     { id: 'news', label: 'News' }, { id: 'team', label: 'Team' }, { id: 'careers', label: 'Careers' },
+    { id: 'about', label: 'About' },
   ];
   readonly sections = [
     { id: 'home', label: 'Home' }, ...this.primary, { id: 'ifaq', label: 'IFAQ' },

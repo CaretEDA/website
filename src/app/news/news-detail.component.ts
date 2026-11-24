@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
       <article class="max-w-[820px] mx-auto">
 
         <a [routerLink]="['/news']" class="inline-flex items-center gap-2 text-accent-ink text-sm font-medium hover:underline no-underline mb-10">
-          ← Back to News
+          <span class="arrow-back" aria-hidden="true"></span> Back to News
         </a>
 
         <p class="text-ink-3 text-xs font-medium mb-3">For immediate release · June 22, 2026</p>
