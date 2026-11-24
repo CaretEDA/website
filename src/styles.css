@@ -103,9 +103,18 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
   position: relative; display: inline-flex; align-items: center; gap: 8px;
   height: 36px; padding: 0 12px; border-radius: 8px;
   font-size: 15px; font-weight: 500; color: var(--ink-2);
-  transition: color var(--fast) var(--ease), background-color var(--fast) var(--ease);
+  transition: color var(--fast) var(--ease);
 }
-.main-links a:hover { color: var(--ink); background: var(--raised); }
+/* Nav micro-interaction (taste: "nav words take the drawn underline", no gliding pill): a 1.5px line
+   draws in from the left on hover and leaves to the right, so moving across Blog → News → Team reads
+   as one line travelling along the menu. Transform only; 240ms in, 120ms out. */
+.main-links a::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 1.5px; border-radius: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: right center;
+  transition: transform 120ms var(--ease);
+}
+.main-links a:is(:hover, :focus-visible) { color: var(--ink); }
+.main-links a:is(:hover, :focus-visible)::after { transform: scaleX(1); transform-origin: left center; transition-duration: 240ms; }
 /* signature: the caret marks the section you are in */
 .main-links a .caret { width: 6px; height: 6px; color: var(--accent); opacity: 0; transform: translateY(6px) rotate(45deg); transition: opacity var(--fast) var(--ease), transform var(--menu) var(--ease); }
 .main-links a[aria-current] { color: var(--ink); }
@@ -200,6 +209,30 @@ a:hover .arrow-back { transform: translateX(-3px); }
 }
 .hero-copy { grid-area: copy; }
 .hero-grid > .flow-plate { grid-area: plate; }
+
+/* Hero ground (taste "tech grounds", unslop "quiet chrome"): both layers are still, accent-tinted and
+   kept off the text column, so the headline sits on calm space and the illustration stays the moment. */
+.hero { position: relative; isolation: isolate; overflow: clip; }
+/* 1. Soft fading circuit: faint PCB traces + pads, densest around the illustration, gone by the copy */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%232563eb' stroke-opacity='.5' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 48H64L88 72H152L176 48H240'/%3E%3Cpath d='M0 168H32L56 192H120L144 168H240'/%3E%3Cpath d='M200 0V20L184 36V100L200 116V240'/%3E%3Cpath d='M40 0V100L56 116H96'/%3E%3Cpath d='M40 240V224'/%3E%3Cpath d='M120 192V140L136 124'/%3E%3Cg fill='%23f6f7f9'%3E%3Ccircle cx='96' cy='116' r='3'/%3E%3Ccircle cx='40' cy='224' r='3'/%3E%3Ccircle cx='184' cy='48' r='3'/%3E%3Ccircle cx='136' cy='124' r='3'/%3E%3Ccircle cx='152' cy='72' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px; opacity: 0.55;
+  -webkit-mask-image: radial-gradient(ellipse 52% 72% at 76% 42%, #000 0%, rgb(0 0 0 / 0.7) 30%, rgb(0 0 0 / 0.3) 55%, rgb(0 0 0 / 0.08) 72%, transparent 86%);
+          mask-image: radial-gradient(ellipse 52% 72% at 76% 42%, #000 0%, rgb(0 0 0 / 0.7) 30%, rgb(0 0 0 / 0.3) 55%, rgb(0 0 0 / 0.08) 72%, transparent 86%);
+}
+/* 2. Soft blue light behind the illustration ("lit studio sweep": one hue, five eased stops, no ring).
+   A grid pseudo-item in the plate's own cell, so it follows the illustration at every width. */
+.hero-grid { position: relative; isolation: isolate; }
+.hero-grid::before {
+  content: ""; grid-area: plate; z-index: -1; pointer-events: none; align-self: stretch;
+  margin: -20% -18%;
+  /* radius 60% puts the illustration's edge at ~60% of the falloff, so the light shows around it,
+     and it reaches transparent (83%) before this layer's own edge, so no cut-off line appears */
+  background: radial-gradient(ellipse 60% 60% at 50% 50%,
+    rgb(37 99 235 / 0.30) 0%, rgb(37 99 235 / 0.24) 50%, rgb(59 130 246 / 0.16) 62%, rgb(59 130 246 / 0.06) 74%, transparent 83%);
+  animation: fade 900ms var(--ease) 200ms backwards;
+}
 
 /* Briefing rail: newest news, blog post and press feature, as three small cards on the site's card
    style. Each type has its own tone, used only on its tag (colour = category): a tinted chip with a dot. */
