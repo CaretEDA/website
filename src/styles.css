@@ -39,7 +39,6 @@
   --positive: #16a34a;
   --negative: #dc2626;
   /* roles that used to be hard-coded, so both themes can set them */
-  --glass: rgb(246 247 249 / 0.9);          /* masthead */
   --invert: #111827;                         /* Contact us pill, back to top */
   --invert-ink: #ffffff;
   --invert-hover: #1f2937;
@@ -75,7 +74,6 @@
   --shadow-float: 0 0 0 1px var(--line-strong);
   --positive: #4ade80;
   --negative: #f87171;
-  --glass: rgb(7 9 14 / 0.86);
   --invert: #eef0f5;
   --invert-ink: #07090e;
   --invert-hover: #ffffff;
@@ -164,8 +162,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 /* ---------- Masthead ---------- */
 .mast {
   position: fixed; inset: 0 0 auto; z-index: 100;
-  background: var(--glass);
-  backdrop-filter: saturate(1.2) blur(12px);
+  background: var(--page); /* solid (taste: an opaque nav with a hairline, no blur or transparency) */
   border-bottom: 1px solid var(--line);
   transition: transform 240ms var(--ease);
 }
@@ -190,6 +187,9 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
   transition: transform 120ms var(--ease);
 }
 :is(.main-links a, .nav-quiet):is(:hover, :focus-visible) { color: var(--ink); }
+/* ...and the word grows a touch (6%) as the line draws, so the hovered item steps forward. */
+:is(.main-links a, .nav-quiet) { transition: color var(--fast) var(--ease), transform 200ms var(--ease); }
+@media (hover: hover) and (pointer: fine) { :is(.main-links a, .nav-quiet):hover { transform: scale(1.06); } }
 :is(.main-links a, .nav-quiet):is(:hover, :focus-visible)::after { transform: scaleX(1); transform-origin: left center; transition-duration: 240ms; }
 /* signature: the caret marks the section you are in */
 .main-links a .caret { width: 6px; height: 6px; color: var(--accent); opacity: 0; transform: translateY(6px) rotate(45deg); transition: opacity var(--fast) var(--ease), transform var(--menu) var(--ease); }
@@ -197,7 +197,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 .main-links a[aria-current] .caret { opacity: 1; transform: translateY(1px) rotate(45deg); }
 .mast-actions { gap: 8px; }
 /* Startup program: same words-only treatment and drawn underline as the main links */
-.nav-quiet { position: relative; font-size: 0.9375rem; font-weight: 500; color: var(--ink-2); padding: 0 12px; height: 36px; display: inline-flex; align-items: center; border-radius: 8px; transition: color var(--fast) var(--ease); }
+.nav-quiet { position: relative; font-size: 0.9375rem; font-weight: 500; color: var(--ink-2); padding: 0 12px; height: 36px; display: inline-flex; align-items: center; border-radius: 8px; transition: color var(--fast) var(--ease), transform 200ms var(--ease); }
 .nav-contact {
   display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: 8px;
   background: var(--invert); color: var(--invert-ink); font-size: 0.9375rem; font-weight: 500;

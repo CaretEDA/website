@@ -40,11 +40,11 @@ import { ThemeService } from './theme.service';
 export class NavbarComponent implements AfterViewInit {
   readonly primary = [
     { id: 'blogs', label: 'Blog' },
-    { id: 'news', label: 'News' }, { id: 'team', label: 'Team' }, { id: 'careers', label: 'Careers' },
+    { id: 'news', label: 'News' }, { id: 'team', label: 'Team' }, { id: 'ifaq', label: 'IFAQ' }, { id: 'careers', label: 'Careers' },
     { id: 'about', label: 'About' },
   ];
   readonly sections = [
-    { id: 'home', label: 'Home' }, ...this.primary, { id: 'ifaq', label: 'IFAQ' },
+    { id: 'home', label: 'Home' }, ...this.primary,
     { id: 'startup-program', label: 'Startup program' }, { id: 'contact', label: 'Contact' },
   ];
   readonly hidden = signal(false);
