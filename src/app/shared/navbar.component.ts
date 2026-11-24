@@ -23,7 +23,7 @@ import { ThemeService } from './theme.service';
         </nav>
         <div class="mast-actions">
           <a class="nav-quiet" routerLink="/" fragment="startup-program" (click)="close()">Startup program</a>
-          <button class="theme-toggle" type="button" role="switch" aria-label="Dark theme" title="Dark theme" [attr.aria-checked]="theme.theme() === 'dark'" (click)="theme.toggle()"><span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"><span class="icon icon--sun"></span><span class="icon icon--moon"></span></span></span></button>
+          <button class="theme-toggle" type="button" role="switch" aria-label="Dark theme" title="Dark theme" [attr.aria-checked]="theme.theme() === 'dark'" (click)="theme.toggle()"><span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"></span></span></button>
           <a class="nav-contact" routerLink="/" fragment="contact" (click)="close()">Contact us</a>
           <button class="menu-toggle" type="button" (click)="menuOpen.set(!menuOpen())" [attr.aria-expanded]="menuOpen()" aria-controls="section-menu" [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"><span></span><span></span></button>
         </div>

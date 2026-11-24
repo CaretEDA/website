@@ -910,34 +910,75 @@ main > router-outlet + :not(app-home) > section { background: transparent; }
   .hero-grid .chip-stage { min-height: 128px; }
 }
 
-/* ---------- Theme switch (nav) ----------
-   A sliding switch beside "Contact us": a 44x24 track with an 18px thumb carrying the current theme's
-   icon (sun in light, moon in dark). Off = light, on = dark: the track fills with the brand blue and the
-   thumb slides right (200ms, transform only). The 44x36 button around it is the hit area. */
+/* ---------- Theme switch (nav): sun to moon ----------
+   A 44x24 sliding switch beside "Contact us". Light (off): a daylight track and an amber sun with short
+   rays. Dark (on): the thumb slides right, the rays turn and retract, a shadow sweeps across the disc to
+   leave a crescent, and the track turns to night with two small stars. Once per click (300ms), no loop;
+   all CSS (transform, opacity, background-position). The 52x36 button around it is the hit area. */
 .theme-toggle {
+  --tt-day: #ffffff; --tt-night: #1c2745;
   position: relative; display: grid; place-items: center; width: 52px; height: 36px; border-radius: 8px;
-  color: var(--ink-2); background: transparent; cursor: pointer;
+  background: transparent; cursor: pointer;
 }
 .theme-toggle__track {
-  position: relative; display: block; width: 44px; height: 24px; border-radius: 12px;
-  background: var(--raised); box-shadow: inset 0 0 0 1px var(--line-strong);
-  transition: background-color 200ms var(--ease), box-shadow 200ms var(--ease);
+  position: relative; display: block; width: 44px; height: 24px; border-radius: 12px; overflow: hidden; /* rays and stars stay inside */
+  background: var(--tt-day); box-shadow: inset 0 0 0 1px rgb(37 99 235 / 0.35);
+  transition: background-color 300ms var(--ease), box-shadow 300ms var(--ease);
 }
-.theme-toggle:hover .theme-toggle__track { box-shadow: inset 0 0 0 1px var(--hover-line); }
+.theme-toggle:hover .theme-toggle__track { box-shadow: inset 0 0 0 1px rgb(37 99 235 / 0.6); }
+/* stars: three points of light on the left of the track, shown at night */
+.theme-toggle__track::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(circle at 9px 8px, #fff 0 1px, transparent 1.6px),
+    radial-gradient(circle at 15px 15px, rgb(255 255 255 / 0.85) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 6px 16px, rgb(255 255 255 / 0.6) 0 0.6px, transparent 1.2px);
+  opacity: 0; transform: translateY(3px);
+  transition: opacity 300ms var(--ease) 60ms, transform 300ms var(--ease) 60ms;
+}
+/* clouds: two small blue clouds to the right of the sun by day (each a few overlapping puffs); at night
+   they drift out to the right and fade as the stars come in */
+.theme-toggle__track::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(circle at 30px 15.5px, #93c5fd 0 2.6px, transparent 3px),
+    radial-gradient(circle at 33.5px 13.5px, #93c5fd 0 3.4px, transparent 3.8px),
+    radial-gradient(circle at 37px 15.8px, #93c5fd 0 2.3px, transparent 2.7px),
+    linear-gradient(#93c5fd, #93c5fd) no-repeat 30px 15.5px / 7px 2.6px,
+    radial-gradient(circle at 26.5px 8.2px, #b3d1fd 0 1.5px, transparent 1.9px),
+    radial-gradient(circle at 28.8px 7.2px, #b3d1fd 0 2px, transparent 2.4px),
+    radial-gradient(circle at 31px 8.4px, #b3d1fd 0 1.4px, transparent 1.8px);
+  transition: opacity 300ms var(--ease), transform 300ms var(--ease);
+}
+:root[data-theme="dark"] .theme-toggle__track::after { opacity: 0; transform: translateX(6px); }
+/* the disc: an amber sun by day; at night a pale moon with a shadow (the track's night colour) swept
+   across it, which leaves a crescent */
 .theme-toggle__thumb {
-  position: absolute; top: 3px; left: 3px; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
-  background: var(--card); color: var(--ink-2); box-shadow: 0 1px 2px rgb(17 24 39 / 0.2);
-  transition: transform 200ms var(--ease);
+  position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%;
+  /* layers: the night shadow (parked off the disc by day), the sun's core, then the moon's face (clear by day) */
+  background:
+    radial-gradient(circle, var(--tt-night) 0 6.5px, transparent 7px) no-repeat 15px -15px / 18px 18px,
+    radial-gradient(circle closest-side, #f59e0b 0 56%, transparent 61%) no-repeat center / 18px 18px; /* proportional, so it shrinks as a circle */
+  background-color: transparent;
+  transition: transform 300ms var(--ease), background-color 300ms var(--ease), background-position 300ms var(--ease), background-size 300ms var(--ease), box-shadow 300ms var(--ease);
+}
+/* the rays: a ring of short strokes round the sun */
+.theme-toggle__thumb::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background: repeating-conic-gradient(#f59e0b 0 16deg, transparent 16deg 45deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 6.6px, #000 7.1px 8.8px, transparent 9.2px);
+          mask: radial-gradient(circle, transparent 0 6.6px, #000 7.1px 8.8px, transparent 9.2px);
+  transition: transform 300ms var(--ease), opacity 200ms var(--ease);
 }
 .theme-toggle:active .theme-toggle__thumb { scale: 0.92; }
-.theme-toggle .icon { grid-area: 1 / 1; width: 12px; height: 12px; transition: opacity 200ms var(--ease), transform 200ms var(--ease); }
-.icon--moon { --icon: url("assets/icons/moon-02-stroke-rounded.svg"); }
-.icon--sun { --icon: url("assets/icons/sun-03-stroke-rounded.svg"); }
-.theme-toggle .icon--moon { opacity: 0; transform: rotate(-30deg) scale(0.8); }
-:root[data-theme="dark"] .theme-toggle__track { background: var(--accent); box-shadow: inset 0 0 0 1px transparent; }
-:root[data-theme="dark"] .theme-toggle__thumb { transform: translateX(20px); background: #fff; color: var(--accent); }
-:root[data-theme="dark"] .theme-toggle .icon--moon { opacity: 1; transform: none; }
-:root[data-theme="dark"] .theme-toggle .icon--sun { opacity: 0; transform: rotate(30deg) scale(0.8); }
+:root[data-theme="dark"] .theme-toggle__track { background: var(--tt-night); box-shadow: inset 0 0 0 1px rgb(138 180 255 / 0.35); }
+:root[data-theme="dark"] .theme-toggle:hover .theme-toggle__track { box-shadow: inset 0 0 0 1px rgb(138 180 255 / 0.6); }
+:root[data-theme="dark"] .theme-toggle__track::before { opacity: 1; transform: none; }
+:root[data-theme="dark"] .theme-toggle__thumb {
+  transform: translateX(20px); background-color: #e8edf7; box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+  background-position: 5px -5px, center; background-size: 18px 18px, 0 0; /* shadow swept in, sun core gone */
+}
+:root[data-theme="dark"] .theme-toggle__thumb::before { opacity: 0; transform: rotate(90deg) scale(0.6); }
 
 /* ---------- Dark theme: night-panel character ----------
    Everything here applies only in dark. The hero is the one lit moment: brighter circuit traces, a
