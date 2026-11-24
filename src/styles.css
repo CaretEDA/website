@@ -33,6 +33,7 @@
   --container: 1200px;
   --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif; /* hero headline only */
   --shadow-sm: 0 1px 2px rgb(17 24 39 / 0.05);
   --shadow-float: 0 8px 24px rgb(17 24 39 / 0.08);
   --positive: #16a34a;
@@ -345,11 +346,24 @@ a:is(:hover, :focus-visible) .arrow-back { transform: translateX(-3px); }
 .brief:hover .arrow { transform: translateX(3px); }
 .eyebrow { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; color: var(--ink-3); margin-bottom: 24px; }
 .eyebrow span { white-space: nowrap; }
+/* Hero headline: the page's one type moment, three lines, three voices.
+   "Chip design," the subject, in Plex Sans 600 (taste: display weights 400/600, never 700);
+   "from spec to" the bridge, the same face at 400; "silicon-ready netlist." the destination, in an
+   italic display serif (Newsreader) in the brand blue, solid. Tracking per taste for Plex at display
+   size (-3.5%); the serif keeps its own spacing. */
 .hero h1 {
-  font-size: clamp(2.5rem, 4.6vw, 4rem); line-height: 1.04; letter-spacing: -0.03em; font-weight: 500;
-  color: var(--ink); text-wrap: balance;
+  font-family: var(--sans);
+  font-size: clamp(2.75rem, 4.4vw, 4rem); line-height: 1.06; letter-spacing: -0.035em; font-weight: 600;
+  color: var(--ink);
 }
-.hero h1 .quiet { color: var(--ink-3); }
+.hero h1 > span { display: block; }
+.hero h1 .h-lead { font-size: 1.18em; line-height: 1; letter-spacing: -0.04em; } /* the subject, one step larger */
+.hero h1 .h-mid { font-weight: 400; }
+.hero h1 .h-dest {
+  margin-top: 0.04em;
+  font-family: var(--serif); font-style: italic; font-weight: 400; font-optical-sizing: auto;
+  font-size: 1.06em; letter-spacing: -0.01em; color: var(--accent-ink);
+}
 .hero-intro { font-size: 1.25rem; line-height: 1.5; color: var(--ink-2); max-width: 32rem; margin: 24px 0 32px; }
 .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); max-width: 32rem; }
 .hero-facts li { font: 400 0.8125rem/1.538 var(--mono); color: var(--ink-3); }
