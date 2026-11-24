@@ -9,6 +9,12 @@ module.exports = {
     ],
     theme: {
         extend: {
+            // The two small steps sit on the site's type scale (styles.css): caption 13px, interface 15px.
+            // Sizes in rem so the reader's browser font size applies; line-heights unitless.
+            fontSize: {
+                xs: ['0.8125rem', { lineHeight: '1.5' }],
+                sm: ['0.9375rem', { lineHeight: '1.5' }],
+            },
             fontFamily: {
                 sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
                 mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],

@@ -35,7 +35,7 @@ import { NEWS_ITEMS } from './news-items';
 
         <ng-template #body let-item>
           <p class="micro tabular mb-3">{{ item.date }}</p>
-          <h3 class="text-ink font-medium text-lg md:text-2xl leading-snug mb-3">{{ item.title }}</h3>
+          <h3 class="text-ink font-medium text-lg md:text-xl leading-snug mb-3">{{ item.title }}</h3>
           <p class="text-ink-2 text-sm md:text-base leading-relaxed mb-4">{{ item.summary }}</p>
         </ng-template>
 

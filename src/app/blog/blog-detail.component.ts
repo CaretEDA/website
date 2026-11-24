@@ -43,10 +43,10 @@ interface BlogPost {
   imports: [CommonModule, RouterModule],
   template: `
     <section class="min-h-screen text-ink pt-28 pb-20 px-4 md:px-8">
-      <div class="max-w-[800px] mx-auto" *ngIf="post">
+      <div class="article mx-auto" *ngIf="post">
 
-        <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-ink-3 hover:text-accent-ink text-sm no-underline transition-colors mb-12">
-          <span class="arrow-back" aria-hidden="true"></span> Back to Blog
+        <a [routerLink]="['/blogs']" class="back-link mb-10">
+          <span class="arrow-back" aria-hidden="true"></span><span class="back-link__text">Back to Blog</span>
         </a>
 
         <h1 class="text-3xl md:text-5xl font-medium mb-4 text-ink leading-tight">{{ post.title }}</h1>
@@ -122,8 +122,8 @@ interface BlogPost {
 
         <!-- Footer CTA -->
         <div class="mt-16 pt-12 border-t border-line">
-          <a [routerLink]="['/blogs']" class="inline-flex items-center gap-2 text-ink-3 hover:text-accent-ink text-sm no-underline transition-colors">
-            <span class="arrow-back" aria-hidden="true"></span> Back to Blog
+          <a [routerLink]="['/blogs']" class="back-link">
+            <span class="arrow-back" aria-hidden="true"></span><span class="back-link__text">Back to Blog</span>
           </a>
         </div>
 

@@ -25,7 +25,7 @@ import { BLOG_POSTS } from './blog-posts';
             </div>
             <div class="flex flex-col flex-1 p-6">
               <p class="micro tabular mb-3">{{ post.date }} · {{ post.readTime }}</p>
-              <h3 class="text-ink font-medium text-lg leading-snug mb-3">{{ post.title }}</h3>
+              <h3 class="text-ink font-medium text-xl leading-snug mb-3">{{ post.title }}</h3>
               <p class="text-ink-2 text-[15px] leading-relaxed line-clamp-3">{{ post.summary }}</p>
             </div>
           </a>

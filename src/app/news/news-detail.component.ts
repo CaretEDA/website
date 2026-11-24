@@ -8,10 +8,10 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <section class="min-h-screen text-ink pt-28 pb-32 px-4 md:px-8">
-      <article class="max-w-[820px] mx-auto">
+      <article class="article mx-auto">
 
-        <a [routerLink]="['/news']" class="inline-flex items-center gap-2 text-accent-ink text-sm font-medium hover:underline no-underline mb-10">
-          <span class="arrow-back" aria-hidden="true"></span> Back to News
+        <a [routerLink]="['/news']" class="back-link mb-10">
+          <span class="arrow-back" aria-hidden="true"></span><span class="back-link__text">Back to News</span>
         </a>
 
         <p class="text-ink-3 text-xs font-medium mb-3">For immediate release · June 22, 2026</p>

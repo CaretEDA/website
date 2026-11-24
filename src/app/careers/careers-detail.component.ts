@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   template: `
     <section class="job">
       <div class="job-wrap">
-        <a [routerLink]="['/']" fragment="careers" class="back-link"><span class="arrow-back" aria-hidden="true"></span> Back to careers</a>
+        <a [routerLink]="['/']" fragment="careers" class="back-link"><span class="arrow-back" aria-hidden="true"></span><span class="back-link__text">Back to careers</span></a>
 
         <header class="job-head">
           <div>
