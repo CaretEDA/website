@@ -248,9 +248,11 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 .action:active:not(:disabled) { transform: translateY(1px) scale(0.985); }
 
 /* the split arrow compartment */
-.action:has(> .action__cap) { justify-content: space-between; padding-right: 0; gap: 0; overflow: hidden; isolation: isolate; } /* full-width on phones: label left, arrow at the far end */
+/* the cap is pinned to the right edge (out of the flow), so the label centres in the button like any other;
+   the right padding reserves its 48px plus the usual 20px gap */
+.action:has(> .action__cap) { position: relative; padding-right: 68px; overflow: hidden; isolation: isolate; }
 .action__cap {
-  align-self: stretch; display: grid; place-items: center; width: 48px; margin-left: 20px;
+  position: absolute; top: 0; right: 0; bottom: 0; display: grid; place-items: center; width: 48px;
   background: rgb(8 20 60 / 0.24); box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.14);
   transition: background-color var(--fast) var(--ease);
 }
@@ -420,8 +422,18 @@ a:is(:hover, :focus-visible) .arrow-back { transform: translateX(-3px); }
 .spec-lines i:nth-child(1) { width: 92%; } .spec-lines i:nth-child(2) { width: 78%; } .spec-lines i:nth-child(3) { width: 54%; }
 
 .stages { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
+/* the track: a faint line, and over it a bright fill that slides from stage 01 to 04 */
 .stages::before {
-  content: ""; position: absolute; top: 4px; left: 12.5%; right: 12.5%; height: 1px; background: var(--accent-ink); opacity: 0.5;
+  content: ""; position: absolute; top: 4px; left: 12.5%; right: 12.5%; height: 1.5px; margin-top: -0.25px;
+  background:
+    linear-gradient(var(--accent-ink), var(--accent-ink)) 0 0 / 100% 100% no-repeat,
+    color-mix(in srgb, var(--accent-ink) 30%, transparent);
+}
+/* the signal: a small lit head that runs along the fill and fades into the last stage */
+.stages::after {
+  content: ""; position: absolute; top: 4px; left: 12.5%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-ink) 45%, transparent);
+  opacity: 0; pointer-events: none;
 }
 .stages li { position: relative; display: grid; gap: 2px; padding-top: 20px; }
 .stages li::before {
@@ -444,11 +456,15 @@ a:is(:hover, :focus-visible) .arrow-back { transform: translateX(-3px); }
 }
 .die {
   position: absolute; inset: 26px; border-radius: 4px;
+  background: conic-gradient(from 210deg, #3a6aa8, #7fd0d8 18%, #c9b98a 32%, #8a86c2 46%, #3a6aa8 62%, #9ad6dc 82%, #3a6aa8);
+  box-shadow: 0 0 0 2px #0e1118, 0 0 0 3px #4a5263;
+}
+/* the routing grid, a layer of its own on the die */
+.die::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
   background:
     repeating-linear-gradient(90deg, rgb(10 16 30 / 0.55) 0 1px, transparent 1px 9px),
-    repeating-linear-gradient(0deg, rgb(10 16 30 / 0.55) 0 1px, transparent 1px 9px),
-    conic-gradient(from 210deg, #3a6aa8, #7fd0d8 18%, #c9b98a 32%, #8a86c2 46%, #3a6aa8 62%, #9ad6dc 82%, #3a6aa8);
-  box-shadow: 0 0 0 2px #0e1118, 0 0 0 3px #4a5263;
+    repeating-linear-gradient(0deg, rgb(10 16 30 / 0.55) 0 1px, transparent 1px 9px);
 }
 .flow-plate figcaption {
   display: flex; justify-content: space-between;
@@ -683,7 +699,9 @@ html.dialog-open { overflow: hidden; }
   .apply-foot { flex-direction: column; align-items: stretch; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
   .apply-foot:has(.form__status:empty) { gap: 0; }
   .apply-actions { margin-left: 0; }
-  .apply-actions .action { flex: 1; }
+  .apply-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } /* two even halves */
+  .apply-actions:has(> :only-child) { grid-template-columns: 1fr; }
+  .apply-actions .action:has(> .action__cap) { padding-inline: 56px; } /* centred label, clear of the 48px cap */
 }
 
 /* Careers */
@@ -790,18 +808,39 @@ main > router-outlet + :not(app-home) > section { background: transparent; }
 .hero-copy > :nth-child(5) { animation-delay: 200ms; }
 .flow-plate { animation: rise 500ms var(--ease) 100ms backwards; }
 .briefing { animation: rise 500ms var(--ease) 250ms backwards; }
-.stages li::before { animation: node-on 240ms var(--ease) backwards; }
+/* The flow builds the chip. A signal slides along the track (linear, 500 to 1100ms) and each stage dot
+   lights as it passes, at 500, 700, 900 and 1100ms; as each stage lights, one layer of the chip lands
+   in lockstep: each layer starts the moment the signal reaches its stage and is done in 200ms, as the
+   signal reaches the next one (once; done at 1.3s).
+   1 Specification interpretation → the package drops onto the board
+   2 RTL generation               → the silicon die appears in it
+   3 Verification planning        → the routing grid sweeps across the die
+   4 Netlist refinement           → the pins extend out; the chip is complete
+   Transform, opacity and clip only. Under reduced motion all of it simply stands (see the motion block). */
+.stages::before { animation: track-fill 600ms linear 500ms backwards; }
+.stages::after { animation: signal-run 600ms linear 500ms; }
+.stages li::before { animation: node-on 200ms var(--ease) backwards; }
 .stages li:nth-child(1)::before { animation-delay: 500ms; }
-.stages li:nth-child(2)::before { animation-delay: 740ms; }
-.stages li:nth-child(3)::before { animation-delay: 980ms; }
-.stages li:nth-child(4)::before { animation-delay: 1220ms; }
-.chip { animation: chip-in 500ms var(--ease) 1400ms backwards; }
+.stages li:nth-child(2)::before { animation-delay: 700ms; }
+.stages li:nth-child(3)::before { animation-delay: 900ms; }
+.stages li:nth-child(4)::before { animation-delay: 1100ms; }
+.pkg { animation: pkg-in 200ms var(--ease) 500ms backwards; }
+.die { animation: die-in 200ms var(--ease) 700ms backwards; }
+.die::before { animation: grid-in 200ms linear 900ms backwards; }
+.chip::before { animation: pins-y 200ms var(--ease) 1100ms backwards; }
+.chip::after { animation: pins-x 200ms var(--ease) 1100ms backwards; }
 @keyframes rise { from { opacity: 0; translate: 0 10px; } }
 /* The headline is the page's main content (LCP): it rises but never starts invisible, so it counts as painted at once */
 .hero-copy > h1 { animation-name: rise-y; }
 @keyframes rise-y { from { translate: 0 10px; } }
 @keyframes node-on { from { background: var(--card); scale: 0.6; } }
-@keyframes chip-in { from { opacity: 0; translate: 0 12px; } }
+@keyframes track-fill { from { background-size: 0% 100%, auto; } }
+@keyframes signal-run { 0% { left: 12.5%; opacity: 1; } 90% { opacity: 1; } 100% { left: 87.5%; opacity: 0; } }
+@keyframes pkg-in { from { opacity: 0; translate: 0 -16px; } }
+@keyframes die-in { from { opacity: 0; scale: 0.82; } }
+@keyframes grid-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } } /* both ends as inset() so the sweep interpolates */
+@keyframes pins-y { from { opacity: 0; scale: 1 0.55; } }
+@keyframes pins-x { from { opacity: 0; scale: 0.55 1; } }
 
 /* ---------- Small screens ---------- */
 @media (max-width: 1080px) {
@@ -845,9 +884,10 @@ main > router-outlet + :not(app-home) > section { background: transparent; }
   .hero { padding-top: 96px; }
   .hero-intro, .lede { font-size: 1.125rem; line-height: 1.556; }
   .actions .action { flex: 1 1 100%; }
+  .actions .action:has(> .action__cap) { padding-left: 68px; } /* full width: equal padding keeps the label centred */
   /* four stages as a 2x2 grid so labels stay on one or two clean lines */
   .stages { grid-template-columns: repeat(2, 1fr); row-gap: 20px; }
-  .stages::before { display: none; }
+  .stages::before, .stages::after { display: none; }
   .stages b { font-size: 0.8125rem; line-height: 1.385; }
   .flow-plate figcaption span:nth-child(2) { display: none; }
 }
@@ -946,4 +986,10 @@ main > router-outlet + :not(app-home) > section { background: transparent; }
 @media (max-width: 640px) { /* phones: 17px keeps ~40+ characters a line; section headings 20px */
   :is(.article .text-base, .job-prose, .job-list) { font-size: 1.0625rem; }
   .job-section h2 { font-size: 1.25rem; }
+}
+/* Phones: the hero is the headline, the actions and the briefing rail; the spec-to-chip illustration
+   (and the light behind it) is left out, so the copy and the latest news lead the first screen. */
+@media (max-width: 640px) {
+  .hero-grid { grid-template-areas: "copy" "rail"; }
+  .hero-grid > .flow-plate, .hero-grid::before { display: none; }
 }
