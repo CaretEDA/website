@@ -26,7 +26,7 @@ const FREE_EMAIL_DOMAINS = [
             <p>Join the next generation of silicon innovators. Apply to get access to CaretEDA's commercially supported open-source EDA stack and agentic modules.</p>
             <div class="actions" style="margin-top: 16px">
               <button type="button" class="action primary" aria-haspopup="dialog" aria-controls="apply-dialog" (click)="openApplication()">
-                Open application <span class="arrow" aria-hidden="true"></span>
+                Open application<span class="action__cap" aria-hidden="true"><span class="arrow"></span></span>
               </button>
             </div>
           </div>
@@ -163,7 +163,7 @@ const FREE_EMAIL_DOMAINS = [
             <!-- Visible label "Submit"; screen readers hear "Submit application" (name contains the visible label) -->
             <button type="submit" form="apply-form" class="action primary" [disabled]="isSubmitting">
               <ng-container *ngIf="!isSubmitting">Submit<span class="sr-only"> application</span>
-                <span class="icon icon--upload" aria-hidden="true"></span></ng-container>
+                <span class="action__cap" aria-hidden="true"><span class="icon icon--upload"></span></span></ng-container>
               <ng-container *ngIf="isSubmitting">Submitting…</ng-container>
             </button>
           </div>

@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
             <p class="micro">Bengaluru, India</p>
             <div class="tags"><span>Customer-facing</span><span>RTL + simulation</span><span>AI-assisted EDA</span></div>
           </div>
-          <a class="action primary shrink-0" [href]="applyHref">Apply now <span class="arrow" aria-hidden="true"></span></a>
+          <a class="action primary shrink-0" [href]="applyHref">Apply now<span class="action__cap" aria-hidden="true"><span class="arrow"></span></span></a>
         </header>
 
         <section class="job-section">

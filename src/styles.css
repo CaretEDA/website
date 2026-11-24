@@ -224,7 +224,12 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 .skip { position: fixed; left: 16px; top: -64px; background: var(--card); color: var(--ink); z-index: 110; padding: 12px; border-radius: 8px; box-shadow: var(--shadow-float); }
 .skip:focus { top: 16px; }
 
-/* ---------- Buttons ---------- */
+/* ---------- Buttons ----------
+   One pair, used everywhere (taste "one system"): a solid primary for the one main action in a view and
+   an outlined secondary. A primary that moves you forward carries its arrow (or the upload icon on
+   Submit) in a darker compartment at its end, split by a hairline, like a pin block on a connector.
+   Motion (taste motion.md): hover steps the box up 1px and darkens the fill; press sinks it 1px and
+   scales .985; the arrow nudges 3px right, the upload icon 2px up. */
 .action, .more-posts {
   display: inline-flex; justify-content: center; align-items: center; gap: 8px;
   height: 48px; padding: 0 20px; border-radius: 8px;
@@ -233,10 +238,24 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 }
 .actions { gap: 12px; flex-wrap: wrap; }
 .primary { background: var(--accent); color: #fff; }
-.primary:hover { background: var(--accent-hover); }
+.primary:hover:not(:disabled) { background: var(--accent-hover); }
 .secondary, .more-posts { border: 1px solid var(--line-strong); color: var(--ink); background: var(--card); }
 .secondary:hover, .more-posts:hover { background: var(--raised); border-color: var(--hover-line); }
 .more-posts { height: 44px; margin-top: 32px; }
+@media (hover: hover) and (pointer: fine) {
+  .action:hover:not(:disabled) { transform: translateY(-1px); }
+}
+.action:active:not(:disabled) { transform: translateY(1px) scale(0.985); }
+
+/* the split arrow compartment */
+.action:has(> .action__cap) { justify-content: space-between; padding-right: 0; gap: 0; overflow: hidden; isolation: isolate; } /* full-width on phones: label left, arrow at the far end */
+.action__cap {
+  align-self: stretch; display: grid; place-items: center; width: 48px; margin-left: 20px;
+  background: rgb(8 20 60 / 0.24); box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.14);
+  transition: background-color var(--fast) var(--ease);
+}
+.action:hover:not(:disabled) .action__cap { background: rgb(8 20 60 / 0.32); }
+.action__cap :is(.arrow, .icon--upload) { width: 20px; height: 20px; vertical-align: 0; }
 /* Line icons drawn from files in assets/icons as a mask, so each takes its text colour (currentColor) */
 .icon, .arrow {
   display: inline-block; flex-shrink: 0; width: 1em; height: 1em; background-color: currentColor;
@@ -264,7 +283,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
   transition: transform var(--fast) var(--ease);
 }
 a:is(:hover, :focus-visible) .arrow-back { transform: translateX(-3px); }
-:is(.action, .more-posts, .nav-contact, .menu-toggle, .to-top, .bio-toggle):active { transform: scale(0.97); }
+:is(.more-posts, .nav-contact, .menu-toggle, .to-top, .bio-toggle):active { transform: scale(0.97); }
 .text-link {
   display: inline-flex; align-items: center; gap: 8px; font-weight: 500; color: var(--accent-ink);
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
