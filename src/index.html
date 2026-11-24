@@ -7,6 +7,18 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="assets/careteda-logo-64.png">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f7f9">
+  <script>
+    // Theme before first paint (no flash): the visitor's stored choice, else the OS setting.
+    (function(d) {
+      var t = null;
+      try { t = localStorage.getItem('careteda-theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.documentElement.setAttribute('data-theme', t);
+      if (t === 'dark') d.querySelector('meta[name="theme-color"]').setAttribute('content', '#07090e');
+    }(document));
+  </script>
 
   <!-- Fonts: declared here (not via @import in CSS) so the browser finds them early.
        The production build inlines this stylesheet. -->

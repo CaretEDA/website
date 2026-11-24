@@ -2,6 +2,7 @@ import { AfterViewInit, Component, DestroyRef, HostListener, Inject, PLATFORM_ID
 import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +23,7 @@ import { filter } from 'rxjs/operators';
         </nav>
         <div class="mast-actions">
           <a class="nav-quiet" routerLink="/" fragment="startup-program" (click)="close()">Startup program</a>
+          <button class="theme-toggle" type="button" role="switch" aria-label="Dark theme" title="Dark theme" [attr.aria-checked]="theme.theme() === 'dark'" (click)="theme.toggle()"><span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"><span class="icon icon--sun"></span><span class="icon icon--moon"></span></span></span></button>
           <a class="nav-contact" routerLink="/" fragment="contact" (click)="close()">Contact us</a>
           <button class="menu-toggle" type="button" (click)="menuOpen.set(!menuOpen())" [attr.aria-expanded]="menuOpen()" aria-controls="section-menu" [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"><span></span><span></span></button>
         </div>
@@ -52,6 +54,7 @@ export class NavbarComponent implements AfterViewInit {
   readonly active = signal<string | null>(null);
   private previousY = 0;
   private observer?: IntersectionObserver;
+  readonly theme = inject(ThemeService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 

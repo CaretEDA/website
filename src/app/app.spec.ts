@@ -5,6 +5,7 @@ import { App } from './app';
 import { BLOG_POSTS } from './blog/blog-posts';
 import { NEWS_ITEMS } from './news/news-items';
 import { PRESS_FEATURE } from './home/press';
+import { THEME_KEY, ThemeService } from './shared/theme.service';
 
 describe('Scrolling homepage', () => {
   beforeEach(() => TestBed.configureTestingModule({imports:[App], providers:[provideRouter(routes)]}));
@@ -140,5 +141,35 @@ describe('Scrolling homepage', () => {
     expect(page.querySelector('header.away')).toBeNull();
     await scroll(0);
     expect(page.querySelector('.to-top')).toBeNull();
+  });
+
+  it('switches between light and dark themes from the nav and remembers the choice', async () => {
+    localStorage.removeItem(THEME_KEY);
+    document.documentElement.setAttribute('data-theme', 'light');
+    const fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/');
+    await fixture.whenStable();
+    const toggle = (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.theme-toggle')!;
+    expect(toggle.getAttribute('role')).toBe('switch');
+    expect(toggle.getAttribute('aria-label')).toBe('Dark theme');
+    expect(toggle.getAttribute('aria-checked')).toBe('false');
+    toggle.click();
+    fixture.detectChanges();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    expect(localStorage.getItem(THEME_KEY)).toBe('dark');
+    expect(toggle.getAttribute('aria-checked')).toBe('true');
+    toggle.click();
+    fixture.detectChanges();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    localStorage.removeItem(THEME_KEY);
+  });
+
+  it('starts in the stored theme, ahead of the OS setting', () => {
+    localStorage.setItem(THEME_KEY, 'dark');
+    document.documentElement.removeAttribute('data-theme');
+    expect(TestBed.inject(ThemeService).theme()).toBe('dark');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    localStorage.removeItem(THEME_KEY);
+    document.documentElement.setAttribute('data-theme', 'light');
   });
 });

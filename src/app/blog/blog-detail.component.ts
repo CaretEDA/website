@@ -949,7 +949,7 @@ export class BlogDetailComponent implements OnInit {
         {
           heading: 'About CaretEDA',
           blocks: [
-            { type: 'html', text: 'CaretEDA builds AI-native design systems for modern semiconductor teams, with its Spec-to-Netlist™ platform serving as a powerful force multiplier across the entire engineering workflow. To learn more or request a demo, contact <a href="mailto:info@careteda.com" style="color:#1d4ed8;text-decoration:none;">info@careteda.com</a>.' },
+            { type: 'html', text: 'CaretEDA builds AI-native design systems for modern semiconductor teams, with its Spec-to-Netlist™ platform serving as a powerful force multiplier across the entire engineering workflow. To learn more or request a demo, contact <a class="text-link" href="mailto:info@careteda.com">info@careteda.com</a>.' },
           ]
         },
         {

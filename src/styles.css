@@ -35,7 +35,60 @@
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
   --shadow-sm: 0 1px 2px rgb(17 24 39 / 0.05);
   --shadow-float: 0 8px 24px rgb(17 24 39 / 0.08);
+  --positive: #16a34a;
+  --negative: #dc2626;
+  /* roles that used to be hard-coded, so both themes can set them */
+  --glass: rgb(246 247 249 / 0.9);          /* masthead */
+  --invert: #111827;                         /* Contact us pill, back to top */
+  --invert-ink: #ffffff;
+  --invert-hover: #1f2937;
+  --invert-shadow: 0 6px 20px rgb(17 24 39 / 0.22), 0 1px 3px rgb(17 24 39 / 0.12);
+  --hover-line: rgb(17 24 39 / 0.26);
+  --placeholder: #98a2b3;
+  --backdrop: rgb(17 24 39 / 0.48);
+  --dialog-shadow: 0 24px 64px rgb(17 24 39 / 0.18);
+  --dots: rgb(37 99 235 / 0.30);
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --section-line: transparent;               /* accent hairline between sections (dark only) */
 }
+
+/* ==========================================================================
+   Dark theme ("night panel"): the same roles, night values. Set on <html data-theme="dark"> by the
+   inline script in index.html (stored choice, else the OS setting) and by the nav toggle.
+   Surfaces step lighter instead of casting shadows; text roles keep >= 6:1 on card.
+   ========================================================================== */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #07090e;
+  --deep: #040509;
+  --card: #0d1017;
+  --raised: #161a23;
+  --line: rgb(226 232 245 / 0.08);
+  --line-strong: rgb(226 232 245 / 0.16);
+  --ink: #eef0f5;
+  --ink-2: #a8aebd;
+  --ink-3: #8c93a5;
+  --accent-ink: #8ab4ff;
+  --accent-soft: rgb(59 130 246 / 0.14);
+  --shadow-sm: none;
+  --shadow-float: 0 0 0 1px var(--line-strong);
+  --positive: #4ade80;
+  --negative: #f87171;
+  --glass: rgb(7 9 14 / 0.86);
+  --invert: #eef0f5;
+  --invert-ink: #07090e;
+  --invert-hover: #ffffff;
+  --invert-shadow: 0 0 0 1px rgb(238 240 245 / 0.10);
+  --hover-line: rgb(226 232 245 / 0.28);
+  --placeholder: #6b7385;
+  --backdrop: rgb(0 0 0 / 0.64);
+  --dialog-shadow: 0 0 0 1px var(--line-strong);
+  --dots: rgb(96 165 250 / 0.24);
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238c93a5' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --section-line: rgb(96 165 250 / 0.14);
+}
+/* Theme switch: a 200ms crossfade of the whole page (View Transitions), never a transition on every colour */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 200ms; animation-timing-function: var(--ease); }
 
 /* Dark instrument surfaces: the same roles, night values */
 .on-night {
@@ -72,11 +125,14 @@ body {
 }
 body::before {
   content: ""; position: fixed; inset: 0 0 -24px 0; z-index: -1; pointer-events: none;
-  background-image: radial-gradient(circle at 1.5px 1.5px, rgb(37 99 235 / 0.30) 1.25px, transparent 1.75px);
+  background-image: radial-gradient(circle at 1.5px 1.5px, var(--dots) 1.25px, transparent 1.75px);
   background-size: 24px 24px;
-  /* visible in the margins only: full at the screen edge, gone at the content edge */
-  -webkit-mask-image: linear-gradient(90deg, #000 0, transparent var(--gutter-x), transparent calc(100% - var(--gutter-x)), #000 100%);
-          mask-image: linear-gradient(90deg, #000 0, transparent var(--gutter-x), transparent calc(100% - var(--gutter-x)), #000 100%);
+  /* the side margins: full strength across the outer 60% of each margin, then a soft fade that ends
+     40px past the content edge, so the field reads as a band, not a thin edge */
+  --dots-solid: calc(var(--gutter-x) * 0.6);
+  --dots-end: calc(var(--gutter-x) + 40px);
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 var(--dots-solid), transparent var(--dots-end), transparent calc(100% - var(--dots-end)), #000 calc(100% - var(--dots-solid)), #000 100%);
+          mask-image: linear-gradient(90deg, #000 0, #000 var(--dots-solid), transparent var(--dots-end), transparent calc(100% - var(--dots-end)), #000 calc(100% - var(--dots-solid)), #000 100%);
   animation: dots-drift 6s linear infinite;
   will-change: transform;
 }
@@ -107,7 +163,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 /* ---------- Masthead ---------- */
 .mast {
   position: fixed; inset: 0 0 auto; z-index: 100;
-  background: rgb(246 247 249 / 0.9);
+  background: var(--glass);
   backdrop-filter: saturate(1.2) blur(12px);
   border-bottom: 1px solid var(--line);
   transition: transform 240ms var(--ease);
@@ -143,10 +199,10 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 .nav-quiet { position: relative; font-size: 15px; font-weight: 500; color: var(--ink-2); padding: 0 12px; height: 36px; display: inline-flex; align-items: center; border-radius: 8px; transition: color var(--fast) var(--ease); }
 .nav-contact {
   display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: 8px;
-  background: var(--ink); color: #fff; font-size: 15px; font-weight: 500;
+  background: var(--invert); color: var(--invert-ink); font-size: 15px; font-weight: 500;
   transition: background-color var(--fast) var(--ease), transform var(--fast) var(--ease);
 }
-.nav-contact:hover { background: #1f2937; }
+.nav-contact:hover { background: var(--invert-hover); }
 .menu-toggle {
   display: none; align-content: center; justify-items: center; gap: 5px;
   width: 44px; height: 44px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--card);
@@ -178,7 +234,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 .primary { background: var(--accent); color: #fff; }
 .primary:hover { background: var(--accent-hover); }
 .secondary, .more-posts { border: 1px solid var(--line-strong); color: var(--ink); background: var(--card); }
-.secondary:hover, .more-posts:hover { background: var(--raised); border-color: rgb(17 24 39 / 0.24); }
+.secondary:hover, .more-posts:hover { background: var(--raised); border-color: var(--hover-line); }
 .more-posts { height: 44px; margin-top: 32px; }
 /* Line icons drawn from files in assets/icons as a mask, so each takes its text colour (currentColor) */
 .icon, .arrow {
@@ -237,8 +293,8 @@ a:hover .arrow-back { transform: translateX(-3px); }
    headline and intro still sit on calm space. Three mask layers, added together. */
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%232563eb' stroke-opacity='.5' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 48H64L88 72H152L176 48H240'/%3E%3Cpath d='M0 168H32L56 192H120L144 168H240'/%3E%3Cpath d='M200 0V20L184 36V100L200 116V240'/%3E%3Cpath d='M40 0V100L56 116H96'/%3E%3Cpath d='M40 240V224'/%3E%3Cpath d='M120 192V140L136 124'/%3E%3Cg fill='%23f6f7f9'%3E%3Ccircle cx='96' cy='116' r='3'/%3E%3Ccircle cx='40' cy='224' r='3'/%3E%3Ccircle cx='184' cy='48' r='3'/%3E%3Ccircle cx='136' cy='124' r='3'/%3E%3Ccircle cx='152' cy='72' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 240px 240px; opacity: 0.85;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%232563eb' stroke-opacity='.8' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 48H64L88 72H152L176 48H240'/%3E%3Cpath d='M0 168H32L56 192H120L144 168H240'/%3E%3Cpath d='M200 0V20L184 36V100L200 116V240'/%3E%3Cpath d='M40 0V100L56 116H96'/%3E%3Cpath d='M40 240V224'/%3E%3Cpath d='M120 192V140L136 124'/%3E%3Cg fill='%23f6f7f9'%3E%3Ccircle cx='96' cy='116' r='3'/%3E%3Ccircle cx='40' cy='224' r='3'/%3E%3Ccircle cx='184' cy='48' r='3'/%3E%3Ccircle cx='136' cy='124' r='3'/%3E%3Ccircle cx='152' cy='72' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px; opacity: 1;
   --mask-right: radial-gradient(ellipse 56% 76% at 76% 42%, #000 0%, rgb(0 0 0 / 0.85) 34%, rgb(0 0 0 / 0.45) 58%, rgb(0 0 0 / 0.12) 76%, transparent 90%);
   --mask-left-bottom: radial-gradient(ellipse 26% 42% at 0% 100%, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0.3) 45%, rgb(0 0 0 / 0.08) 75%, transparent 100%);
   --mask-left-top: radial-gradient(ellipse 18% 30% at 0% 6%, rgb(0 0 0 / 0.45) 0%, rgb(0 0 0 / 0.22) 45%, rgb(0 0 0 / 0.06) 75%, transparent 100%);
@@ -498,21 +554,21 @@ app-home > [id] { display: block; }
   transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
 }
 .input { padding: 12px 16px; width: 100%; font: inherit; font-size: 16px; }
-.input::placeholder { color: #98a2b3; }
-.input:hover, .affix:hover { border-color: rgb(17 24 39 / 0.28); }
-.input:focus, .affix:focus-within { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgb(37 99 235 / 0.15); }
+.input::placeholder { color: var(--placeholder); }
+.input:hover, .affix:hover { border-color: var(--hover-line); }
+.input:focus, .affix:focus-within { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
 .affix { display: flex; overflow: hidden; }
 .affix > span { display: flex; align-items: center; padding: 0 12px; font: 400 14px/1 var(--mono); color: var(--ink-3); background: var(--raised); border-right: 1px solid var(--line); }
 .affix .input { border: 0; min-height: 46px; box-shadow: none !important; }
 #startup-program :is(input, select, textarea):focus-visible { outline: none !important; }
 
 /* Field errors: shown on submit, under their field, in the negative tone */
-.field__error { font-size: 14px; line-height: 20px; color: var(--negative, #dc2626); }
-.input[aria-invalid="true"], .affix:has(.input[aria-invalid="true"]) { border-color: var(--negative, #dc2626); }
-.input[aria-invalid="true"]:focus, .affix:has(.input[aria-invalid="true"]):focus-within { box-shadow: 0 0 0 3px rgb(220 38 38 / 0.14); }
+.field__error { font-size: 14px; line-height: 20px; color: var(--negative); }
+.input[aria-invalid="true"], .affix:has(.input[aria-invalid="true"]) { border-color: var(--negative); }
+.input[aria-invalid="true"]:focus, .affix:has(.input[aria-invalid="true"]):focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--negative) 16%, transparent); }
 select.input {
   appearance: none; padding-right: 40px; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: var(--chevron);
   background-repeat: no-repeat; background-position: right 14px center;
 }
 textarea.input { resize: vertical; min-height: 72px; }
@@ -525,11 +581,11 @@ html.dialog-open { overflow: hidden; }
   width: min(720px, 100% - 32px); max-width: none; max-height: min(880px, 100dvh - 48px);
   padding: 0; margin: auto; border: 0; background: transparent; color: var(--ink); overflow: visible;
 }
-.apply-dialog::backdrop { background: rgb(17 24 39 / 0.48); animation: fade var(--menu) var(--ease); }
+.apply-dialog::backdrop { background: var(--backdrop); animation: fade var(--menu) var(--ease); }
 .apply-panel {
   display: grid; grid-template-rows: auto minmax(0, 1fr) auto; max-height: inherit;
   background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-  box-shadow: 0 24px 64px rgb(17 24 39 / 0.18);
+  box-shadow: var(--dialog-shadow);
   overflow: hidden;
 }
 .apply-dialog[open] .apply-panel { animation: dialog-in var(--menu) var(--ease); }
@@ -580,7 +636,7 @@ html.dialog-open { overflow: hidden; }
 .apply-done { justify-items: start; padding: 32px 28px 24px; gap: 12px; }
 .apply-done__mark {
   display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
-  color: var(--positive, #16a34a); background: rgb(22 163 74 / 0.1);
+  color: var(--positive); background: color-mix(in srgb, var(--positive) 12%, transparent);
 }
 .apply-done h3 { font-size: 20px; line-height: 28px; font-weight: 500; color: var(--ink); }
 .apply-done p { max-width: 34rem; font-size: 16px; line-height: 26px; color: var(--ink-2); }
@@ -668,14 +724,14 @@ html.dialog-open { overflow: hidden; }
 .to-top {
   position: fixed; right: var(--gutter); bottom: max(24px, env(safe-area-inset-bottom)); z-index: 75;
   display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
-  background: var(--ink); color: var(--page); border: 0;
-  box-shadow: 0 6px 20px rgb(17 24 39 / 0.22), 0 1px 3px rgb(17 24 39 / 0.12);
+  background: var(--invert); color: var(--invert-ink); border: 0;
+  box-shadow: var(--invert-shadow);
   transition: background-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease), transform var(--fast) var(--ease);
   animation: fade var(--menu) var(--ease);
 }
 .to-top .icon--top { --icon: url("assets/icons/upload-circle-01-stroke-rounded.svg"); width: 26px; height: 26px; }
 @media (hover: hover) and (pointer: fine) {
-  .to-top:hover { background: #1f2937; transform: translateY(-2px); box-shadow: 0 10px 24px rgb(17 24 39 / 0.26), 0 2px 4px rgb(17 24 39 / 0.12); }
+  .to-top:hover { background: var(--invert-hover); transform: translateY(-2px); }
 }
 .to-top:active { transform: scale(0.95); }
 
@@ -775,3 +831,70 @@ main > router-outlet + :not(app-home) > section { background: transparent; }
   .hero-grid > .flow-plate { min-height: 0; }
   .hero-grid .chip-stage { min-height: 128px; }
 }
+
+/* ---------- Theme switch (nav) ----------
+   A sliding switch beside "Contact us": a 44x24 track with an 18px thumb carrying the current theme's
+   icon (sun in light, moon in dark). Off = light, on = dark: the track fills with the brand blue and the
+   thumb slides right (200ms, transform only). The 44x36 button around it is the hit area. */
+.theme-toggle {
+  position: relative; display: grid; place-items: center; width: 52px; height: 36px; border-radius: 8px;
+  color: var(--ink-2); background: transparent; cursor: pointer;
+}
+.theme-toggle__track {
+  position: relative; display: block; width: 44px; height: 24px; border-radius: 12px;
+  background: var(--raised); box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: background-color 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.theme-toggle:hover .theme-toggle__track { box-shadow: inset 0 0 0 1px var(--hover-line); }
+.theme-toggle__thumb {
+  position: absolute; top: 3px; left: 3px; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--card); color: var(--ink-2); box-shadow: 0 1px 2px rgb(17 24 39 / 0.2);
+  transition: transform 200ms var(--ease);
+}
+.theme-toggle:active .theme-toggle__thumb { scale: 0.92; }
+.theme-toggle .icon { grid-area: 1 / 1; width: 12px; height: 12px; transition: opacity 200ms var(--ease), transform 200ms var(--ease); }
+.icon--moon { --icon: url("assets/icons/moon-02-stroke-rounded.svg"); }
+.icon--sun { --icon: url("assets/icons/sun-03-stroke-rounded.svg"); }
+.theme-toggle .icon--moon { opacity: 0; transform: rotate(-30deg) scale(0.8); }
+:root[data-theme="dark"] .theme-toggle__track { background: var(--accent); box-shadow: inset 0 0 0 1px transparent; }
+:root[data-theme="dark"] .theme-toggle__thumb { transform: translateX(20px); background: #fff; color: var(--accent); }
+:root[data-theme="dark"] .theme-toggle .icon--moon { opacity: 1; transform: none; }
+:root[data-theme="dark"] .theme-toggle .icon--sun { opacity: 0; transform: rotate(30deg) scale(0.8); }
+
+/* ---------- Dark theme: night-panel character ----------
+   Everything here applies only in dark. The hero is the one lit moment: brighter circuit traces, a
+   blue light behind the plate. Sections meet on a faint accent hairline, like panels on an instrument. */
+/* circuit: lighter blue traces, pads filled with the page colour so they read as drilled holes */
+:root[data-theme="dark"] .hero::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' fill='none' stroke='%2360a5fa' stroke-opacity='.55' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 48H64L88 72H152L176 48H240'/%3E%3Cpath d='M0 168H32L56 192H120L144 168H240'/%3E%3Cpath d='M200 0V20L184 36V100L200 116V240'/%3E%3Cpath d='M40 0V100L56 116H96'/%3E%3Cpath d='M40 240V224'/%3E%3Cpath d='M120 192V140L136 124'/%3E%3Cg fill='%2307090e'%3E%3Ccircle cx='96' cy='116' r='3'/%3E%3Ccircle cx='40' cy='224' r='3'/%3E%3Ccircle cx='184' cy='48' r='3'/%3E%3Ccircle cx='136' cy='124' r='3'/%3E%3Ccircle cx='152' cy='72' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 1;
+}
+:root[data-theme="dark"] .hero-grid::before {
+  background: radial-gradient(ellipse 60% 60% at 50% 50%,
+    rgb(37 99 235 / 0.34) 0%, rgb(37 99 235 / 0.26) 50%, rgb(59 130 246 / 0.16) 62%, rgb(59 130 246 / 0.06) 74%, transparent 83%);
+}
+/* the plate sits one step above the page, with an edge, instead of a drop shadow */
+:root[data-theme="dark"] .flow-plate {
+  --card: #121620;
+  border: 1px solid rgb(238 240 245 / 0.12);
+  background-image:
+    linear-gradient(rgb(238 240 245 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(238 240 245 / 0.05) 1px, transparent 1px);
+  box-shadow: none;
+}
+/* panels on an instrument: a faint accent hairline where sections meet */
+:root[data-theme="dark"] :is(.chapter, .ecosystem, .contact-band, .site-footer) { border-top: 1px solid var(--section-line); }
+/* category tones, lifted for a dark card */
+:root[data-theme="dark"] .brief--news { --tone: #60a5fa; --tone-ink: #93c5fd; }
+:root[data-theme="dark"] .brief--blog { --tone: #2dd4bf; --tone-ink: #5eead4; }
+:root[data-theme="dark"] .brief--press { --tone: #fbbf24; --tone-ink: #fcd34d; }
+/* black and near-black partner marks would vanish on dark: turn their dark parts light, keep hues */
+:root[data-theme="dark"] .partner-list img:is([src$="openai-icon.svg"], [src$="aws.svg"]) { filter: invert(1) hue-rotate(180deg); }
+/* team hover light: a touch stronger so it reads on black without blooming */
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] :is(.person:hover .photo, .advisor:hover .advisor-photo) { box-shadow: 0 0 0 4px rgb(96 165 250 / 0.14), 0 8px 28px rgb(59 130 246 / 0.30); }
+}
+/* phones: the copy sits over the circuit, so the brighter dark traces step back there */
+@media (max-width: 900px) { :root[data-theme="dark"] .hero::before { opacity: 0.5; } }
+/* phones, light: the copy sits over the circuit too, so it steps back the same way */
+@media (max-width: 900px) { .hero::before { opacity: 0.6; } }
