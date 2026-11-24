@@ -308,8 +308,6 @@ app-home > [id] { display: block; }
    careers, about, contact (page) */
 #news .chapter, #team .chapter, #startup-program .chapter, #about .chapter { background: var(--card); }
 #blogs .chapter, #ifaq .chapter, #careers .chapter { background: var(--page); }
-/* Demos is a hidden standalone page (/demos), not a homepage section */
-app-demos .chapter { background: var(--card); }
 
 /* Linked cards: hairline darkens, card lifts 2px, its picture eases in its frame */
 .lift { transition: border-color var(--fast) var(--ease), transform var(--menu) var(--ease), box-shadow var(--menu) var(--ease); }
@@ -348,15 +346,6 @@ app-demos .chapter { background: var(--card); }
 .stats b { display: block; font-size: clamp(36px, 4vw, 56px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink); }
 .stats p { margin-top: 12px; font-size: 15px; line-height: 22px; color: var(--ink-2); max-width: 18rem; }
 
-/* Demos */
-.demo-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; border-top: 1px solid var(--line-strong); }
-.demo-list li { padding: 20px 0; border-bottom: 1px solid var(--line); }
-.demo-list h3 { font-size: 16px; line-height: 24px; font-weight: 500; color: var(--ink); }
-.demo-list p { margin-top: 4px; font-size: 14px; line-height: 21px; color: var(--ink-2); }
-.demo-list .micro { display: block; margin-top: 8px; font-size: 12px; }
-.demo-cta { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 48px; padding: 28px 32px; border-radius: 16px; background: var(--page); border: 1px solid var(--line); }
-.demo-cta h3 { font-size: 22px; line-height: 30px; font-weight: 500; }
-.demo-cta p { margin-top: 4px; font-size: 16px; color: var(--ink-2); max-width: 34rem; }
 
 /* Blog + news */
 #blogs .chapter img { height: 100%; }
@@ -653,8 +642,7 @@ main > router-outlet + :not(app-home) > section { background: var(--page); }
   .faq-aside { position: static; }
   .stats { grid-template-columns: 1fr; margin-top: 48px; }
   .stats > div, .stats > div + div { padding: 20px 0; border-left: 0; border-bottom: 1px solid var(--line); }
-  .demo-list { grid-template-columns: 1fr; }
-  .demo-cta, .role-card { flex-direction: column; align-items: flex-start; }
+  .role-card { flex-direction: column; align-items: flex-start; }
   .founders, .advisors { grid-template-columns: 1fr; }
   .person { display: grid; grid-template-columns: 112px 1fr; gap: 0 20px; }
   .person .photo { width: 112px; height: 112px; margin-bottom: 0; grid-row: span 3; }

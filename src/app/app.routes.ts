@@ -1,14 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
-// Only the home page is in the main bundle. Detail pages (blog posts, news, careers, demos)
+// Only the home page is in the main bundle. Detail pages (blog posts, news, careers)
 // load on first visit, so the home page doesn't download every article's full text.
 export const routes: Routes = [
   { path: '',                component: HomeComponent },
   { path: 'about', pathMatch: 'full', redirectTo: '/#about' },
   { path: 'team', pathMatch: 'full', redirectTo: '/#team' },
-  // Hidden page, as on careteda.com: reachable by URL, not linked from the menu or homepage.
-  { path: 'demos',           loadComponent: () => import('./demos/demos.component').then(m => m.DemosComponent) },
   { path: 'news', pathMatch: 'full', redirectTo: '/#news' },
   { path: 'news/2026-08-release-neevsemi-partnership', loadComponent: () => import('./news/news-neevsemi-partnership.component').then(m => m.NewsNeevsemiPartnershipComponent) },
   { path: 'news/dac-2026',   loadComponent: () => import('./news/news-dac2026.component').then(m => m.NewsDac2026Component) },

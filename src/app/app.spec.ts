@@ -41,22 +41,18 @@ describe('Scrolling homepage', () => {
     expect(cta!.getAttribute('href')).toMatch(/^mailto:info@careteda\.com/);
   });
 
-  it('serves Demos as a hidden page: reachable at /demos, not on the homepage or in the menu', async () => {
+  it('has no Demos page: /demos falls back to the homepage and nothing links to it', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
     const page: HTMLElement = fixture.nativeElement;
 
-    await router.navigateByUrl('/');
-    await fixture.whenStable();
-    expect(page.querySelector('app-demos')).toBeNull();
-    const links = [...page.querySelectorAll<HTMLAnchorElement>('header a, nav a')];
-    expect(links.some((a) => /demos/i.test(a.getAttribute('href') ?? '') || /^\s*demos\s*$/i.test(a.textContent ?? ''))).toBe(false);
-
     await router.navigateByUrl('/demos');
     await fixture.whenStable();
-    expect(router.url).toBe('/demos');
-    expect(page.querySelector('app-demos')).toBeTruthy();
-    expect(page.querySelector('app-demos h2, app-demos h1')?.textContent).toContain('Demos');
+    expect(router.url).toBe('/');
+    expect(page.querySelector('app-home')).toBeTruthy();
+    expect(page.querySelector('app-demos')).toBeNull();
+    const links = [...page.querySelectorAll<HTMLAnchorElement>('a')];
+    expect(links.some((a) => /(^|\/)demos(\/|$|#|\?)/i.test(a.getAttribute('href') ?? ''))).toBe(false);
   });
 
   it('opens the startup program application in a popup that can be closed without losing input', async () => {

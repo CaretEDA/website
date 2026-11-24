@@ -43,7 +43,6 @@ When you add a blog post or a news page, also add an entry to the `routes` list 
 | `src/app/blog/blog-list.component.ts` | Blog cards (newest first) |
 | `src/app/blog/blog-detail.component.ts` | Full text of every blog post, keyed by URL slug |
 | `src/app/news/*` | One component per press release |
-| `src/app/demos/` | Demos page: reachable at `/demos` only, not linked from the menu (same as the live site) |
 | `src/app/shared/navbar.component.ts` | Header, menu and back-to-top button |
 | `src/styles.css`, `tailwind.config.js` | Design tokens (colors, type) and global styles |
 | `src/assets/` | Images. Keep photos as JPEG/WebP, roughly 2x their display size |

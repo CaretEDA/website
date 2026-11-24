@@ -105,7 +105,6 @@ const routes = [
   { path: 'careers', title: 'Careers', desc: 'Join CaretEDA and help reshape how chips are designed with AI-native, agentic EDA.', image: DEFAULT_IMAGE },
   { path: 'ifaq',    title: 'IFAQ',    desc: 'Everything you need to know before, during, and after your Spec-to-Netlist™ evaluation.', image: DEFAULT_IMAGE },
   { path: 'startup-program', title: 'Startup Program Application', desc: 'Join the next generation of silicon innovators. Apply below to get access to CaretEDA\'s commercially supported open-source EDA stack and agentic modules.', image: DEFAULT_IMAGE },
-  { path: 'demos',   title: 'Demos',   desc: 'Watch Spec-to-Netlist™ in motion — from design intent to silicon-ready output.', image: DEFAULT_IMAGE },
 ];
 
 const escapeAttr = (s) =>
@@ -142,7 +141,7 @@ console.log(`Injected per-route Open Graph tags into ${count} pages.`);
 
 // sitemap.xml for search engines (robots.txt in public/ points here).
 // Real pages only: home, blog posts, news releases, job pages. Section shortcuts (/about, /blogs …)
-// redirect to home anchors, so they would be duplicates; /demos is deliberately unlisted.
+// redirect to home anchors, so they would be duplicates.
 const jobPages = ['careers/senior-hardware-engineer'];
 const pages = ['', ...routes.map(r => r.path).filter(p => /^(blogs|news)\//.test(p)), ...jobPages];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
