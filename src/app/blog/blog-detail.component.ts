@@ -88,7 +88,7 @@ interface BlogPost {
               <ng-container *ngFor="let block of section.blocks">
                 <p *ngIf="block.type === 'p'" class="text-ink-2 text-base leading-relaxed">{{ block.text }}</p>
                 <ul *ngIf="block.type === 'ul'" class="space-y-2 pl-4">
-                  <li *ngFor="let item of block.items" class="text-ink-2 text-base leading-relaxed flex gap-2.5">
+                  <li *ngFor="let item of block.items" class="text-ink-2 text-base leading-relaxed flex gap-3">
                     <span class="text-accent-ink text-lg font-medium leading-none flex-shrink-0 mt-0.5">●</span>{{ item }}
                   </li>
                 </ul>
@@ -111,7 +111,7 @@ interface BlogPost {
               </div>
               <p *ngFor="let para of section.paragraphs" class="text-ink-2 text-base leading-relaxed">{{ para }}</p>
               <ul *ngIf="section.bullets" class="space-y-2 pl-4">
-                <li *ngFor="let bullet of section.bullets" class="text-ink-2 text-base leading-relaxed flex gap-2.5">
+                <li *ngFor="let bullet of section.bullets" class="text-ink-2 text-base leading-relaxed flex gap-3">
                   <span class="text-accent-ink text-lg font-medium leading-none flex-shrink-0 mt-0.5">●</span>{{ bullet }}
                 </li>
               </ul>

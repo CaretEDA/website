@@ -32,6 +32,34 @@
       </div>
       <figcaption><span>Specification</span><span>Spec-to-Netlist™</span><span>Silicon-ready netlist</span></figcaption>
     </figure>
+
+    <!-- Briefing rail: the newest news item, blog post and press feature, visible on landing.
+         Data: news/news-items.ts, blog/blog-posts.ts, home/press.ts (first item of each). -->
+    <nav class="briefing" aria-label="Latest from CaretEDA">
+      @if (latestNews.route) {
+        <a class="brief brief--news lift" [routerLink]="latestNews.route">
+          <span class="brief__head"><span class="brief__tag">News</span><span class="micro tabular">{{ latestNews.date }}</span></span>
+          <span class="brief__title">{{ latestNews.title }}</span>
+          <span class="text-link brief__more">Read more <span class="arrow" aria-hidden="true"></span></span>
+        </a>
+      } @else {
+        <a class="brief brief--news lift" [href]="latestNews.link" target="_blank" rel="noopener noreferrer">
+          <span class="brief__head"><span class="brief__tag">News</span><span class="micro tabular">{{ latestNews.date }}</span></span>
+          <span class="brief__title">{{ latestNews.title }}</span>
+          <span class="text-link brief__more">Read more <span class="arrow" aria-hidden="true"></span><span class="sr-only"> (opens in a new tab)</span></span>
+        </a>
+      }
+      <a class="brief brief--blog lift" [routerLink]="['/blogs', latestPost.slug]">
+        <span class="brief__head"><span class="brief__tag">Blog</span><span class="micro tabular">{{ latestPost.date }} · {{ latestPost.readTime }}</span></span>
+        <span class="brief__title">{{ latestPost.title }}</span>
+        <span class="text-link brief__more">Read article <span class="arrow" aria-hidden="true"></span></span>
+      </a>
+      <a class="brief brief--press lift" [href]="press.href" target="_blank" rel="noopener noreferrer">
+        <span class="brief__head"><span class="brief__tag">Press</span><span class="micro">{{ press.source }}</span></span>
+        <span class="brief__title">{{ press.title }}</span>
+        <span class="text-link brief__more">Read on EE Herald <span class="arrow" aria-hidden="true"></span><span class="sr-only"> (opens in a new tab)</span></span>
+      </a>
+    </nav>
   </div>
 </section>
 <div class="ecosystem"><div class="wrap partners">
@@ -56,10 +84,6 @@
 </div></div>
 <app-blog-list id="blogs" />
 <app-news id="news" />
-<aside class="event-strip" aria-label="Press and events"><div class="wrap events">
-  <a href="https://www.eeherald.com/section/future-watch/p1788635578695nwn2threeexsynop" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="assets/news/eeherald-careteda-banner.jpg" alt="EE Herald feature on CaretEDA"><div><span class="micro">EE Herald · Future Watch</span><h3>Three Ex-Synopsys Engineers, One Trillion-Dollar Bet: Inside CaretEDA's Open Source, AI-Native Approach to Chip Design</h3></div></a>
-  <div><img loading="lazy" src="assets/news/neevsemi-semicon-india-2026-banner.jpg" alt=""><div><span class="micro">September 17–19, 2026</span><h3>SEMICON India 2026</h3><p>New Delhi · Startup Pavilion</p></div></div>
-</div></aside>
 <app-team id="team" />
 <app-ifaq id="ifaq" />
 <app-startup-program id="startup-program" />

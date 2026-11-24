@@ -40,12 +40,17 @@ When you add a blog post or a news page, also add an entry to the `routes` list 
 |---|---|
 | `src/app/home/` | The single long homepage. Sections are the components below |
 | `src/app/about`, `blog`, `news`, `team`, `ifaq`, `startup-program`, `careers` | One component per homepage section |
-| `src/app/blog/blog-list.component.ts` | Blog cards (newest first) |
+| `src/app/blog/blog-posts.ts` | Blog card data, newest first. The Blog section and the hero's "Latest" rail both read it |
 | `src/app/blog/blog-detail.component.ts` | Full text of every blog post, keyed by URL slug |
-| `src/app/news/*` | One component per press release |
+| `src/app/news/news-items.ts` | News list data, newest first. The News section and the hero's rail both read it |
+| `src/app/news/*.component.ts` | One component per press release page |
+| `src/app/home/press.ts` | The press feature shown in the hero's rail (currently EE Herald) |
 | `src/app/shared/navbar.component.ts` | Header, menu and back-to-top button |
 | `src/styles.css`, `tailwind.config.js` | Design tokens (colors, type) and global styles |
 | `src/assets/` | Images. Keep photos as JPEG/WebP, roughly 2x their display size |
 | `src/404.html` | GitHub Pages fallback that hands deep links back to the Angular router |
 
 Old URLs such as `/team`, `/blogs` and `/about` redirect to their section on the homepage.
+
+To publish a new post or release, add it at the top of `blog-posts.ts` or `news-items.ts`: the hero's
+"Latest" rail updates itself, since it always shows the first item of each list.

@@ -2,7 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from './app.routes';
 import { App } from './app';
-import { BlogListComponent } from './blog/blog-list.component';
+import { BLOG_POSTS } from './blog/blog-posts';
+import { NEWS_ITEMS } from './news/news-items';
+import { PRESS_FEATURE } from './home/press';
 
 describe('Scrolling homepage', () => {
   beforeEach(() => TestBed.configureTestingModule({imports:[App], providers:[provideRouter(routes)]}));
@@ -17,7 +19,7 @@ describe('Scrolling homepage', () => {
     expect(page.querySelector('h1')?.textContent?.trim()).toBeTruthy();
 
     // Count comes from the blog data, so adding a post does not break this test.
-    const total = new BlogListComponent().posts.length;
+    const total = BLOG_POSTS.length;
     expect(total).toBeGreaterThan(3);
     const posts = () => page.querySelectorAll('#post-grid a');
     const more = page.querySelector<HTMLButtonElement>('.more-posts')!;
@@ -29,6 +31,26 @@ describe('Scrolling homepage', () => {
     more.click();
     await fixture.whenStable();
     expect(posts().length).toBe(3);
+  });
+
+  it('shows the newest news item, blog post and press feature in the hero, and no event strip', async () => {
+    const fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/');
+    await fixture.whenStable();
+    const page: HTMLElement = fixture.nativeElement;
+    const rail = page.querySelector('.hero .briefing');
+    expect(rail).toBeTruthy();
+    const cards = [...rail!.querySelectorAll<HTMLAnchorElement>('a.brief')];
+    expect(cards.length).toBe(3);
+    const titles = cards.map((c) => c.querySelector('.brief__title')?.textContent?.trim());
+    expect(titles).toEqual([NEWS_ITEMS[0].title, BLOG_POSTS[0].title, PRESS_FEATURE.title]);
+    expect(cards[1].getAttribute('href')).toBe('/blogs/' + BLOG_POSTS[0].slug);
+    expect(cards[2].getAttribute('href')).toBe(PRESS_FEATURE.href);
+    expect(cards[2].getAttribute('target')).toBe('_blank');
+    // The News section renders the same list the hero reads from
+    expect(page.querySelectorAll('#news .flex-col > a').length).toBe(NEWS_ITEMS.length);
+    expect(page.querySelector('.event-strip')).toBeNull();
+    expect(page.querySelector('app-home')?.textContent).not.toContain('SEMICON India 2026');
   });
 
   it('keeps "Schedule a demo" on the homepage', async () => {
