@@ -1,10 +1,12 @@
 import { Component, ElementRef, HostListener, computed, input, model, signal, viewChild } from '@angular/core';
-import { DateRange, RANGE_OPTIONS, RangeKind, customRange, monthLabel, rangeLabel } from './blog-filter';
+import { DateRange, RANGE_OPTIONS, RangeKind, customRange, monthLabel, rangeLabel } from './date-filter';
 
 /**
- * Date filter: a trigger (filter icon + the active range) that opens a small panel with the presets
- * and a custom From / To month range. A choice applies at once. Escape, Done or a click outside closes
- * the panel; Escape and Done return focus to the trigger.
+ * Date filter: a trigger (filter icon + the active range) that opens a small menu of presets and a
+ * custom From / To month range. The options are native radios (arrow keys move and apply), drawn as menu
+ * rows with a check on the chosen one. A click on a preset applies it and closes the menu; arrow keys
+ * apply without closing, so a keyboard user can try each. Custom range stays open for its two months,
+ * with Done. Escape, Done or a click outside closes the menu; Escape and Done return focus to the trigger.
  * Reusable: bind [(range)] and pass the months that have items.
  */
 @Component({
@@ -19,37 +21,35 @@ import { DateRange, RANGE_OPTIONS, RangeKind, customRange, monthLabel, rangeLabe
     @if (open()) {
       <div class="filter-panel" [class.is-closing]="closing()" [id]="panelId()">
         <fieldset class="filter-group">
-          <legend class="micro">Time range</legend>
+          <legend class="sr-only">Time range</legend>
           @for (o of options; track o.kind) {
-            <label class="filter-option">
-              <input type="radio" [name]="panelId() + '-range'" [value]="o.kind"
+            <label class="filter-option" (click)="clicked($event, o.kind)">
+              <input type="radio" class="sr-only" [name]="panelId() + '-range'" [value]="o.kind"
                      [checked]="range().kind === o.kind" (change)="pick(o.kind)">
+              <span class="icon icon--check" aria-hidden="true"></span>
               <span>{{ o.label }}</span>
             </label>
           }
         </fieldset>
         @if (custom(); as c) {
           <div class="filter-custom">
-            <label class="field">
-              <span class="micro">From</span>
+            <label class="filter-month">
+              <span>From</span>
               <select class="input" (change)="setFrom($any($event.target).value)">
                 @for (m of months(); track m) { <option [value]="m" [selected]="m === c.from">{{ monthLabel(m) }}</option> }
               </select>
             </label>
-            <label class="field">
-              <span class="micro">To</span>
+            <label class="filter-month">
+              <span>To</span>
               <select class="input" (change)="setTo($any($event.target).value)">
                 @for (m of months(); track m) { <option [value]="m" [selected]="m === c.to">{{ monthLabel(m) }}</option> }
               </select>
             </label>
           </div>
+          <div class="filter-foot">
+            <button type="button" class="filter-done" (click)="close(true)">Done</button>
+          </div>
         }
-        <div class="filter-foot">
-          @if (range().kind !== 'all') {
-            <button type="button" class="filter-reset" (click)="pick('all')">Reset</button>
-          }
-          <button type="button" class="filter-done" (click)="close(true)">Done</button>
-        </div>
       </div>
     }
   `,
@@ -84,6 +84,17 @@ export class DateFilterComponent {
     } else {
       this.range.set({ kind });
     }
+  }
+
+  /**
+   * A pointer click on a preset (detail > 0; keyboard-made clicks have 0) applies it and closes the menu.
+   * The label's own activation is cancelled, so it does not focus the radio of a menu that is closing.
+   */
+  clicked(e: MouseEvent, kind: RangeKind): void {
+    if (e.detail === 0 || kind === 'custom') return;
+    e.preventDefault();
+    this.pick(kind);
+    this.close(true);
   }
 
   setFrom(v: string): void { const c = this.custom(); if (c) this.range.set(customRange(Number(v), c.to)); }

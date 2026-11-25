@@ -1,5 +1,5 @@
 /**
- * Time-range filter for dated lists (blog posts now; news items use the same "Month YYYY" dates).
+ * Time-range filter for dated lists: blog posts ("October 2026") and news ("September 8, 2026").
  * Pure functions only, so they are testable with a fixed "today".
  *
  * Dates are month-precise display strings ("October 2026"), read as a month number

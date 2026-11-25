@@ -3,7 +3,7 @@ import { provideRouter, Router } from '@angular/router';
 import { routes } from './app.routes';
 import { App } from './app';
 import { BLOG_POSTS } from './blog/blog-posts';
-import { filterByRange } from './blog/blog-filter';
+import { filterByRange } from './shared/date-filter';
 import { NEWS_ITEMS } from './news/news-items';
 import { PRESS_FEATURE } from './home/press';
 import { THEME_KEY, ThemeService } from './shared/theme.service';
@@ -35,7 +35,7 @@ describe('Scrolling homepage', () => {
       expect(posts().length).toBeGreaterThan(before);
     }
     expect(posts().length).toBe(total);
-    expect(page.querySelector('#blogs .blog-count')?.textContent).toContain(`Showing ${total} of ${total}`);
+    expect(page.querySelector('#blogs .list-count')?.textContent).toContain(`Showing ${total} of ${total}`);
     more.click();
     await fixture.whenStable();
     expect(posts().length).toBe(3);
@@ -61,6 +61,44 @@ describe('Scrolling homepage', () => {
     expect(page.querySelector('#blogs .filter-result')?.textContent?.trim()).toBe('');
   });
 
+  it('lists news in batches with a date filter, like the blog', async () => {
+    const fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/');
+    await fixture.whenStable();
+    const page: HTMLElement = fixture.nativeElement;
+    const items = () => page.querySelectorAll('#news-list .news-card');
+    const total = NEWS_ITEMS.length;
+    expect(items().length).toBe(Math.min(3, total));
+    const more = page.querySelector<HTMLButtonElement>('#news .more-posts');
+    expect(!!more).toBe(total > 3);
+    if (more) {
+      let clicks = 0;
+      while (more.getAttribute('aria-expanded') !== 'true' && clicks < 50) {
+        const before = items().length;
+        more.click(); clicks++;
+        await fixture.whenStable();
+        expect(items().length).toBeGreaterThan(before);
+      }
+      expect(items().length).toBe(total);
+      expect(page.querySelector('#news .list-count')?.textContent).toContain(`Showing ${total} of ${total}`);
+      more.click();
+      await fixture.whenStable();
+      expect(items().length).toBe(3);
+    }
+
+    // "Past year" keeps only the news of the last twelve months; Clear filter brings back the first three
+    page.querySelector<HTMLButtonElement>('#news .filter-trigger')!.click();
+    await fixture.whenStable();
+    page.querySelector<HTMLInputElement>('#news .filter-panel input[value="year"]')!.click();
+    await fixture.whenStable();
+    const year = filterByRange(NEWS_ITEMS, { kind: 'year' });
+    expect(items().length).toBe(Math.min(3, year.length));
+    expect(page.querySelector('#news .filter-result')?.textContent).toContain('Past year');
+    page.querySelector<HTMLButtonElement>('#news .filter-clear')!.click();
+    await fixture.whenStable();
+    expect(items().length).toBe(Math.min(3, total));
+  });
+
   it('shows the newest news item, blog post and press feature in the hero, and no event strip', async () => {
     const fixture = TestBed.createComponent(App);
     await TestBed.inject(Router).navigateByUrl('/');
@@ -75,8 +113,8 @@ describe('Scrolling homepage', () => {
     expect(cards[1].getAttribute('href')).toBe('/blogs/' + BLOG_POSTS[0].slug);
     expect(cards[2].getAttribute('href')).toBe(PRESS_FEATURE.href);
     expect(cards[2].getAttribute('target')).toBe('_blank');
-    // The News section renders the same list the hero reads from
-    expect(page.querySelectorAll('#news .flex-col > a').length).toBe(NEWS_ITEMS.length);
+    // The News section renders the same list the hero reads from, newest first
+    expect(page.querySelector('#news-list .news-card h3')?.textContent?.trim()).toBe(NEWS_ITEMS[0].title);
     expect(page.querySelector('.event-strip')).toBeNull();
     expect(page.querySelector('app-home')?.textContent).not.toContain('SEMICON India 2026');
   });

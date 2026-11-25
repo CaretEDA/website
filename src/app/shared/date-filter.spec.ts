@@ -1,11 +1,11 @@
-import { BLOG_POSTS } from './blog-posts';
+import { BLOG_POSTS } from '../blog/blog-posts';
 import { NEWS_ITEMS } from '../news/news-items';
-import { customRange, filterByRange, monthsWithItems, postMonth, rangeLabel } from './blog-filter';
+import { customRange, filterByRange, monthsWithItems, postMonth, rangeLabel } from './date-filter';
 
 const TODAY = new Date(2026, 10, 25); // 25 November 2026
 const ym = (y: number, m: number) => y * 12 + (m - 1);
 
-describe('Blog date filter', () => {
+describe('Date filter', () => {
   it('reads every post date, and the list is newest first', () => {
     // A new post with a date the filter cannot read ("Oct 2026", "2026-10") fails here, not silently.
     const months = BLOG_POSTS.map(p => postMonth(p.date));
