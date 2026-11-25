@@ -47,6 +47,22 @@ export class BlogListComponent implements OnInit {
   ngOnInit() { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); }
   posts = [
     {
+      slug: 'verified-gates',
+      image: 'assets/blogs/verified-gates-hero.png',
+      date: 'October 2026',
+      readTime: '6 min read',
+      title: 'From 160 Gates a Day to Verified Gates',
+      summary: 'Gates per engineer-day never really measured gates — it measured verified gates, and agents that generate RTL for free are forcing the industry to say so plainly.'
+    },
+    {
+      slug: 'verilator-5-050',
+      image: 'assets/blogs/verilator-5-050-hero.jpeg',
+      date: 'September 2026',
+      readTime: '4 min read',
+      title: 'Unlimited. Full-Featured. Perfect for the Agentic Loop.',
+      summary: 'How Verilator 5.050 closes the cost, functionality, and performance gaps at once — measured across sixteen public and UVM designs.'
+    },
+    {
       slug: '2026-08-release',
       image: 'assets/blogs/2026-08-release-hero.jpg',
       date: 'September 2026',

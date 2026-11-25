@@ -19,6 +19,18 @@ const template = readFileSync(join(DIST, 'index.html'), 'utf8');
 const routes = [
   // Blog posts — each gets its own image + title (matches careteda.com behaviour)
   {
+    path: 'blogs/verified-gates',
+    title: 'From 160 Gates a Day to Verified Gates',
+    desc: 'Gates per engineer-day never really measured gates — it measured verified gates, and agents that generate RTL for free are forcing the industry to say so plainly.',
+    image: 'assets/blogs/verified-gates-hero.png',
+  },
+  {
+    path: 'blogs/verilator-5-050',
+    title: 'Unlimited. Full-Featured. Perfect for the Agentic Loop.',
+    desc: 'How Verilator 5.050 closes the cost, functionality, and performance gaps at once — measured across sixteen public and UVM designs.',
+    image: 'assets/blogs/verilator-5-050-hero.jpeg',
+  },
+  {
     path: 'blogs/2026-08-release',
     title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
     desc: 'CaretEDA\'s second release brings OpenROAD into the Spec-to-Netlist™ platform, updates Verilator, and introduces new partnerships, bridging the gap from RTL generation to physical implementation.',

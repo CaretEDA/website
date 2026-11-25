@@ -135,6 +135,150 @@ export class BlogDetailComponent implements OnInit {
   post?: BlogPost;
 
   private posts: { [slug: string]: BlogPost } = {
+    'verified-gates': {
+      title: 'From 160 Gates a Day to Verified Gates',
+      subtitle: 'The KPIs for chip design look like they are changing. Are they?',
+      date: 'October 2026',
+      readTime: '6 min read',
+      wordCount: '1,400 words',
+      category: 'Industry & Strategy',
+      author: 'Sashi Obilisetty',
+      authorRole: 'Co-founder & CEO, CaretEDA, Inc.',
+      heroImage: 'assets/blogs/verified-gates-hero.png',
+      summary: 'Gates per engineer-day never really measured gates — it measured verified gates, and agents that generate RTL for free are forcing the industry to say so plainly.',
+      sections: [
+        {
+          blocks: [
+            { type: 'p', text: 'Software learned long ago that lines of code is a poor measure of an engineer. Chip design had its own version, and for a while we took it just as seriously: gates per engineer-day.' },
+            { type: 'html', text: 'In 1997, the average chip designer produced about 160 gates a day. The industry roadmap put productivity at <a href="https://www.design-reuse.com/articles/9065/modeling-total-cost-of-ownership-for-semiconductor-ip.html" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">40,000 gates per engineer-year</a>, which works out to roughly 160 gates per working day, and projected 600,000 by 2007.' },
+            { type: 'p', text: 'Today an agent can write a few thousand lines of SystemVerilog in minutes. By the old yardstick, that is a productivity miracle. By any yardstick an experienced design lead would accept, it is a pile of unverified text.' },
+            { type: 'p', text: 'If your team is already using AI to write RTL, and most teams are, the question is worth asking: what should we actually measure?' },
+            { type: 'p', text: 'My answer: the unit was never really gates. It was verified gates, and agents are forcing us to say so plainly.' },
+          ]
+        },
+        {
+          heading: 'A Metric That Faded Away',
+          blocks: [
+            { type: 'p', text: 'Nobody formally retired gates per engineer-day. People just stopped quoting it, because it had stopped meaning much.' },
+            { type: 'html', text: 'Transistor counts were growing 58% a year while designer productivity grew about 21%. The industry closed part of that gap the cheap way: by not designing most of the gates. The 2003 roadmap credited <a href="https://www.design-reuse.com/articles/9065/modeling-total-cost-of-ownership-for-semiconductor-ip.html" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">IP reuse with 75% of the projected productivity improvement</a>. Once much of your chip arrives as a licensed block, "gates per engineer" stops describing engineering.' },
+            { type: 'p', text: 'AI brought the measurement question back. In 2023, researchers used GPT-4 to help design an 8-bit processor, and the first benchmarks scored AI-written Verilog on a simple test: did it pass a simulation? By 2026, agents were building complete processor cores from specs a few hundred words long, and the newest benchmarks have started grading the whole result against timing, power, area and physical checks.' },
+            { type: 'p', text: 'Run the old arithmetic on any of these results and you get an absurd productivity number. Nobody serious quotes it. Generation is becoming a commodity. What stays scarce is confidence that the output is right.' },
+          ]
+        },
+        {
+          heading: 'DARPA IDEA Already Wrote the Better Metric',
+          blocks: [
+            { type: 'p', text: 'In 2018, DARPA\'s IDEA program set an ambitious target: no-human-in-loop design, 24-hour turnaround, and zero loss of PPA quality. OpenROAD was its flagship. UC San Diego and partners received a multi-year, multi-million-dollar grant to build it.' },
+            { type: 'p', text: 'Look at how that goal is phrased. It never mentions gates. It has three terms:' },
+            { type: 'html', text: '<ol class="space-y-2 list-decimal pl-5 marker:text-[#60A5FA] marker:font-bold"><li class="text-white/95 text-base leading-relaxed pl-1">Human attention (no humans in the loop), the scarce input.</li><li class="text-white/95 text-base leading-relaxed pl-1">Time (24 hours), the schedule.</li><li class="text-white/95 text-base leading-relaxed pl-1">Quality held constant (no PPA loss), the bar the output must clear.</li></ol>' },
+            { type: 'html', text: 'That is a productivity metric. It measures output that meets a quality bar per unit of expert attention, which is exactly what gates per day failed to do. The team\'s own poster framed the baseline bluntly: <a href="https://eri-summit.darpa.mil/docs/ERIPoster_Designs_IDEA_UCSD.pdf" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">a layout that took 10+ weeks at a university lab, versus a goal of one day with no humans</a>.' },
+            { type: 'html', text: 'The program was also realistic about people. The same poster states a principle that still holds: humans are in the loop for good reasons. But the program moved the field. OpenROAD has since been used in <a href="https://vlsicad.ucsd.edu/Publications/Conferences/390/c390.pdf" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">over 180 tapeouts in SkyWater 130nm</a>, and its autotuning now finds tool configurations better than expert users do.' },
+            { type: 'p', text: 'The agentic era inherits IDEA\'s ambition and extends it upstream, from RTL-to-GDS to spec-to-RTL. It should inherit IDEA\'s measurement discipline too.' },
+          ]
+        },
+        {
+          heading: 'Generated Gates and Verified Gates',
+          blocks: [
+            { type: 'p', text: 'A generated gate is logic an agent has written. A verified gate is logic your team will sign its name to. The difference between them is where nearly all the engineering lives.' },
+            { type: 'html', text: '<div class="overflow-x-auto my-6"><table class="w-full text-left border-collapse"><thead class="bg-[#112244] border-b border-[#2563EB]/50"><tr><th class="p-4 font-semibold"></th><th class="p-4 font-semibold">Generated gate</th><th class="p-4 font-semibold">Verified gate</th></tr></thead><tbody><tr class="border-b border-white/10"><td class="p-4">Exists when</td><td class="p-4">The RTL compiles</td><td class="p-4">It meets the spec under your signoff bar</td></tr><tr class="border-b border-white/10"><td class="p-4">Evidence</td><td class="p-4">A file</td><td class="p-4">Coverage closed, formal or equivalence clean, synthesizable, PPA met</td></tr><tr class="border-b border-white/10"><td class="p-4">Marginal cost with agents</td><td class="p-4">Close to zero</td><td class="p-4">Still dominated by expert review and debug</td></tr><tr><td class="p-4">Who answers for it</td><td class="p-4">Nobody in particular</td><td class="p-4">A named engineer</td></tr></tbody></table></div>' },
+            { type: 'p', text: 'What stands out to me is that it was always this way. Even before agents, design engineers spent 49% of their time on verification (sometimes even more!), and verification engineers spent more time debugging than on anything else. Nobody counted a gate that failed regression. The old metric simply assumed the verification had happened, because humans who wrote the RTL also carried the responsibility for it.' },
+            { type: 'p', text: 'Agents break that assumption. Generation and accountability are now separable, and generation is cheap. A metric that counts generated gates rewards the cheap part and hides the expensive part. Worse, it rewards volume at the exact moment when only 14% of IC/ASIC projects achieved first-silicon success in the 2024 Wilson study, the lowest in 20 years.' },
+          ]
+        },
+        {
+          heading: 'What Recent Research Says About Measuring Agent Output',
+          blocks: [
+            { type: 'html', text: 'Two papers from this year point the same way. A <a href="https://arxiv.org/html/2603.11287v1" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">synthesis-in-the-loop study</a> of 32 models found that simulation pass rates overstate hardware quality, and that single attempts trail best-of-five results by up to double digits. A <a href="https://arxiv.org/abs/2607.17528" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">benchmark of agents running a full RTL-to-GDS flow</a> found that the execution harness mattered more than the model, with costs varying by up to 141x for similar progress. Neither paper asks how much an agent produces. Both ask how much of it survives a gate, and at what cost. Industry metrics should follow.' },
+          ]
+        },
+        {
+          heading: 'Policies That Make Verified Gates Mean Something',
+          blocks: [
+            { type: 'p', text: 'When agents write RTL, accountability has to be designed in, not assumed. Here are seven policies any team can adopt this quarter.' },
+            { type: 'html', text: '<ol class="space-y-4 list-decimal pl-5 marker:text-[#60A5FA] marker:font-bold"><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">Every verified block has a named human owner.</strong> An agent can author a module; only a person can sign it off. The owner&#39;s name goes in the signoff record, not just the commit log.</li><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">Define the signoff bar before generation starts.</strong> Coverage targets, required formal properties, lint and CDC rules, and PPA budgets are written down per block. A gate counts as verified only against that pre-agreed bar, so nobody moves the goalposts after the fact.</li><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">No agent grades its own homework.</strong> The agent that wrote the RTL should not also write the only testbench or the only assertions that judge it. Use independent stimulus, formal properties derived from the spec, or a separate agent with no access to the implementation.</li><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">Log provenance for every artifact.</strong> Record which model, prompt, spec version and tool versions produced each file. When a bug escapes, you need to know whether it came from a person, an agent, or a spec gap.</li><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">Count interventions, honestly.</strong> Track every time an engineer edits agent output, overrides a decision, or restarts a run. A falling intervention rate is the real evidence of autonomy.</li><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">Report single-attempt results alongside best-of-n.</strong> The research above shows best-of-five can flatter a system by double-digit points. If your flow samples many candidates, say so, and count that compute as part of the cost.</li><li class="text-white/95 text-base leading-relaxed pl-1"><strong class="text-white">Re-verify reused and regenerated code in context.</strong> Agent-regenerated RTL is new RTL, even if the prompt was unchanged. Treat it like a fresh block until it clears the bar again.</li></ol>' },
+            { type: 'p', text: 'None of these is exotic. Most are what good verification leads already demand of human engineers. The change is making them explicit, because an agent will not volunteer the context a human would have carried in their head.' },
+          ]
+        },
+        {
+          heading: 'About CaretEDA',
+          blocks: [
+            { type: 'html', text: 'CaretEDA builds AI-native design systems for modern semiconductor teams, with its Spec-to-Netlist™ platform putting agents to work across the entire engineering workflow. CaretEDA\'s agents are integrated with commercial EDA stacks as well as an SLA-backed RTL-to-GDS open source stack. Qualifying chip startups can access the stack and agentic tools at no charge for a limited time through the CaretEDA Startup Program at <a href="https://careteda.com/startup-program" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">https://careteda.com/startup-program</a>.' },
+            { type: 'html', text: '<span class="text-white/60 text-sm italic">CaretEDA and Spec-to-Netlist are trademarks of CaretEDA, Inc. Verilator, Yosys, SymbiYosys and OpenROAD are open source projects of their respective maintainers.</span>' },
+          ]
+        },
+        {
+          heading: 'Sources',
+          blocks: [
+            { type: 'html', text: '<ul class="space-y-3 pl-5 list-disc marker:text-[#60A5FA]"><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://www.design-reuse.com/articles/9065/modeling-total-cost-of-ownership-for-semiconductor-ip.html" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">Modeling Total Cost of Ownership for Semiconductor IP</a>, Design &amp; Reuse (ITRS productivity and IP reuse figures)</li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://nistep.repo.nii.ac.jp/record/6339/files/NISTEP-STT016E-61.pdf" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">NISTEP report on the LSI design crisis</a> (58% vs 21% growth)</li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://openroad-test.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">OpenROAD documentation</a> and <a href="https://jacobsschool.ucsd.edu/news/release?id=2605" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">UCSD news release, July 2018</a></li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://eri-summit.darpa.mil/docs/ERIPoster_Designs_IDEA_UCSD.pdf" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">OpenROAD / IDEA poster, DARPA ERI Summit</a></li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://vlsicad.ucsd.edu/Publications/Conferences/390/c390.pdf" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">The OpenROAD Project: status and outlook</a>, UCSD</li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://arxiv.org/abs/2305.13243" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">GPT-4-assisted 8-bit processor design</a>, arXiv 2305.13243</li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://www.sigasi.com/news/verification-blog/" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">Summary of the 2024 Wilson Research Group reports</a>, Sigasi</li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://arxiv.org/html/2603.11287v1" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">Synthesis-in-the-Loop Evaluation of LLMs for RTL Generation</a>, arXiv 2603.11287</li><li class="text-white/95 text-base leading-relaxed pl-1"><a href="https://arxiv.org/abs/2607.17528" target="_blank" rel="noopener noreferrer" class="text-[#60A5FA] underline underline-offset-2 hover:text-white transition-colors">Can AI Agents Really Complete RTL-to-GDS?</a>, arXiv 2607.17528</li></ul>' },
+          ]
+        },
+      ]
+    },
+    'verilator-5-050': {
+      title: 'Unlimited. Full-Featured. Perfect for the Agentic Loop.',
+      subtitle: 'How Verilator 5.050 closes the cost, functionality, and performance gaps at once — measured across sixteen public and UVM designs',
+      date: 'September 2026',
+      readTime: '4 min read',
+      wordCount: '650 words',
+      category: 'Company News & Releases',
+      author: 'Sashi Obilisetty',
+      authorRole: 'Co-founder & CEO, CaretEDA',
+      heroImage: 'assets/blogs/verilator-5-050-hero.jpeg',
+      summary: 'How Verilator 5.050 closes the cost, functionality, and performance gaps at once — measured across sixteen public and UVM designs.',
+      sections: [
+        {
+          blocks: [
+            { type: 'p', text: 'While commercial simulators are fast, and support almost the full subset of SystemVerilog, what they are not is unlimited. Every parallel regression, every branch that wants its own run, every extra job an agentic flow wants to launch competes for a finite pool of seats — and the bill scales upward with how hard you want to push verification, not with how much compute you actually have.' },
+            { type: 'p', text: 'Verilator has always been the opposite bet: no seats, no per-run cost, scale with compute instead of licenses. For a long time that came with a real tax — gaps in the SystemVerilog subset UVM environments depend on, and simulations that stalled out on designs commercial tools handled without complaint. That tax has been shrinking fast. Since the IEEE-compliant scheduler landed in Verilator 5.0, successive releases have closed language gaps one by one, and as of late 2025 Verilator elaborates upstream UVM 2017-1.0 without patches. Version 5.050 is the clearest evidence yet of where that arc has landed.' },
+            { type: 'html', text: 'We didn\'t take that on faith. We ran sixteen public designs (some with UVM testbenches) through Verilator 5.050, compared eight of them directly against 5.042, and tracked what changed when compilation moved from a single core to eight. The results answer the question that actually matters for an agentic verification loop: <strong>can you get unlimited, full-featured, and fast in the same simulator, or is that still three separate simulators?</strong>' }
+          ]
+        },
+        {
+          heading: 'Multi-core compilation turns hour-long builds into a coffee break',
+          blocks: [
+            { type: 'p', text: 'Verilator translates RTL into C++ and compiles it into a simulator binary, and that compilation step — not simulation itself — was the long pole for our larger UVM designs. Spreading that build across eight cores with --build-jobs cut single-core compile times by 17x to 59x on our three largest UVM environments, turning hour-long builds into single-digit minutes regardless of design size.' },
+            { type: 'html', text: '<div class="overflow-x-auto my-6"><table class="w-full text-left border-collapse"><thead class="bg-[#112244] border-b border-[#2563EB]/50"><tr><th class="p-4 font-semibold">Design</th><th class="p-4 font-semibold">Single-core compile</th><th class="p-4 font-semibold">8-core compile</th><th class="p-4 font-semibold">Speedup</th></tr></thead><tbody><tr class="border-b border-white/10"><td class="p-4">VeeR EL2 (UVM)</td><td class="p-4">51m 55s</td><td class="p-4">1m 0.4s</td><td class="p-4 font-bold text-[#60A5FA]">52×</td></tr><tr class="border-b border-white/10"><td class="p-4">Ethernet MAC (UVM)</td><td class="p-4">70m 11s</td><td class="p-4">1m 11s</td><td class="p-4 font-bold text-[#60A5FA]">59×</td></tr><tr><td class="p-4">Coral NPU</td><td class="p-4">17m 6s</td><td class="p-4">1m 1s</td><td class="p-4 font-bold text-[#60A5FA]">17×</td></tr></tbody></table></div><p class="text-white/60 text-sm leading-relaxed italic -mt-2 mb-4">Table 1. Compile time, single core vs. eight cores (--build-jobs), Verilator 5.050.</p>' },
+            { type: 'p', text: 'The range matters more than any single number. Multi-core compilation isn\'t a trick that only pays off on toy designs — it scales down the wait for a 4,600-line Ethernet MAC and a 470,000-line NPU alike, just by different factors depending on how parallelizable the generated C++ is. For a team running regression multiple times a day, that\'s the difference between a build you wait out and a build you don\'t notice.' }
+          ]
+        },
+        {
+          heading: 'Designs that used to fail outright now simulate',
+          blocks: [
+            { type: 'p', text: 'Speed only matters if the design compiles in the first place, and that was the harder gap to close. We compared eight designs across the jump from 5.042 to 5.050 — on 5.042, more than half failed to compile or complete simulation; on 5.050, every one of them built and ran clean.' },
+            { type: 'p', text: 'OpenPiton and Caliptra-RTL are the sharpest examples: both went from a hard compile failure on 5.042 to a completed simulation run on 5.050, on designs Verilator flatly could not touch six releases ago. VeeR EL2\'s UVM environment, AHB-APB VIP, and the Ethernet MAC UVM testbench compiled on both versions but only started passing simulation on 5.050.' },
+            { type: 'html', text: '<div class="overflow-x-auto my-6"><table class="w-full text-left border-collapse"><thead class="bg-[#112244] border-b border-[#2563EB]/50"><tr><th class="p-4 font-semibold">Design</th><th class="p-4 font-semibold">Status on 5.042</th><th class="p-4 font-semibold">5.050 compile time</th><th class="p-4 font-semibold">5.050 simulation</th></tr></thead><tbody><tr class="border-b border-white/10"><td class="p-4">OpenPiton</td><td class="p-4 text-red-400">Failed to compile</td><td class="p-4">1m 58s</td><td class="p-4 text-green-400">Successful</td></tr><tr class="border-b border-white/10"><td class="p-4">Caliptra-RTL</td><td class="p-4 text-red-400">Failed to compile</td><td class="p-4">3m 53s</td><td class="p-4 text-green-400">Successful</td></tr><tr class="border-b border-white/10"><td class="p-4">Processor-UVM</td><td class="p-4 text-red-400">Failed to compile</td><td class="p-4">1m 8.75s</td><td class="p-4 text-green-400">Successful</td></tr><tr class="border-b border-white/10"><td class="p-4">SDRAM (UVM)</td><td class="p-4 text-red-400">Failed to compile</td><td class="p-4">7.743s</td><td class="p-4 text-green-400">Successful</td></tr><tr class="border-b border-white/10"><td class="p-4">VeeR EL2 (UVM)</td><td class="p-4 text-yellow-400">Compiled, simulation failed</td><td class="p-4">1m 14.84s</td><td class="p-4 text-green-400">Successful</td></tr><tr class="border-b border-white/10"><td class="p-4">AHB-APB VIP (UVM)</td><td class="p-4 text-yellow-400">Compiled, simulation failed</td><td class="p-4">1m 22s</td><td class="p-4 text-green-400">Successful</td></tr><tr><td class="p-4">Ethernet MAC (UVM)</td><td class="p-4 text-yellow-400">Compiled, simulation failed</td><td class="p-4">1m 11s</td><td class="p-4 text-green-400">Successful</td></tr></tbody></table></div><p class="text-white/60 text-sm leading-relaxed italic -mt-2 mb-4">Table 2. Designs that failed on Verilator 5.042, compiling and simulating on 5.050.</p>' }
+          ]
+        },
+        {
+          heading: 'UVM at a scale that isn\'t a toy testbench',
+          blocks: [
+            { type: 'p', text: 'The gap that has kept Verilator out of some production verification flows was never raw speed — it was whether it could carry a real UVM environment. We pushed on that directly with Coral NPU: 471,639 lines of DUT code, 19,680 lines of UVM environment, 613 elaborated modules, and a 764-test regression across two test classes. It compiled, elaborated, and ran the full regression on Verilator 5.050.' },
+            { type: 'p', text: 'That\'s not an outlier we\'re hiding behind. SDRAM ran a 50-test regression clean. The Ethernet MAC UVM testbench elaborated 425 modules across 2,647 generated C++ files and passed. AHB-APB VIP, with 1,463 lines of UVM environment against a 491-line DUT, completed its full regression in 83 seconds on eight cores.' },
+            { type: 'p', text: 'Verilator new functionality development is on hyperdrive to address pending gaps. Caliptra-RTL\'s UVM environment needs commercial VIPs we don\'t have license to run. This is real engineering progress against real designs, not a curated highlight reel.' }
+          ]
+        },
+        {
+          heading: 'An open source stack CaretEDA stands behind',
+          blocks: [
+            { type: 'p', text: 'None of this — faster builds, designs that now compile, UVM environments that now run — removes the work of tracking Verilator\'s fast-moving development, validating a given version against your design, or having someone to call when a regression breaks three weeks before tapeout. That\'s the layer CaretEDA adds. Our 2026.08 release ships Verilator 5.050 as part of a commercially supported open source EDA stack — alongside Yosys, SymbiYosys, and OpenROAD — with SLA-backed response commitments and platform-specific packages your team doesn\'t have to assemble by hand.' },
+            { type: 'p', text: 'The reason this matters beyond Verilator on its own: Verilator 5.050 sits directly inside our Spec-to-Netlist™ platform\'s agentic flow. The gains we measured here aren\'t a separate benchmarking exercise; they\'re the verification stage every design generated through CaretEDA runs through.' },
+            { type: 'p', text: 'An agentic design loop lives or dies on how fast it can iterate: generate, verify, learn, regenerate. That loop can\'t wait in a license queue between cycles, and it can\'t afford a simulator that stumbles on the UVM environment the design actually needs. Unlimited, full-featured, and fast used to be a pick-two problem. Verilator 5.050 is where that stops being true — and CaretEDA gives you a partner accountable for keeping the whole stack running underneath it.' }
+          ]
+        },
+        {
+          heading: 'Benchmark and source notes',
+          blocks: [
+            { type: 'p', text: 'Compile and simulation timings are from a benchmark set spanning sixteen public and UVM designs on Verilator 5.050, with an eight-design comparison against 5.042. Multi-core figures use Verilator\'s --build-jobs option on eight cores.' }
+          ]
+        },
+        {
+          heading: 'About CaretEDA',
+          blocks: [
+            { type: 'p', text: 'CaretEDA builds AI-native design systems for modern semiconductor teams, with its Spec-to-Netlist™ platform serving as a powerful force multiplier across the entire engineering workflow. To learn more, apply to the Startup Program, or request a demo, visit www.CaretEDA.com.' }
+          ]
+        }
+      ]
+    },
     '2026-08-release': {
       title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
       date: 'September 2026',
