@@ -86,8 +86,12 @@
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238c93a5' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   --section-line: rgb(96 165 250 / 0.14);
 }
-/* Theme switch: a 200ms crossfade of the whole page (View Transitions), never a transition on every colour */
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: 200ms; animation-timing-function: var(--ease); }
+/* Theme switch (View Transitions): the browser holds a still of the old theme, applies the new one, and
+   theme.service.ts reveals it through a circle that grows out of the toggle until it covers the screen.
+   The default crossfade is switched off so only that reveal moves; no transition on every colour. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+::view-transition-old(root) { z-index: 1; }
 
 /* Dark instrument surfaces: the same roles, night values */
 .on-night {
@@ -417,9 +421,14 @@ a:is(:hover, :focus-visible) .arrow-back { transform: translateX(-3px); }
   border-bottom: 1px solid var(--line); font: 400 0.8125rem/1.333 var(--mono); color: var(--ink-3);
 }
 .spec-head span:first-child { color: var(--ink-2); }
-.spec-lines { display: grid; gap: 10px; padding: 4px 0; }
-.spec-lines i { display: block; height: 8px; border-radius: 4px; background: var(--raised); }
-.spec-lines i:nth-child(1) { width: 92%; } .spec-lines i:nth-child(2) { width: 78%; } .spec-lines i:nth-child(3) { width: 54%; }
+/* The spec itself: plain prose in the plate's secondary ink. The terms specification interpretation
+   picks out (component, width, depth, flags, the constraint) are coloured as the state of stage 01.
+   Light theme: the site's one accent, lightened for the dark card (#60a5fa, 7.6:1), so the terms join the
+   blue headline line, the primary button and the track (taste + unslop judges). Dark theme: emerald. */
+.spec-text { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.spec-text em { font-style: normal; font-weight: 500; color: #60a5fa; }
+/* dark theme: emerald (not the success-status green #4ade80, so it never reads as "passed") */
+:root[data-theme="dark"] .spec-text em { color: #34d399; }
 
 .stages { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
 /* the track: a faint line, and over it a bright fill that slides from stage 01 to 04 */
@@ -792,6 +801,10 @@ html.dialog-open { overflow: hidden; }
 .to-top:active { transform: scale(0.95); }
 
 main > router-outlet + :not(app-home) > section { background: transparent; }
+/* Blog, news and careers pages load as lazy chunks, so for a moment <main> is empty. Without a floor the
+   footer paints at the top of the screen and is then pushed down (CLS 0.16 desktop / 0.21 mobile).
+   One screen of height keeps the footer below the fold until the page arrives. */
+main { min-height: 100vh; min-height: 100svh; }
 
 /* ---------- Motion ---------- */
 /* Disclosures fade and rise a few px from where they open */
@@ -834,6 +847,16 @@ main > router-outlet + :not(app-home) > section { background: transparent; }
 .hero-copy > h1 { animation-name: rise-y; }
 @keyframes rise-y { from { translate: 0 10px; } }
 @keyframes node-on { from { background: var(--card); scale: 0.6; } }
+/* Stage 01 (specification interpretation) lights at 500ms: in that same 200ms step the spec's key terms
+   are picked out one after another (30ms apart), as the package lands. */
+.spec-text em { animation: tok-in 160ms var(--ease) backwards; }
+.spec-text em:nth-of-type(1) { animation-delay: 500ms; }
+.spec-text em:nth-of-type(2) { animation-delay: 530ms; }
+.spec-text em:nth-of-type(3) { animation-delay: 560ms; }
+.spec-text em:nth-of-type(4) { animation-delay: 590ms; }
+.spec-text em:nth-of-type(5) { animation-delay: 620ms; }
+.spec-text em:nth-of-type(6) { animation-delay: 650ms; }
+@keyframes tok-in { from { color: inherit; } }
 @keyframes track-fill { from { background-size: 0% 100%, auto; } }
 @keyframes signal-run { 0% { left: 12.5%; opacity: 1; } 90% { opacity: 1; } 100% { left: 87.5%; opacity: 0; } }
 @keyframes pkg-in { from { opacity: 0; translate: 0 -16px; } }

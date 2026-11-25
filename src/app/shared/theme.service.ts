@@ -24,13 +24,32 @@ export class ThemeService {
     media?.addEventListener?.('change', e => { if (!this.stored()) this.apply(e.matches ? 'dark' : 'light'); });
   }
 
-  toggle() {
+  /**
+   * Switch theme. With `from` (the toggle), the new theme grows out of it as a circle until it fills the
+   * screen: View Transitions hold a still of the old page, the new theme is applied underneath, and the new
+   * snapshot is revealed through an expanding clip-path. Without View Transitions support, or under reduced
+   * motion, the switch is instant.
+   */
+  toggle(from?: Element | null) {
     const next: Theme = this.theme() === 'dark' ? 'light' : 'dark';
     try { localStorage.setItem(THEME_KEY, next); } catch { /* storage blocked: the switch still works for this visit */ }
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
-    if (doc.startViewTransition && !reduce) doc.startViewTransition(() => this.apply(next));
-    else this.apply(next);
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => { ready: Promise<void> } };
+    if (!doc.startViewTransition || reduce) { this.apply(next); return; }
+
+    // the circle starts at the centre of the toggle (works for mouse, touch and keyboard alike)
+    const r = from?.getBoundingClientRect();
+    const x = r ? r.left + r.width / 2 : window.innerWidth / 2;
+    const y = r ? r.top + r.height / 2 : 0;
+    const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+
+    const transition = doc.startViewTransition(() => this.apply(next));
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 700, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' }, // ease-in-out: the circle visibly grows from the toggle before it sweeps the page
+      );
+    }).catch(() => { /* transition skipped: the theme is already applied */ });
   }
 
   private stored(): Theme | null {

@@ -97,6 +97,13 @@ const routes = [
     desc: 'Nithya Raghavan and Sridhar Narayanan join as Technical Advisors, bringing deep EDA knowledge and extensive chip design expertise to CaretEDA’s agentic chip design platform.',
     image: DEFAULT_IMAGE,
   },
+  // Job pages: pre-rendered so they answer HTTP 200 (not GitHub Pages' 404 fallback) and match sitemap.xml
+  {
+    path: 'careers/senior-hardware-engineer',
+    title: 'Senior Hardware Design & Verification Engineer',
+    desc: 'CaretEDA is seeking Senior Hardware Design & Verification Engineers in Bengaluru who will work directly with customers adopting our Spec-to-Netlist™ AI-native design platform.',
+    image: DEFAULT_IMAGE,
+  },
   // Section / landing pages — generic brand image, page-specific title & description
   { path: 'blogs',   title: 'Blog',    desc: 'Insights on AI-native chip design, EDA, and semiconductor engineering from the CaretEDA team.', image: DEFAULT_IMAGE },
   { path: 'news',    title: 'News',    desc: 'The latest announcements from CaretEDA.', image: DEFAULT_IMAGE },
@@ -141,9 +148,9 @@ console.log(`Injected per-route Open Graph tags into ${count} pages.`);
 
 // sitemap.xml for search engines (robots.txt in public/ points here).
 // Real pages only: home, blog posts, news releases, job pages. Section shortcuts (/about, /blogs …)
-// redirect to home anchors, so they would be duplicates.
-const jobPages = ['careers/senior-hardware-engineer'];
-const pages = ['', ...routes.map(r => r.path).filter(p => /^(blogs|news)\//.test(p)), ...jobPages];
+// redirect to home anchors, so they would be duplicates. Every URL listed here is one of the
+// pre-rendered routes above, so the sitemap never points at a page that answers 404.
+const pages = ['', ...routes.map(r => r.path).filter(p => /^(blogs|news|careers)\//.test(p))];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(p => `  <url><loc>${BASE}/${p}</loc></url>`).join('\n')}

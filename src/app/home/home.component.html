@@ -18,8 +18,10 @@
     <figure class="flow-plate on-night" aria-label="Illustration: a natural-language specification goes through specification interpretation, RTL generation, verification planning and netlist refinement to a silicon-ready netlist">
       <div class="spec-card" aria-hidden="true">
         <div class="spec-head"><span>Specification</span><span>Natural language</span></div>
-        <!-- placeholder lines: the shape of a written spec, not invented content -->
-        <div class="spec-lines"><i></i><i></i><i></i></div>
+        <!-- The spec behind the sync_fifo.sv module shown in the "From 160 Gates a Day to Verified Gates"
+             blog hero (WIDTH = 32, DEPTH = 16, push/pop, "never overflow"), written as the request that
+             produced it. The highlighted terms are what specification interpretation picks out. -->
+        <p class="spec-text">Design a <em>synchronous FIFO</em>, <em>32 bits</em> wide and <em>16 entries</em> deep, with push and pop. Flag <em>full</em> and <em>empty</em>, and <em>never overflow</em>.</p>
       </div>
       <ol class="stages" aria-hidden="true">
         <li><b>Specification interpretation</b><span>01</span></li>
