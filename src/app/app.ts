@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink, RouterOutlet, Scroll } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NavbarComponent } from './shared/navbar.component';
+import { initCursorDots } from './shared/cursor-dots';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { NavbarComponent } from './shared/navbar.component';
 export class App {
   constructor() {
     if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
+    inject(DestroyRef).onDestroy(initCursorDots());
     const router = inject(Router);
     const pathOf = (url: string) => url.split('#')[0].split('?')[0];
     let previousPath: string | null = null;

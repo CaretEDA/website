@@ -48,6 +48,9 @@
   --backdrop: rgb(17 24 39 / 0.48);
   --dialog-shadow: 0 24px 64px rgb(17 24 39 / 0.18);
   --dots: rgb(37 99 235 / 0.30);
+  --dots-hot: rgb(37 99 235 / 0.95);         /* dots under the cursor lens (shared/cursor-dots.ts) */
+  --dots-glow: rgb(37 99 235 / 0.04);
+  --dots-rest: 0.2;                          /* resting dot strength in the centre, vs 1 in the margins */
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   --section-line: transparent;               /* accent hairline between sections (dark only) */
 }
@@ -83,6 +86,9 @@
   --backdrop: rgb(0 0 0 / 0.64);
   --dialog-shadow: 0 0 0 1px var(--line-strong);
   --dots: rgb(96 165 250 / 0.24);
+  --dots-hot: rgb(147 197 253 / 0.95);
+  --dots-glow: rgb(96 165 250 / 0.06);
+  --dots-rest: 0.26;
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238c93a5' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   --section-line: rgb(96 165 250 / 0.14);
 }
@@ -127,18 +133,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 body::before {
+  /* the side margins: full strength across the outer 60% of each margin, then a soft fade that ends
+     40px past the content edge, so the field reads as a band, not a thin edge. The centre keeps a very
+     faint grid (--dots-rest) that the cursor lens brings up (shared/cursor-dots.ts). */
+  --dots-solid: calc(var(--gutter-x) * 0.6);
+  --dots-end: calc(var(--gutter-x) + 40px);
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 var(--dots-solid), rgb(0 0 0 / var(--dots-rest)) var(--dots-end), rgb(0 0 0 / var(--dots-rest)) calc(100% - var(--dots-end)), #000 calc(100% - var(--dots-solid)), #000 100%);
+          mask-image: linear-gradient(90deg, #000 0, #000 var(--dots-solid), rgb(0 0 0 / var(--dots-rest)) var(--dots-end), rgb(0 0 0 / var(--dots-rest)) calc(100% - var(--dots-end)), #000 calc(100% - var(--dots-solid)), #000 100%);
   content: ""; position: fixed; inset: 0 0 -24px 0; z-index: -1; pointer-events: none;
   background-image: radial-gradient(circle at 1.5px 1.5px, var(--dots) 1.25px, transparent 1.75px);
   background-size: 24px 24px;
-  /* the side margins: full strength across the outer 60% of each margin, then a soft fade that ends
-     40px past the content edge, so the field reads as a band, not a thin edge */
-  --dots-solid: calc(var(--gutter-x) * 0.6);
-  --dots-end: calc(var(--gutter-x) + 40px);
-  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 var(--dots-solid), transparent var(--dots-end), transparent calc(100% - var(--dots-end)), #000 calc(100% - var(--dots-solid)), #000 100%);
-          mask-image: linear-gradient(90deg, #000 0, #000 var(--dots-solid), transparent var(--dots-end), transparent calc(100% - var(--dots-end)), #000 calc(100% - var(--dots-solid)), #000 100%);
   animation: dots-drift 6s linear infinite;
   will-change: transform;
 }
+/* Cursor effects (shared/cursor-dots.ts). Dot lens: one fixed canvas just above the dot layer, unmasked so
+   it also reveals the grid in the blank middle. Hero circuit: above .hero::before, below the hero content. */
+.cursor-dots { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.hero-circuit { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 /* moves exactly one dot step, so the loop is seamless */
 @keyframes dots-drift { to { transform: translateY(-24px); } }
 strong, b { font-weight: 600; }
