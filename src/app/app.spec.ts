@@ -3,6 +3,7 @@ import { provideRouter, Router } from '@angular/router';
 import { routes } from './app.routes';
 import { App } from './app';
 import { BLOG_POSTS } from './blog/blog-posts';
+import { filterByRange } from './blog/blog-filter';
 import { NEWS_ITEMS } from './news/news-items';
 import { PRESS_FEATURE } from './home/press';
 import { THEME_KEY, ThemeService } from './shared/theme.service';
@@ -25,13 +26,39 @@ describe('Scrolling homepage', () => {
     const posts = () => page.querySelectorAll('#post-grid a');
     const more = page.querySelector<HTMLButtonElement>('.more-posts')!;
     expect(posts().length).toBe(3);
-    more.click();
-    await fixture.whenStable();
+    // Each "Show more" adds a batch (two rows) to the page until every post is shown
+    let clicks = 0;
+    while (more.getAttribute('aria-expanded') !== 'true' && clicks < 50) {
+      const before = posts().length;
+      more.click(); clicks++;
+      await fixture.whenStable();
+      expect(posts().length).toBeGreaterThan(before);
+    }
     expect(posts().length).toBe(total);
-    expect(more.getAttribute('aria-expanded')).toBe('true');
+    expect(page.querySelector('#blogs .blog-count')?.textContent).toContain(`Showing ${total} of ${total}`);
     more.click();
     await fixture.whenStable();
     expect(posts().length).toBe(3);
+
+    // Date filter: "Past month" narrows the list (counted from the data, relative to today);
+    // Clear filter brings back the first three.
+    const trigger = page.querySelector<HTMLButtonElement>('#blogs .filter-trigger')!;
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    trigger.click();
+    await fixture.whenStable();
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    const month = page.querySelector<HTMLInputElement>('#blogs .filter-panel input[value="month"]')!;
+    month.click();
+    await fixture.whenStable();
+    const recent = filterByRange(BLOG_POSTS, { kind: 'month' });
+    expect(posts().length).toBe(Math.min(3, recent.length));
+    expect(!!page.querySelector('#blogs .more-posts')).toBe(recent.length > 3);
+    expect(page.querySelector('#blogs .filter-result')?.textContent).toContain('Past month');
+    expect(trigger.textContent).toContain('Past month');
+    page.querySelector<HTMLButtonElement>('#blogs .filter-clear')!.click();
+    await fixture.whenStable();
+    expect(posts().length).toBe(3);
+    expect(page.querySelector('#blogs .filter-result')?.textContent?.trim()).toBe('');
   });
 
   it('shows the newest news item, blog post and press feature in the hero, and no event strip', async () => {

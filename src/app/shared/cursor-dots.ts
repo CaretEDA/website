@@ -81,7 +81,7 @@ export function initCursorDots(): () => void {
   };
   readColors();
   // theme switches (data-theme) and modals (class "dialog-open" from the startup application form)
-  const rootObserver = new MutationObserver(() => { readColors(); retarget(); });
+  const rootObserver = new MutationObserver(() => { readColors(); tile = null; retarget(); });
   rootObserver.observe(root, { attributes: true, attributeFilter: ['data-theme', 'class'] });
 
   /* ---------- dot lens ---------- */
@@ -194,6 +194,7 @@ export function initCursorDots(): () => void {
   let hOn = 0, hTarget = 0;   // hero circuit strength 0..1
   let last = 0, raf = 0;
   let needTarget = false;     // re-check what is under the pointer on the next frame
+  let underPointer: Element | null = null;   // element under the pointer (from pointermove, or hit-tested)
   let dirty: [number, number, number, number] | null = null;
   const lens: number[] = [];  // per frame: x, y, radius, alpha of each lens dot (reused)
 
@@ -259,6 +260,11 @@ export function initCursorDots(): () => void {
   };
 
   /* ---------- hero circuit ---------- */
+  // Cost notes: the static traces and pads are drawn once into a tile and filled as a pattern; only the
+  // pulses are stroked per frame, with a two-stroke glow instead of shadowBlur (a blur per stroke was the
+  // most expensive part). Each frame touches only the reveal's HS-px square. (A reveal-sized canvas moved
+  // by a transform was tried: cheaper without GPU raster, but its per-frame style work cost more on GPUs.)
+  const HS = 2 * (CIRCUIT_R + 4);           // reveal square, CSS px
   const traces = TRACES.map(d => new Path2D(d));
   const lengths = TRACES.map(d => {
     const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -272,18 +278,50 @@ export function initCursorDots(): () => void {
   let hero: HTMLElement | null = null;
   let hDpr = 1, hx = 0, hy = 0;
   let heroDocL = 0, heroDocT = 0;          // hero's top-left in document coordinates (cached, no per-frame layout)
-  let hDirty: [number, number, number, number] | null = null;
+  let hDrawn = false;                       // something is on the canvas
+  let hOx = 0, hOy = 0;                     // top-left of the last drawn square, hero coords
+  let tile: CanvasPattern | null = null;    // static traces + pads, rebuilt on theme or DPR change
+  let heroLines: Box[] = [], heroLinesFrom: Box[] | null = null;   // text boxes inside the hero, hero coords
   const heroResize = new ResizeObserver(() => sizeHero());
+
+  const clearHero = () => {
+    if (!hDrawn) return;
+    hctx.setTransform(hDpr, 0, 0, hDpr, 0, 0);
+    hctx.clearRect(hOx - 1, hOy - 1, HS + 2, HS + 2);
+    hDrawn = false;
+  };
 
   function sizeHero() {
     if (!hero) return;
-    hDpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (dpr !== hDpr) { hDpr = dpr; tile = null; }
     const b = hero.getBoundingClientRect();
     heroDocL = b.left + window.scrollX; heroDocT = b.top + window.scrollY;
-    hCanvas.width = Math.round(hero.clientWidth * hDpr); hCanvas.height = Math.round(hero.clientHeight * hDpr);
-    hctx.setTransform(hDpr, 0, 0, hDpr, 0, 0);
-    hDirty = null;
+    const pw = Math.round(hero.clientWidth * hDpr), ph = Math.round(hero.clientHeight * hDpr);
+    if (hCanvas.width !== pw || hCanvas.height !== ph) { hCanvas.width = pw; hCanvas.height = ph; hDrawn = false; }
+    heroLinesFrom = null;
   }
+
+  const buildTile = () => {
+    const c = document.createElement('canvas');
+    c.width = c.height = Math.round(TILE * hDpr);
+    const t = c.getContext('2d')!;
+    t.scale(hDpr, hDpr);
+    t.lineCap = 'round'; t.lineJoin = 'round';
+    t.strokeStyle = hot;
+    // traces: brighter and a touch heavier than the still circuit underneath
+    t.globalAlpha = 0.85 * CIRCUIT_PEAK;
+    t.lineWidth = 1.6;
+    for (const p of traces) t.stroke(p);
+    // pads: page-filled rings, like drilled holes
+    for (const [px, py, pr] of PADS) {
+      t.beginPath(); t.arc(px, py, pr + 0.75, 0, Math.PI * 2);
+      t.fillStyle = page; t.globalAlpha = 1; t.fill();
+      t.globalAlpha = CIRCUIT_PEAK; t.stroke();
+    }
+    tile = hctx.createPattern(c, 'repeat');
+    tile?.setTransform(new DOMMatrix().scaleSelf(1 / hDpr));
+  };
 
   // The hero exists only on the home route, so (re)attach whenever it appears, changes, or goes away.
   const findHero = () => {
@@ -291,80 +329,80 @@ export function initCursorDots(): () => void {
     if (el === hero && (!el || el.isConnected)) return;
     if (hero) heroResize.unobserve(hero);
     hero = el && el.isConnected ? el : null;
-    hOn = 0; hDirty = null;
+    hOn = 0; clearHero();
     if (hero) { hero.appendChild(hCanvas); heroResize.observe(hero); sizeHero(); }
     else hCanvas.remove();
   };
 
   const drawCircuit = (now: number) => {
-    if (hDirty) hctx.clearRect(...hDirty);
-    hDirty = null;
+    clearHero();
     if (hOn < 0.005 || !hero) return;
+    if (!tile) buildTile();
 
-    const r = CIRCUIT_R;
-    hDirty = [hx - r - 4, hy - r - 4, r * 2 + 8, r * 2 + 8];
+    // the square around the lens, on whole pixels; everything is drawn in hero coordinates
+    const ox = Math.round(hx) - HS / 2, oy = Math.round(hy) - HS / 2;
+    hOx = ox; hOy = oy; hDrawn = true;
     hctx.save();
-    hctx.beginPath(); hctx.rect(...hDirty); hctx.clip();
-    hctx.lineCap = 'round'; hctx.lineJoin = 'round';
+    hctx.setTransform(hDpr, 0, 0, hDpr, 0, 0);
+    hctx.beginPath(); hctx.rect(ox, oy, HS, HS); hctx.clip();
+    const r = CIRCUIT_R;
 
-    const flow = reduce.matches ? 0 : (now / 1000) * PULSE_SPEED;
-    for (let ox = Math.floor((hx - r) / TILE) * TILE; ox < hx + r; ox += TILE) {
-      for (let oy = Math.floor((hy - r) / TILE) * TILE; oy < hy + r; oy += TILE) {
-        hctx.setTransform(hDpr, 0, 0, hDpr, hDpr * ox, hDpr * oy);
-        hctx.strokeStyle = hot;
-        // traces: brighter and a touch heavier than the still circuit underneath
-        hctx.globalAlpha = 0.85 * CIRCUIT_PEAK;
-        hctx.lineWidth = 1.6;
-        hctx.setLineDash([]);
-        for (const t of traces) hctx.stroke(t);
-        // signal pulses: short glowing dashes running along each trace
-        if (!reduce.matches) {
-          hctx.globalAlpha = CIRCUIT_PEAK;
-          hctx.lineWidth = 2.5;
-          hctx.shadowColor = hot; hctx.shadowBlur = 8;
+    // traces + pads: one pattern fill (pattern space is hero space, so tiles line up with .hero::before)
+    hctx.globalAlpha = 1;
+    hctx.fillStyle = tile!;
+    hctx.fillRect(ox, oy, HS, HS);
+
+    // signal pulses: short dashes along each trace, a wide faint stroke under a narrow bright one
+    if (!reduce.matches) {
+      const flow = (now / 1000) * PULSE_SPEED;
+      hctx.strokeStyle = hot;
+      hctx.lineCap = 'round'; hctx.lineJoin = 'round';
+      for (let tx0 = Math.floor((hx - r) / TILE) * TILE; tx0 < hx + r; tx0 += TILE) {
+        for (let ty0 = Math.floor((hy - r) / TILE) * TILE; ty0 < hy + r; ty0 += TILE) {
+          hctx.setTransform(hDpr, 0, 0, hDpr, tx0 * hDpr, ty0 * hDpr);
           traces.forEach((t, k) => {
             const len = lengths[k];
             hctx.setLineDash([12, Math.max(60, len / 2)]);
-            hctx.lineDashOffset = -((flow + k * 37 + (ox + oy) * 0.3) % (len + 70));
-            hctx.stroke(t);
+            hctx.lineDashOffset = -((flow + k * 37 + (tx0 + ty0) * 0.3) % (len + 70));
+            hctx.globalAlpha = 0.28 * CIRCUIT_PEAK; hctx.lineWidth = 6; hctx.stroke(t);
+            hctx.globalAlpha = CIRCUIT_PEAK; hctx.lineWidth = 2.5; hctx.stroke(t);
           });
-          hctx.shadowBlur = 0;
-          hctx.setLineDash([]);
-        }
-        // pads: page-filled rings, like drilled holes
-        hctx.lineWidth = 1.6;
-        for (const [px, py, pr] of PADS) {
-          hctx.beginPath(); hctx.arc(px, py, pr + 0.75, 0, Math.PI * 2);
-          hctx.fillStyle = page;
-          hctx.globalAlpha = 1; hctx.fill();
-          hctx.globalAlpha = CIRCUIT_PEAK; hctx.stroke();
         }
       }
+      hctx.setLineDash([]);
+      hctx.setTransform(hDpr, 0, 0, hDpr, 0, 0);
     }
-    hctx.restore();
 
     // fade the whole drawing out from the pointer
-    hctx.save();
     hctx.globalCompositeOperation = 'destination-in';
     const g = hctx.createRadialGradient(hx, hy, 0, hx, hy, r);
     g.addColorStop(0, `rgb(0 0 0 / ${hOn})`);
     g.addColorStop(0.45, `rgb(0 0 0 / ${hOn * 0.7})`);
     g.addColorStop(1, 'rgb(0 0 0 / 0)');
+    hctx.globalAlpha = 1;
     hctx.fillStyle = g;
-    hctx.fillRect(...hDirty);
+    hctx.fillRect(ox, oy, HS, HS);
 
     // keep the circuit out from behind the hero text: erase each text box, solid within TEXT_CLEAR and
-    // feathered over TEXT_FEATHER (stacked rings, so no canvas filter is needed)
+    // feathered over TEXT_FEATHER (stacked rings, so no canvas filter is needed). The hero's boxes are
+    // picked out of `lines` once per re-read, not every frame.
+    if (heroLinesFrom !== lines) {
+      heroLinesFrom = lines;
+      const hw = hero.clientWidth, hh = hero.clientHeight;
+      heroLines = [];
+      for (const l of lines) {
+        const b: Box = { l: l.l - heroDocL, t: l.t - heroDocT, r: l.r - heroDocL, b: l.b - heroDocT };
+        if (b.r > -TEXT_FAR && b.l < hw + TEXT_FAR && b.b > -TEXT_FAR && b.t < hh + TEXT_FAR) heroLines.push(b);
+      }
+    }
     hctx.globalCompositeOperation = 'destination-out';
     hctx.fillStyle = '#000';
-    const [dx0, dy0, dw, dh] = hDirty;
-    for (const l of lines) {
-      const left = l.l - heroDocL, top = l.t - heroDocT, lw = l.r - l.l, lh = l.b - l.t;
-      if (left + lw + TEXT_FAR < dx0 || left - TEXT_FAR > dx0 + dw || top + lh + TEXT_FAR < dy0 || top - TEXT_FAR > dy0 + dh) continue;
+    for (const l of heroLines) {
+      if (l.r + TEXT_FAR < ox || l.l - TEXT_FAR > ox + HS || l.b + TEXT_FAR < oy || l.t - TEXT_FAR > oy + HS) continue;
       for (let k = 3; k >= 0; k--) {
         const p = TEXT_CLEAR + (TEXT_FEATHER * k) / 3;
         hctx.globalAlpha = k === 0 ? 1 : 0.4;
-        hctx.fillRect(left - p, top - p, lw + p * 2, lh + p * 2);
+        hctx.fillRect(l.l - p, l.t - p, l.r - l.l + p * 2, l.b - l.t + p * 2);
       }
     }
     hctx.restore();
@@ -378,8 +416,11 @@ export function initCursorDots(): () => void {
   const pickTargets = (now: number) => {
     needTarget = false;
     if (!inside || document.hidden || modalOpen() || now - lastMove > IDLE_MS) { onTarget = hTarget = 0; return; }
-    // the canvases are pointer-events: none, so this is the real element under the pointer
-    const top = document.elementFromPoint(tx, ty);
+    // What is under the pointer. A pointermove already says (its target; the canvases are
+    // pointer-events: none), so hit-testing is only needed when content moved under a still pointer
+    // (scroll, DOM change): elementFromPoint every frame was the effect's biggest script cost.
+    const top = underPointer && underPointer.isConnected ? underPointer : document.elementFromPoint(tx, ty);
+    underPointer = top;
     if (!top || top.closest('app-navbar, dialog')) { onTarget = hTarget = 0; return; }
     const inHero = !!hero && hero.contains(top);
     // the hero covers the dot ground, so only one effect runs at a time
@@ -408,7 +449,7 @@ export function initCursorDots(): () => void {
     if (on < 0.005 && onTarget === 0 && hOn < 0.005 && hTarget === 0) {
       on = hOn = 0;
       if (dirty) { ctx.clearRect(...dirty); dirty = null; }
-      if (hDirty) { hctx.clearRect(...hDirty); hDirty = null; }
+      clearHero();
       raf = 0; last = 0;
       return;
     }
@@ -422,10 +463,12 @@ export function initCursorDots(): () => void {
     if (on === 0 && hOn === 0 && onTarget === 0 && hTarget === 0) { x = e.clientX; y = e.clientY; } // appear in place
     tx = e.clientX; ty = e.clientY;
     inside = true; lastMove = performance.now();
-    retarget();
+    const t = e.target instanceof Element ? e.target : null;
+    if (t !== underPointer) { underPointer = t; retarget(); }
+    else if (!raf || (onTarget === 0 && hTarget === 0)) retarget();   // idle or faded: wake up
   };
-  // Scrolling moves content under a still pointer: re-pick targets (batched into the next frame).
-  const onScroll = () => { if (inside) { lastMove = performance.now(); retarget(); } };
+  // Scrolling moves content under a still pointer: hit-test again (batched into the next frame).
+  const onScroll = () => { if (inside) { lastMove = performance.now(); underPointer = null; retarget(); } };
   const onLeave = () => { inside = false; onTarget = hTarget = 0; };
   const onVisibility = () => { if (document.hidden) onTarget = hTarget = 0; };
 

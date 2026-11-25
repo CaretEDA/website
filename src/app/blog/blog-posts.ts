@@ -1,10 +1,13 @@
 /** Blog posts, newest first. The homepage hero shows the first one; the Blog section lists them all. */
-export interface BlogPostCard { slug: string; image: string; date: string; readTime: string; title: string; summary: string; }
+/** `card`: an 800px-wide WebP of `image` for the list cards (about 10–50 KB; the full image stays for wide
+ *  single-column layouts and the article). Optional: without it the card uses `image`. */
+export interface BlogPostCard { slug: string; image: string; card?: string; date: string; readTime: string; title: string; summary: string; }
 
 export const BLOG_POSTS: BlogPostCard[] = [
   {
     "slug": "verified-gates",
     "image": "assets/blogs/verified-gates-hero.jpg",
+    "card": "assets/blogs/cards/verified-gates-hero.webp",
     "date": "October 2026",
     "readTime": "6 min read",
     "title": "From 160 Gates a Day to Verified Gates",
@@ -13,6 +16,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     "slug": "verilator-5-050",
     "image": "assets/blogs/verilator-5-050-hero.jpeg",
+    "card": "assets/blogs/cards/verilator-5-050-hero.webp",
     "date": "September 2026",
     "readTime": "4 min read",
     "title": "Unlimited. Full-Featured. Perfect for the Agentic Loop.",
@@ -21,6 +25,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     slug: '2026-08-release',
     image: 'assets/blogs/2026-08-release-hero.jpg',
+    card: 'assets/blogs/cards/2026-08-release-hero.webp',
     date: 'September 2026',
     readTime: '4 min read',
     title: 'CaretEDA’s 2026.08 Release: From RTL to Physical Reality',
@@ -29,6 +34,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     slug: 'chip-design-over-mcp',
     image: 'assets/blogs/mcp-data-flow.webp',
+    card: 'assets/blogs/cards/mcp-data-flow.webp',
     date: 'August 2026',
     readTime: '< 5 min read',
     title: 'Chip Design over MCP: Drive It from Claude, Codex, and Copilot',
@@ -45,6 +51,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     slug: 'spec-bottleneck',
     image: 'assets/blogs/spec-bottleneck-hero.png',
+    card: 'assets/blogs/cards/spec-bottleneck-hero.webp',
     date: 'July 2026',
     readTime: '7 min read',
     title: 'The Spec Is the Bottleneck, Not the Silicon',
@@ -53,6 +60,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     slug: 'verilator',
     image: 'assets/blogs/verilator-image1.jpg',
+    card: 'assets/blogs/cards/verilator-image1.webp',
     date: 'May 2026',
     readTime: '5 min read',
     title: 'Verilator: The Open-Source Simulator Reshaping Chip Design',
@@ -61,6 +69,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     slug: 'code-generation',
     image: 'assets/blogs/code-generation-perspective.jpg',
+    card: 'assets/blogs/cards/code-generation-perspective.webp',
     date: 'April 2026',
     readTime: '5 min read',
     title: 'Generating SystemVerilog Is Easy. Generating Hardware Is Not.',
@@ -69,6 +78,7 @@ export const BLOG_POSTS: BlogPostCard[] = [
   {
     slug: 'silicon-imperative',
     image: 'assets/blogs/silicon-imperative.jpg',
+    card: 'assets/blogs/cards/silicon-imperative.webp',
     date: 'March 2026',
     readTime: '5 min read',
     title: 'The Silicon Imperative',
